@@ -1,23 +1,27 @@
-@extends('layouts.app')
+@extends('layouts.site')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+    {{-- @include('partials.home-slider') --}}
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    {{-- @include('partials.home-infoboxes') --}}
 
-                    You are logged in!
-                </div>
-            </div>
-        </div>
+    {{-- @include('partials.horizontal-banners') --}}
+
+    {{ Auth::id() }}
+    @include('partials.home-featured')
+
+    <div class="mb-5"></div>
+
+    @include('partials.home-new')}}
+
+    <div class="mb-5">
     </div>
-</div>
+
+    @include('partials.info-section')
+
+    @include('partials.horizontal-promo')
+
+    @include('partials.partners')
+
+    @include('partials.home-blog')
 @endsection

@@ -23,9 +23,9 @@
 
                 <div class="col-md-3 widget-social">
                     <div class="social-icons">
-                        <a href="{{ setting.facebook }}" class="social-icon" target="_blank"><i class="icon-facebook"></i></a>
-                        <a href="{{ setting.twitter }}" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>
-                        <a href="{{ setting.googleplus }}" class="social-icon" target="_blank"><i class="icon-gplus"></i></a>
+                        <a href="#" class="social-icon" target="_blank"><i class="icon-facebook"></i></a>
+                        <a href="#" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>
+                        <a href="#" class="social-icon" target="_blank"><i class="icon-gplus"></i></a>
                     </div><!-- End .social-icons -->
                 </div><!-- End .col-md-3 -->
             </div><!-- End .row -->
@@ -40,15 +40,15 @@
                         <h4 class="widget-title">Contact Us</h4>
                         <ul class="contact-info">
                             <li>
-                                <span class="contact-info-label">Address:</span>{{ setting.address }}
+                                <span class="contact-info-label">Address:</span>ADRESS
                             </li>
                             <li>
                                 <span class="contact-info-label">Phone:</span>
-                                Hunting <a href="tel:">{{ setting.phone1 }}</a><br/>
-                                <a href="tel:">{{ setting.phone2 }}</a>
+                                Hunting <a href="tel:">PHONE 1</a><br/>
+                                <a href="tel:">PHONE2</a>
                             </li>
                             <li>
-                                <span class="contact-info-label">Email:</span> <a href="mailto:{{ setting.email }}">{{ setting.email }}</a>
+                                <span class="contact-info-label">Email:</span> <a href="mailto:EMSIL">EMSIL</a>
                             </li>
                         </ul>
                     </div><!-- End .widget -->

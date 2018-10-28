@@ -29,3 +29,10 @@ ul#ticker li {
     height: calc(4.6rem + 2px);
 }
 
+
+.custom-control-login-checkbox  {
+    position: relative;
+    padding-left: 3rem;
+    /* margin-top: 3rem; */
+    margin-bottom: 2rem;
+}

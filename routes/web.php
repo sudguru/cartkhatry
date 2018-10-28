@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 require 'web/admin.php';
 require 'web/open.php';
 require 'web/restricted.php';

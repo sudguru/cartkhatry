@@ -44,10 +44,10 @@
             @yield('content')
         </main>
 
-        @include('partials/footer.html')
+        @include('partials.footer')
         
     </div>
 
-    @include('partials/mobile-menu.html')
+    @include('partials.mobile-menu')
 </body>
 </html>

@@ -5,9 +5,9 @@
 
                     
                     <ul id="message_ticker" class="welcome-msg">
-                        {% for message in messages %}
+                        {{-- {% for message in messages %}
                             <li><a href="{{message.link}}" class="text-promo">{{message.title}}</a></li>
-                        {% endfor %}
+                        {% endfor %} --}}
                     </ul>
 
             </div>
@@ -19,14 +19,24 @@
                     <a href="#" style="font-weight: bold">Links</a>
                     <div class="header-menu">
                         <ul>
-                            {% if auth.check %}
-                                <li><a href="{{ path_for('account.dashboard') }}">MY ACCOUNT </a></li>
-                                <li><a href="{{ path_for('auth.signout') }}">SIGN OUT </a></li>
-                            {% else %}
-                                <li><a href="{{ path_for('auth.signin') }}">LOG IN</a></li>
-                                <li><a href="{{ path_for('auth.signup') }}">SIGN UP</a></li>
-                            {% endif %}
- 
+                            @guest
+                                <li><a href="{{ route('login') }}">LOG IN</a></li>
+                                <li><a href="{{ route('register') }}">SIGN UP</a></li>
+                            @else
+                                <li><a href="{{ route('account.dashboard') }}">MY ACCOUNT </a></li>
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                        SIGN OUT
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @endguest
+
+                            
                             <li><a href="/wishlist">MY WISHLIST </a></li>
                             <li><a href="/blog">BLOG</a></li>
                             <li><a href="/contact">Contact</a></li>
@@ -42,7 +52,7 @@
         <div class="container">
             <div class="header-left">
                 <a href="/" class="logo">
-                    <img src="/assets/images/logo.png" alt="{{setting.site_name}}">
+                    <img src="/assets/images/logo.png" alt="">
                 </a>
             </div><!-- End .header-left -->
 
@@ -54,7 +64,7 @@
                             <input type="search" class="form-control" name="q" id="q" placeholder="Search..." required>
                             <div class="select-custom">
                                 <select id="cat" name="cat">
-                                    {% for category in categories %}
+                                    {{-- {% for category in categories %}
                                     {% if category.children | length > 0 %}
                                     <option value="{{category.id}}">{{category.category}}</option>
     
@@ -66,7 +76,7 @@
                                     {% else %}
                                     <option value="{{category.id}}">{{category.category}}</option>
                                     {% endif %}
-                                    {% endfor %}
+                                    {% endfor %} --}}
                                 </select>
                             </div><!-- End .select-custom -->
                             <button class="btn" type="submit"><i class="icon-magnifier"></i></button>
@@ -81,7 +91,7 @@
                 </button>
                 <div class="header-contact">
                     <span>Call us now</span>
-                    <a href="tel:#"><strong>{{ setting.phone1 }}</strong></a>
+                    <a href="tel:#"><strong>PHONE NUMBER</strong></a>
                 </div><!-- End .header-contact -->
 
                 <div class="dropdown cart-dropdown">
