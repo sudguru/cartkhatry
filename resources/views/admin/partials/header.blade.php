@@ -31,7 +31,13 @@
                         <ul>
                             <li><a href="{{ route('promo.index') }}">Top Messages</a></li>
                             <li><a href="{{ route('info.index') }}">Info Boxes</a></li>
-                            <li><a href="{{ route('content.index') }}">Contents</a></li>
+                            <li>
+                                <a href="#">Contents</a>
+                                <ul>
+                                    <li><a href="{{ route('contenttype.index') }}">Content Types</a></li>
+                                    <li><a href="{{ route('content.index') }}">Content</a></li>
+                                </ul>
+                            </li>
                             <li><a href="{{ route('banner.index') }}">Banners</a></li>
                             <li><a href="{{ route('outlet.index') }}">Outlets</a></li>
                         </ul>

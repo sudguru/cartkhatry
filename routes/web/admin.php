@@ -6,6 +6,7 @@ Route::prefix('adm')->middleware(['auth', 'is_admin'])->group(function () {
 
     Route::resource('promo', 'Admin\PromoController');
     Route::resource('info', 'Admin\InfoController');
+    Route::resource('contenttype', 'Admin\ContenttypeController');
     Route::resource('content', 'Admin\ContentController');
     Route::resource('banner', 'Admin\BannerController');
     Route::resource('outlet', 'Admin\OutletController');
@@ -25,3 +26,4 @@ Route::prefix('adm')->middleware(['auth', 'is_admin'])->group(function () {
 
 Route::post('/promo/sortit', 'Admin\PromoController@sortit');
 Route::post('/info/sortit', 'Admin\InfoController@sortit');
+Route::post('/contenttype/sortit', 'Admin\ContenttypeController@sortit');

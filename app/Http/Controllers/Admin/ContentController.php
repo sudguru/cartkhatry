@@ -8,79 +8,65 @@ use App\Http\Controllers\Controller;
 
 class ContentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    protected $active = "Basic";
+    public function index() {
+        $contents = Content::orderBy('display_order')->get();
+        return view('admin.content.index', ['contents' => $contents, 'active' => $this->active]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function destroy() {
+        Content::destroy(request('id'));
+        return back()->with('success','Content deleted successfully.');
+    }
+
     public function create()
     {
-        //
+        return view('admin.content.add', ['active' => $this->active]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $this->validateRequest($request);
+        $display_order = Content::count() + 1;
+        Content::create([
+            'content' => $request->content,
+            'display_order' => $display_order
+        ]);
+        return redirect()->route('content.index')->with('success','Content Added Successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Content  $content
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Content $content)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Content  $content
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Content $content)
     {
-        //
+        return view('admin.content.edit', ['content' => $content, 'active' => $this->active]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Content  $content
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Content $content)
     {
+        $validatedData = $this->validateRequest($request);
+        $content->update($validatedData);
+  
+        return redirect()->route('content.index')
+                        ->with('success','Content updated successfully');
+    }
+
+    public function show()
+    {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Content  $content
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Content $content)
-    {
-        //
+    private function validateRequest(Request $request) {
+        return $request->validate([
+            'content' => 'required|max:50'
+        ]);
+    }
+
+    public function sortit(Request $request) {
+        $order = $request->order;
+        foreach ($order as $key => $value) {
+            $p = Content::find($value);
+            $p->display_order = $key + 1;
+            $p->save();
+        }
+        return response()->json('ok', 200);
     }
 }
