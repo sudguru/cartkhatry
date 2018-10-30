@@ -15,13 +15,14 @@ class ContentController extends Controller
         if($contenttype_id) {
             $contents = Content::where('contenttype_id', $contenttype_id)->orderBy('display_order')->get();
         } else {
-            $contents = Content::orderBy('display_order')->get();
+            $contents = Content::orderBy('created_at', 'desc')->get();
         }
         $contenttypes = Contenttype::orderBy('contenttype')->get();
         return view('admin.content.index', [
             'contents' => $contents, 
             'active' => $this->active,
-            'contenttypes' => $contenttypes
+            'contenttypes' => $contenttypes,
+            'contenttype_id' => $contenttype_id
             ]);
     }
 
@@ -80,7 +81,7 @@ class ContentController extends Controller
 
     private function validateRequest(Request $request) {
         return $request->validate([
-            'title' => 'required|max:50',
+            'title' => 'required',
             'content' => 'required|min:2'
         ]);
     }

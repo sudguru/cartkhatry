@@ -25,7 +25,7 @@ Promo Links - Admin
     <div class="col-md-10">
         <ul class="list-group mt-2" id="my-ui-list">
             @foreach ($promos as $promo)
-            <li class="list-group-item d-flex" data-id="{{ $promo->id }}">
+            <li class="list-group-item d-flex" data-id="{{ $promo->id }}" style="cursor: move">
                 <a href='{{ route('promo.edit',$promo->id) }}'>{{ $promo->title }}</a>
                 <span class="ml-auto">
                     <a href="/adm/promo/{{ $promo->id }}" onclick="event.preventDefault();

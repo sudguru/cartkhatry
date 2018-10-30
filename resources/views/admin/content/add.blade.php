@@ -4,6 +4,11 @@
 Add New Content Type - Admin
 @endsection
 
+@section('extracss')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/customize_summernote.css') }}">
+@endsection
+
 @section('content')
 <div class="d-flex align-items-center">
     <h2 class="pt-2 mb-0">Content Type - Add</h2>
@@ -56,10 +61,30 @@ Add New Content Type - Admin
             <div class="form-footer" style="margin-top: 0; padding-top:0">
 
                 <button type="submit" class="btn btn-primary btn-md">Save Content</button>
-                <a class="btn btn-light btn-md" href="{{ route('contenttype.index') }}">Cancel</a>
+                <a class="btn btn-light btn-md" href="{{ route('content.index') }}">Cancel</a>
             </div><!-- End .form-footer -->
 
         </form>
     </div>
 </div>
+@endsection
+
+@section('extrajs')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#content').summernote({
+            height: 150,
+            toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['link','picture', 'video', 'table', 'hr']],
+            ['height', ['height']]
+        ]
+        });
+    });
+  </script>
 @endsection

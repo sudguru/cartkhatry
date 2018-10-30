@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('pagetitle')
-Content Types - Admin
+Banner - Admin
 @endsection
 
 @section('extracss')
@@ -10,9 +10,9 @@ Content Types - Admin
 
 @section('content')
 <div class="d-flex align-items-center">
-    <h2 class="pt-2 mb-0">Content Types</h2>
+    <h2 class="pt-2 mb-0">Banner</h2>
     <span class="ml-auto">
-        <a href="/adm/contenttype/create" class="btn btn-outline-success btn-sm">
+        <a href="/adm/banner/create" class="btn btn-outline-success btn-sm">
             <i class="fas fa-plus"></i> Add New
         </a>
     </span>
@@ -24,22 +24,22 @@ Content Types - Admin
 <div class="row justify-content-center mt-3">
     <div class="col-md-10">
         <ul class="list-group mt-2" id="my-ui-list">
-            @foreach ($contenttypes as $contenttype)
-            <li class="list-group-item d-flex" data-id="{{ $contenttype->id }}" style="cursor: move">
-                <i class="{{ $contenttype->icon }} mr-4" style="font-size: 200%; min-width: 30px; text-align: center"></i>
-                <a href='{{ route('contenttype.edit',$contenttype->id) }}'>{{ $contenttype->contenttype }}</a>
+            @foreach ($banners as $banner)
+            {{-- <li class="list-group-item d-flex" data-id="{{ $banner->id }}" style="cursor: move">
+                <a href='{{ route('banner.edit',$banner->id) }}'>{{ $banner->title }}</a>
                 <span class="ml-auto">
-                    <a href="/adm/contenttype/{{ $contenttype->id }}" onclick="event.preventDefault();
-                    if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$contenttype->id}}').submit();}return false;">
+                    <a href="/adm/banner/{{ $banner->id }}" onclick="event.preventDefault();
+                    if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$banner->id}}').submit();}return false;">
                         <i class="fas fa-trash text-danger"></i>
                     </a>
-                    <form id="delete-form-{{$contenttype->id}}" action="/adm/contenttype/{{ $contenttype->id }}" method="POST" style="display: none;">
+                    <form id="delete-form-{{$banner->id}}" action="/adm/banner/{{ $banner->id }}" method="POST" style="display: none;">
                         @csrf
                         {{ method_field('delete') }}
-                        <input type="hidden" name="id" value="{{ $contenttype->id }}" />
+                        <input type="hidden" name="id" value="{{ $banner->id }}" />
                     </form>
                 </span>
-            </li>
+            </li> --}}
+             {{ $banner->banner }}
             @endforeach
         </ul>
     </div>
@@ -76,7 +76,7 @@ Content Types - Admin
 
                 $.ajax({
                     type:'POST',
-                    url:'/contenttype/sortit',
+                    url:'/banner/sortit',
                     data: data,
                     success:function(data){
                         console.log(data);

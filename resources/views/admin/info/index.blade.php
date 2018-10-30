@@ -25,7 +25,7 @@ Info Boxes - Admin
     <div class="col-md-10">
         <ul class="list-group mt-2" id="my-ui-list">
             @foreach ($infos as $info)
-            <li class="list-group-item d-flex align-items-center" data-id="{{ $info->id }}">
+            <li class="list-group-item d-flex align-items-center" data-id="{{ $info->id }}" style="cursor: move">
                 <i class="{{ $info->icon }} mr-4" style="font-size: 200%"></i>
                 <span>
                 <a href='{{ route('info.edit',$info->id) }}'>{{ $info->title }}</a>

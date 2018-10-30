@@ -28,3 +28,5 @@ Route::post('/promo/sortit', 'Admin\PromoController@sortit');
 Route::post('/info/sortit', 'Admin\InfoController@sortit');
 Route::post('/contenttype/sortit', 'Admin\ContenttypeController@sortit');
 Route::post('/content/sortit', 'Admin\ContentController@sortit');
+Route::post('/banner/sortit', 'Admin\BannerController@sortit');
+Route::post('/banner/upload', 'Admin\BannerController@upload');

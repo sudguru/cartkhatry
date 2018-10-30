@@ -30,11 +30,14 @@ Contents - Admin
         @endforeach
     </div>
 </div>
+@if(isset($contenttype_id))
+    {{ $contenttype_id }}
+@endif
 <div class="row justify-content-center mt-1">
     <div class="col-md-10">
-        <ul class="list-group mt-2" id="my-ui-list">
+        <ul class="list-group mt-2" id="{{ isset($contenttype_id) ? 'my-ui-list' : '' }}">
             @foreach ($contents as $content)
-            <li class="list-group-item d-flex" data-id="{{ $content->id }}">
+            <li class="list-group-item d-flex" data-id="{{ $content->id }}" style="cursor: move">
                 <i class="{{ $content->contenttype->icon }} mr-4" style="font-size: 200%; min-width: 30px; text-align: center"></i>
                 <a href='{{ route('content.edit', $content->id) }}'>{{ $content->title }}</a>
                 <span class="ml-auto">
