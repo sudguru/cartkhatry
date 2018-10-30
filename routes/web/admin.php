@@ -27,3 +27,4 @@ Route::prefix('adm')->middleware(['auth', 'is_admin'])->group(function () {
 Route::post('/promo/sortit', 'Admin\PromoController@sortit');
 Route::post('/info/sortit', 'Admin\InfoController@sortit');
 Route::post('/contenttype/sortit', 'Admin\ContenttypeController@sortit');
+Route::post('/content/sortit', 'Admin\ContentController@sortit');

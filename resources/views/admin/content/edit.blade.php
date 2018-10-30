@@ -11,18 +11,44 @@ Edit Content Type - admin
 </div>
 <div class="row justify-content-center mt-3">
     <div class="col-md-10">
-        <form action="{{ route('contenttype.update', $contenttype->id) }}" method="POST" autocomplete="off" novalidate class="mb-1">
+        <form action="{{ route('content.update', $content->id) }}" method="POST" autocomplete="off" novalidate class="mb-1">
 
             @csrf
             {{ method_field('PUT') }}
             <div class="form-group">
-                <label for="contenttype">Title</label>
-                <input id="contenttype" type="text" class="form-control{{ $errors->has('contenttype') ? ' is-invalid' : '' }}" name="contenttype"
-                    value="{{ old('contenttype') ?? $contenttype->contenttype }}" autofocus>
+                <label for="contenttype_id">Content Type</label>
+                <select id="contenttype_id" name="contenttype_id" class="form-control">
+                @foreach ($contenttypes as $contenttype)
+                    <option value="{{ $contenttype->id }}" {{ $contenttype->id == $content->contenttype_id  ? 'selected' : '' }}>
+                        {{ $contenttype->contenttype }}
+                    </option>
+                @endforeach
+                    
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input id="title" type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title"
+                    value="{{ old('title') ?? $content->title }}" autofocus>
 
-                @if ($errors->has('contenttype'))
+                @if ($errors->has('title'))
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('contenttype') }}</strong>
+                    <strong>{{ $errors->first('title') }}</strong>
+                </span>
+                @endif
+            </div>
+
+            <div class="form-group">
+                <label for="content">Content</label>
+
+                <textarea id="content" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content">
+                {{ old('content') ?? $content->content }}
+                </textarea>
+
+                @if ($errors->has('content'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('content') }}</strong>
                 </span>
                 @endif
             </div>
@@ -31,7 +57,7 @@ Edit Content Type - admin
 
             <div class="form-footer" style="margin-top: 0; padding-top:0">
 
-                <button type="submit" class="btn btn-primary btn-md">Save Promo</button>
+                <button type="submit" class="btn btn-primary btn-md">Update Content</button>
                 <a class="btn btn-light btn-md" href="{{ route('contenttype.index') }}">Cancel</a>
 
             </div><!-- End .form-footer -->

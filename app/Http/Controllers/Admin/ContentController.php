@@ -3,15 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Content;
+use App\Contenttype;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ContentController extends Controller
 {
     protected $active = "Basic";
-    public function index() {
-        $contents = Content::orderBy('display_order')->get();
-        return view('admin.content.index', ['contents' => $contents, 'active' => $this->active]);
+    public function index(Request $request) {
+        $contenttype_id = $request->query('contenttype_id');
+        if($contenttype_id) {
+            $contents = Content::where('contenttype_id', $contenttype_id)->orderBy('display_order')->get();
+        } else {
+            $contents = Content::orderBy('display_order')->get();
+        }
+        $contenttypes = Contenttype::orderBy('contenttype')->get();
+        return view('admin.content.index', [
+            'contents' => $contents, 
+            'active' => $this->active,
+            'contenttypes' => $contenttypes
+            ]);
     }
 
     public function destroy() {
@@ -21,29 +32,42 @@ class ContentController extends Controller
 
     public function create()
     {
-        return view('admin.content.add', ['active' => $this->active]);
+        $contenttypes = Contenttype::orderBy('contenttype')->get();
+        return view('admin.content.add', [
+            'active' => $this->active,
+            'contenttypes' => $contenttypes
+            ]);
     }
 
     public function store(Request $request)
     {
         $validatedData = $this->validateRequest($request);
-        $display_order = Content::count() + 1;
+        $display_order = Content::where('contenttype_id', $request->contenttype_id)->count() + 1;
         Content::create([
+            'title' => $request->title,
             'content' => $request->content,
-            'display_order' => $display_order
+            'display_order' => $display_order,
+            'slug' => str_slug($request->title, '-'),
+            'contenttype_id' => $request->contenttype_id
         ]);
         return redirect()->route('content.index')->with('success','Content Added Successfully.');
     }
 
     public function edit(Content $content)
     {
-        return view('admin.content.edit', ['content' => $content, 'active' => $this->active]);
+        $contenttypes = Contenttype::orderBy('contenttype')->get();
+        return view('admin.content.edit', ['content' => $content, 'active' => $this->active, 'contenttypes' => $contenttypes]);
     }
 
     public function update(Request $request, Content $content)
     {
         $validatedData = $this->validateRequest($request);
-        $content->update($validatedData);
+        $content->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'slug' => str_slug($request->title, '-'),
+            'contenttype_id' => $request->contenttype_id
+        ]);
   
         return redirect()->route('content.index')
                         ->with('success','Content updated successfully');
@@ -56,7 +80,8 @@ class ContentController extends Controller
 
     private function validateRequest(Request $request) {
         return $request->validate([
-            'content' => 'required|max:50'
+            'title' => 'required|max:50',
+            'content' => 'required|min:2'
         ]);
     }
 
