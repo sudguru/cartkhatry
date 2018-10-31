@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Banner;
+use App\Bannertype;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -10,21 +11,24 @@ class BannerController extends Controller
 {
 
     protected $active = "Basic";
-    protected $positions = array(
-        array('name' => 'Home Slider', 'needsTitle' => true, 'needsSubtitle' => true),
-        array('name' => 'Home Banners', 'needsTitle' => false, 'needsSubtitle' => false)
-    );
-    public function index() {
-        
-        // $ao = new \ArrayObject($this->positions);
-        // // dd($ao);
-        // foreach($ao as $element) {
-        //     echo $element['name'] . " f <br>";
-        //     echo $element['needsTitle'] . " f<br>";
-        //     echo $element['needsSubtitle'] . " f <br>";
-        // }
-        $banners = Banner::orderBy('display_order')->get();
-        return view('admin.banner.index', ['banners' => $banners, 'active' => $this->active]);
+    // protected $positions = array(
+    //     array('name' => 'Home Slider', 'needsTitle' => true, 'needsSubtitle' => true),
+    //     array('name' => 'Home Banners', 'needsTitle' => false, 'needsSubtitle' => false)
+    // );
+    public function index(Request $request) {
+        $bannertype_id = $request->query('bannertype_id');
+        if($bannertype_id) {
+            $banners = Banner::where('bannertype_id', $bannertype_id)->orderBy('display_order')->get();
+        } else {
+            $banners = Banner::orderBy('created_at', 'desc')->get();
+        }
+        $bannertypes = Bannertype::orderBy('bannertype')->get();
+        return view('admin.banner.index', [
+            'banners' => $banners,
+            'active' => $this->active,
+            'bannertypes' => $bannertypes,
+            'bannertype_id' => $bannertype_id
+        ]);
     }
 
     public function destroy() {
@@ -32,22 +36,31 @@ class BannerController extends Controller
         return back()->with('success','Banner deleted successfully.');
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $positions = new \ArrayObject($this->positions);
-        return view('admin.banner.add', ['active' => $this->active, 'positions' => $positions]);
+        $bannertype_id = $request->query('bannertype_id');
+        $bannertypes = Bannertype::orderBy('bannertype')->get();
+        return view('admin.banner.add', ['active' => $this->active, 'bannertypes' => $bannertypes, 'bannertype_id' => $bannertype_id]);
     }
 
     public function store(Request $request)
     {
         $validatedData = $this->validateRequest($request);
-        $display_order = Banner::count() + 1;
+        $display_order = Banner::where('bannertype_id', $request->bannertype_id)->count() + 1;
+        
+        $image = $request->file('banner');
+        $filename = time() . '.' . $image->getClientOriginalExtension();
+        $image->storeAs('public/banners', $filename);
+
         Banner::create([
             'title' => $request->title,
+            'subtitle' => $request->subtitle,
             'link' => $request->link,
+            'bannertype_id' => $request->bannertype_id,
+            'banner' => $filename,
             'display_order' => $display_order
         ]);
-        return redirect()->route('banner.index')->with('success','Banner Added Successfully.');
+        return redirect()->route('banner.index',['bannertype_id' => $request->bannertype_id])->with('success','Banner Added Successfully.');
     }
 
     public function edit(Banner $banner)
@@ -71,8 +84,9 @@ class BannerController extends Controller
 
     private function validateRequest(Request $request) {
         return $request->validate([
-            'title' => 'required|max:50',
-            'link' => 'present|url',
+            'banner' => 'required|image|mimes:jpeg,png,jps,gif,svg|max:1024',
+            'bannertype_id' => 'required|not_in:0',
+            'link' => 'nullable|url',
         ]);
     }
 
@@ -86,17 +100,4 @@ class BannerController extends Controller
         return response()->json('ok', 200);
     }
 
-    public function upload(Request $request) {
-        $upload_dir = "../public/uploads/logos/";
-        $photo = $request->dataUrl;
-        $filename = rand(100000, 999999) . '-' . $request->filename;
-        $img = str_replace('data:image/png;base64,', '', $photo);
-        $img = str_replace('data:image/jpeg;base64,', '', $img);
-        $img = str_replace('data:image/gif;base64,', '', $img);
-        $img = str_replace(' ', '+', $img);
-        $imagedata = base64_decode($img);
-        $file = $upload_dir . $filename;
-        $success = file_put_contents($file, $imagedata);
-        return response()->json($filename, 200);
-    }
 }

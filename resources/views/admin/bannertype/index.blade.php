@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('pagetitle')
-Contents - Admin
+Banner Types - Admin
 @endsection
 
 @section('extracss')
@@ -10,43 +10,32 @@ Contents - Admin
 
 @section('content')
 <div class="d-flex align-items-center">
-    <h2 class="pt-2 mb-0">Contents</h2>
+    <h2 class="pt-2 mb-0">Banner Types</h2>
     <span class="ml-auto">
-        <a href="/adm/content/create" class="btn btn-outline-success btn-sm">
-            <i class="fas fa-plus"></i> Add New 
+        <a href="/adm/bannertype/create" class="btn btn-outline-success btn-sm">
+            <i class="fas fa-plus"></i> Add New
         </a>
     </span>
 </div>
 
-
 @if ($message = Session::get('success'))
 <div id="snackbar">{{ $message }}</div>
 @endif
-<div class="row justify-content-start">
-    <div class="col-md-12">
-        <a href="{{ route('content.index') }}">All</a>
-        @foreach ($contenttypes as $contenttype)
-            | <a href="{{ route('content.index') }}?contenttype_id={{$contenttype->id}}">{{ $contenttype->contenttype}} </a>
-        @endforeach
-    </div>
-</div>
-
-<div class="row justify-content-center mt-1">
+<div class="row justify-banner-center mt-3">
     <div class="col-md-10">
-        <ul class="list-group mt-2" id="{{ isset($contenttype_id) ? 'my-ui-list' : '' }}">
-            @foreach ($contents as $content)
-            <li class="list-group-item d-flex" data-id="{{ $content->id }}" style="cursor: {{ isset($contenttype_id) ? 'move' : '' }}">
-                <i class="{{ $content->contenttype->icon }} mr-4" style="font-size: 200%; min-width: 30px; text-align: center"></i>
-                <a href='{{ route('content.edit', $content->id) }}'>{{ $content->title }}</a>
+        <ul class="list-group mt-2" id="my-ui-list">
+            @foreach ($bannertypes as $bannertype)
+            <li class="list-group-item d-flex" data-id="{{ $bannertype->id }}" style="cursor: move">
+                <a href='{{ route('bannertype.edit',$bannertype->id) }}'>{{ $bannertype->bannertype }}</a>
                 <span class="ml-auto">
-                    <a href="/adm/content/{{ $content->id }}" onclick="event.preventDefault();
-                    if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$content->id}}').submit();}return false;">
+                    <a href="/adm/bannertype/{{ $bannertype->id }}" onclick="event.preventDefault();
+                    if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$bannertype->id}}').submit();}return false;">
                         <i class="fas fa-trash text-danger"></i>
                     </a>
-                    <form id="delete-form-{{$content->id}}" action="/adm/content/{{ $content->id }}" method="POST" style="display: none;">
+                    <form id="delete-form-{{$bannertype->id}}" action="/adm/bannertype/{{ $bannertype->id }}" method="POST" style="display: none;">
                         @csrf
                         {{ method_field('delete') }}
-                        <input type="hidden" name="id" value="{{ $content->id }}" />
+                        <input type="hidden" name="id" value="{{ $bannertype->id }}" />
                     </form>
                 </span>
             </li>
@@ -86,7 +75,7 @@ Contents - Admin
 
                 $.ajax({
                     type:'POST',
-                    url:'/content/sortit',
+                    url:'/bannertype/sortit',
                     data: data,
                     success:function(data){
                         console.log(data);

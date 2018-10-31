@@ -17,7 +17,13 @@
                                 <li><a href="{{ route('content.index') }}">Content</a></li>
                             </ul>
                         </li>
-                        <li><a href="{{ route('banner.index') }}">Banners</a></li>
+                        <li>
+                            <a href="#">Banners</a>
+                            <ul>
+                                <li><a href="{{ route('bannertype.index') }}">Banner Types</a></li>
+                                <li><a href="{{ route('banner.index') }}">Banners</a></li>
+                            </ul>
+                        </li>
                         <li><a href="{{ route('outlet.index') }}">Outlets</a></li>
                     </ul>
                 </li>

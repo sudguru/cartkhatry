@@ -12,7 +12,7 @@ Banner - Admin
 <div class="d-flex align-items-center">
     <h2 class="pt-2 mb-0">Banner</h2>
     <span class="ml-auto">
-        <a href="/adm/banner/create" class="btn btn-outline-success btn-sm">
+        <a href="/adm/banner/create?bannertype_id={{ isset($bannertype_id) ? $bannertype_id : '' }}" class="btn btn-outline-success btn-sm">
             <i class="fas fa-plus"></i> Add New
         </a>
     </span>
@@ -21,12 +21,24 @@ Banner - Admin
 @if ($message = Session::get('success'))
 <div id="snackbar">{{ $message }}</div>
 @endif
+
+<div class="row justify-content-start">
+    <div class="col-md-12">
+        <a href="{{ route('banner.index') }}">All</a>
+        @foreach ($bannertypes as $bannertype)
+            | <a href="{{ route('banner.index') }}?bannertype_id={{$bannertype->id}}">{{ $bannertype->bannertype}} </a>
+        @endforeach
+    </div>
+</div>
+
 <div class="row justify-content-center mt-3">
     <div class="col-md-10">
-        <ul class="list-group mt-2" id="my-ui-list">
+        <ul class="list-group mt-2"  id="{{ isset($bannertype_id) ? 'my-ui-list' : '' }}">
             @foreach ($banners as $banner)
-            {{-- <li class="list-group-item d-flex" data-id="{{ $banner->id }}" style="cursor: move">
-                <a href='{{ route('banner.edit',$banner->id) }}'>{{ $banner->title }}</a>
+            <li class="list-group-item d-flex align-items-center justify-content-between" data-id="{{ $banner->id }}"  style="cursor: {{ isset($bannertype_id) ? 'move' : '' }}">
+                <span style="width: 70%">
+                <a href='{{ route('banner.edit',$banner->id) }}'><img src="/storage/banners/{{ $banner->banner }}" /></a>
+                </span>
                 <span class="ml-auto">
                     <a href="/adm/banner/{{ $banner->id }}" onclick="event.preventDefault();
                     if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$banner->id}}').submit();}return false;">
@@ -38,8 +50,8 @@ Banner - Admin
                         <input type="hidden" name="id" value="{{ $banner->id }}" />
                     </form>
                 </span>
-            </li> --}}
-             {{ $banner->banner }}
+            </li>
+             
             @endforeach
         </ul>
     </div>

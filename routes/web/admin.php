@@ -8,6 +8,7 @@ Route::prefix('adm')->middleware(['auth', 'is_admin'])->group(function () {
     Route::resource('info', 'Admin\InfoController');
     Route::resource('contenttype', 'Admin\ContenttypeController');
     Route::resource('content', 'Admin\ContentController');
+    Route::resource('bannertype', 'Admin\BannertypeController');
     Route::resource('banner', 'Admin\BannerController');
     Route::resource('outlet', 'Admin\OutletController');
 
@@ -28,5 +29,6 @@ Route::post('/promo/sortit', 'Admin\PromoController@sortit');
 Route::post('/info/sortit', 'Admin\InfoController@sortit');
 Route::post('/contenttype/sortit', 'Admin\ContenttypeController@sortit');
 Route::post('/content/sortit', 'Admin\ContentController@sortit');
+Route::post('/bannertype/sortit', 'Admin\BannertypeController@sortit');
 Route::post('/banner/sortit', 'Admin\BannerController@sortit');
 Route::post('/banner/upload', 'Admin\BannerController@upload');
