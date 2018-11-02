@@ -23,7 +23,20 @@ Product Categories - Admin
 <div id="snackbar">{{ $message }}</div>
 @endif
 
-
+<select class="custom-select" name="category_id" id="category_id">
+        {% for category in categories %}
+        {% if category.children | length > 0 %}
+        <optgroup label="{{category.category}}">
+            {% for child in category.children %}
+            <option value="{{child.id}}">{{child.category}}</option>
+            {% endfor %}
+        </optgroup>
+        {% else %}
+        <option value="{{category.id}}">{{category.category}}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+    
 <div class="row justify-content-center mt-0">
     <div class="col-md-12">
         <ul class="list-group mt-2"  id="my-ui-list">
