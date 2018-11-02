@@ -21,6 +21,7 @@ class BannerController extends Controller
             $banners = Banner::where('bannertype_id', $bannertype_id)->orderBy('display_order')->get();
         } else {
             $banners = Banner::orderBy('created_at', 'desc')->get();
+            $bannertype_id = Bannertype::first()->id;
         }
         $bannertypes = Bannertype::orderBy('bannertype')->get();
         return view('admin.banner.index', [

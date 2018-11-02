@@ -6,34 +6,44 @@ XXBanner - Admin
 
 @section('extracss')
 <link rel="stylesheet" href="{{ asset('assets/css/snackbar.css') }}">
+<style>
+    .highlight {
+        font-weight: bold;
+        color: indigo;
+        font-size: 120%;
+        display: inline-block;
+        margin: 0 15px;
+    }
+</style>
 @endsection
 
 @section('content')
 <div class="d-flex align-items-center">
     <h2 class="pt-2 mb-0">Banner</h2>
     <span class="ml-auto">
-        <a href="/adm/banner/create?bannertype_id={{ isset($bannertype_id) ? $bannertype_id : '' }}" class="btn btn-outline-success btn-sm">
+        <a href="/adm/banner/create?bannertype_id={{ $bannertype_id }}" 
+        class="btn btn-outline-success btn-sm>
             <i class="fas fa-plus"></i> Add New
         </a>
     </span>
 </div>
-
 @if ($message = Session::get('success'))
 <div id="snackbar">{{ $message }}</div>
 @endif
 
 <div class="row justify-content-start">
     <div class="col-md-12">
-        <a href="{{ route('banner.index') }}">All</a>
         @foreach ($bannertypes as $bannertype)
-            | <a href="{{ route('banner.index') }}?bannertype_id={{$bannertype->id}}">{{ $bannertype->bannertype}} </a>
+            <a href="{{ route('banner.index') }}?bannertype_id={{$bannertype->id}}"
+                class="{{ $bannertype_id == $bannertype->id ? 'highlight' : '' }}"
+                >{{ $bannertype->bannertype}} </a>
         @endforeach
     </div>
 </div>
 
 <div class="row justify-content-center mt-3">
     <div class="col-md-10">
-        <ul class="list-group mt-2"  id="{{ isset($bannertype_id) ? 'my-ui-list' : '' }}">
+        <ul class="list-group mt-2"  id="my-ui-list">
             @foreach ($banners as $banner)
             <li class="list-group-item d-flex align-items-center justify-content-between" data-id="{{ $banner->id }}"  style="cursor: {{ isset($bannertype_id) ? 'move' : '' }}">
                 <span style="width: 70%">

@@ -21,7 +21,7 @@ Banner Types - Admin
 @if ($message = Session::get('success'))
 <div id="snackbar">{{ $message }}</div>
 @endif
-<div class="row justify-banner-center mt-3">
+<div class="row justify-content-center mt-3">
     <div class="col-md-10">
         <ul class="list-group mt-2" id="my-ui-list">
             @foreach ($bannertypes as $bannertype)
