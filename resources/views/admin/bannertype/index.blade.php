@@ -9,7 +9,7 @@ Banner Types - Admin
 @endsection
 
 @section('content')
-<div class="d-flex align-items-center">
+<div class="d-flex align-items-center pb-3" style="border-bottom: 2px solid #ccc">
     <h2 class="pt-2 mb-0">Banner Types</h2>
     <span class="ml-auto">
         <a href="/adm/bannertype/create" class="btn btn-outline-success btn-sm">
@@ -21,8 +21,8 @@ Banner Types - Admin
 @if ($message = Session::get('success'))
 <div id="snackbar">{{ $message }}</div>
 @endif
-<div class="row justify-content-center mt-3">
-    <div class="col-md-10">
+<div class="row justify-content-center mt-0">
+    <div class="col-md-12">
         <ul class="list-group mt-2" id="my-ui-list">
             @foreach ($bannertypes as $bannertype)
             <li class="list-group-item d-flex" data-id="{{ $bannertype->id }}" style="cursor: move">

@@ -19,12 +19,19 @@ Add New Content Type - Admin
         <form action="{{ route('content.store') }}" method="POST" autocomplete="off" novalidate class="mb-1">
 
             @csrf
-
+            @php
+            if(old('contenttype_id')):
+                $selectedContentTypeId = old('contenttype_id');
+            else:
+                $selectedContentTypeId = $contenttype_id;
+            endif
+            @endphp
             <div class="form-group">
                 <label for="contenttype_id">Content Type</label>
                 <select id="contenttype_id" name="contenttype_id" class="form-control">
                 @foreach ($contenttypes as $contenttype)
-                    <option value="{{ $contenttype->id }}" {{ $contenttype->id == old('contenttype_id') ? 'selected' : '' }}>
+                    <option value="{{ $contenttype->id }}" 
+                        {{ $selectedContentTypeId == $contenttype->id ? 'selected' : '' }}>
                         {{ $contenttype->contenttype }}
                     </option>
                 @endforeach
@@ -61,7 +68,7 @@ Add New Content Type - Admin
             <div class="form-footer" style="margin-top: 0; padding-top:0">
 
                 <button type="submit" class="btn btn-primary btn-md">Save Content</button>
-                <a class="btn btn-light btn-md" href="{{ route('content.index') }}">Cancel</a>
+                <a class="btn btn-light btn-md" href="{{ route('content.index') }}?contenttype_id={{$contenttype_id}}">Cancel</a>
             </div><!-- End .form-footer -->
 
         </form>

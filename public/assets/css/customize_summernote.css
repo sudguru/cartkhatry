@@ -17,3 +17,9 @@
 .note-editor.card  {
     margin-bottom: 5px;
 }
+
+.note-editable ol,
+.note-editable ul {
+    list-style: disc;
+    margin: 0 0 2.25rem 2rem;
+}

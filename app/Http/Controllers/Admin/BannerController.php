@@ -17,13 +17,11 @@ class BannerController extends Controller
     // );
     public function index(Request $request) {
         $bannertype_id = $request->query('bannertype_id');
-        if($bannertype_id) {
-            $banners = Banner::where('bannertype_id', $bannertype_id)->orderBy('display_order')->get();
-        } else {
-            $banners = Banner::orderBy('created_at', 'desc')->get();
-            $bannertype_id = Bannertype::first()->id;
+        if(!$bannertype_id) {
+            $bannertype_id = Bannertype::orderBy('display_order')->first()->id;
         }
-        $bannertypes = Bannertype::orderBy('bannertype')->get();
+        $banners = Banner::where('bannertype_id', $bannertype_id)->orderBy('display_order')->get();
+        $bannertypes = Bannertype::orderBy('display_order')->get();
         return view('admin.banner.index', [
             'banners' => $banners,
             'active' => $this->active,
@@ -66,15 +64,26 @@ class BannerController extends Controller
 
     public function edit(Banner $banner)
     {
-        return view('admin.banner.edit', ['banner' => $banner, 'active' => $this->active]);
+        $bannertypes = Bannertype::orderBy('bannertype')->get();
+        return view('admin.banner.edit', ['banner' => $banner, 'active' => $this->active, 'bannertypes' => $bannertypes]);
     }
 
     public function update(Request $request, Banner $banner)
     {
-        $validatedData = $this->validateRequest($request);
-        $banner->update($validatedData);
+
+        $validatedData = $request->validate([
+            'bannertype_id' => 'required|not_in:0',
+            'link' => 'nullable|url',
+        ]);
+
+        $banner->update([
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'link' => $request->link,
+            'bannertype_id' => $request->bannertype_id
+        ]);
   
-        return redirect()->route('banner.index')
+        return redirect()->route('banner.index',['bannertype_id' => $request->bannertype_id])
                         ->with('success','Banner updated successfully');
     }
 

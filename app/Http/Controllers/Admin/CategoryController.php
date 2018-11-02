@@ -8,79 +8,70 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    protected $active = "Products";
+    public function index() {
+        $category = new Category;
+        $categories = $category->allCategories();
+        return view('admin.category.index', ['categories' => $categories, 'active' => $this->active]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function destroy() {
+        Category::destroy(request('id'));
+        return back()->with('success','Category deleted successfully.');
+    }
+
     public function create()
     {
-        //
+        return view('admin.category.add', ['active' => $this->active]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $this->validateRequest($request);
+        $display_order = Category::count() + 1;
+        Category::create([
+            'payment_method' => $request->payment_method,
+            'slug' => str_slug($request->payment_method),
+            'display_order' => $display_order
+        ]);
+        return redirect()->route('category.index')->with('success','Category Added Successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit', ['category' => $category, 'active' => $this->active]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Category $category)
     {
+        $this->validateRequest($request);
+        $category->update([
+            'payment_method' => $request->payment_method,
+            'slug' => str_slug($request->payment_method)
+        ]);
+  
+        return redirect()->route('category.index')
+                        ->with('success','Category updated successfully');
+    }
+
+    public function show()
+    {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $category)
-    {
-        //
+    private function validateRequest(Request $request) {
+        return $request->validate([
+            'payment_method' => 'required|max:50'
+        ]);
+    }
+
+    public function sortit(Request $request) {
+        $order = $request->order;
+        foreach ($order as $key => $value) {
+            $p = Category::find($value);
+            $p->display_order = $key + 1;
+            $p->save();
+        }
+        return response()->json('ok', 200);
     }
 }

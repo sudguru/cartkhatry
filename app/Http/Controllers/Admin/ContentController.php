@@ -10,14 +10,15 @@ use App\Http\Controllers\Controller;
 class ContentController extends Controller
 {
     protected $active = "Basic";
+
     public function index(Request $request) {
         $contenttype_id = $request->query('contenttype_id');
-        if($contenttype_id) {
-            $contents = Content::where('contenttype_id', $contenttype_id)->orderBy('display_order')->get();
-        } else {
-            $contents = Content::orderBy('created_at', 'desc')->get();
+        if(!$contenttype_id) {
+            $contenttype_id = Contenttype::orderBy('display_order')->first()->id;
         }
-        $contenttypes = Contenttype::orderBy('contenttype')->get();
+
+        $contents = Content::where('contenttype_id', $contenttype_id)->orderBy('display_order')->get();
+        $contenttypes = Contenttype::orderBy('display_order')->get();
         return view('admin.content.index', [
             'contents' => $contents, 
             'active' => $this->active,
@@ -31,12 +32,14 @@ class ContentController extends Controller
         return back()->with('success','Content deleted successfully.');
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $contenttype_id = $request->query('contenttype_id');
         $contenttypes = Contenttype::orderBy('contenttype')->get();
         return view('admin.content.add', [
             'active' => $this->active,
-            'contenttypes' => $contenttypes
+            'contenttypes' => $contenttypes,
+            'contenttype_id' => $contenttype_id
             ]);
     }
 
@@ -51,7 +54,7 @@ class ContentController extends Controller
             'slug' => str_slug($request->title, '-'),
             'contenttype_id' => $request->contenttype_id
         ]);
-        return redirect()->route('content.index')->with('success','Content Added Successfully.');
+        return redirect()->route('content.index',['contenttype_id' => $request->contenttype_id])->with('success','Content Added Successfully.');
     }
 
     public function edit(Content $content)
@@ -70,7 +73,7 @@ class ContentController extends Controller
             'contenttype_id' => $request->contenttype_id
         ]);
   
-        return redirect()->route('content.index')
+        return redirect()->route('content.index', ['contenttype_id' => $request->contenttype_id])
                         ->with('success','Content updated successfully');
     }
 

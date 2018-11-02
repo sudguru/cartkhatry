@@ -9,6 +9,7 @@ Add New Banner - admin
     <h2 class="pt-2 mb-0">Banner Links - Edit</h2>
 
 </div>
+{{$errors}}
 <div class="row justify-content-center mt-3">
     <div class="col-md-10">
         <form action="{{ route('banner.update', $banner->id) }}" method="POST" autocomplete="off" novalidate class="mb-1">
@@ -16,16 +17,22 @@ Add New Banner - admin
             @csrf
             {{ method_field('PUT') }}
 
+            @php
+            if(old('bannertype_id')):
+                $selectedBannerTypeId = old('bannertype_id');
+            else:
+                $selectedBannerTypeId = $banner->bannertype_id;
+            endif
+            @endphp
             <div class="form-group">
-                <label for="position">Position <span class="required">*</span></label>
-                <select id="position" name="position" class="form-control{{ $errors->has('position') ? ' is-invalid' : '' }}">
+                <label for="bannertype_id">Banner Type <span class="required">*</span></label>
+                <select id="bannertype_id" name="bannertype_id" class="form-control{{ $errors->has('bannertype_id') ? ' is-invalid' : '' }}">
                     <option value="0" data-nt="1" data-nst="1">Select Banner Position</option>
-                    @foreach ($positions as $position)
-                    <option value="{{ $position['name'] }}" data-nt="{{ $position['needsTitle'] }}" data-nst="{{ $position['needsSubtitle'] }}"
-                        {{ $position['name'] == old('position') ? 'selected' : '' }}
-                        {{ $contenttype->id == $content->contenttype_id  ? 'selected' : '' }}
+                    @foreach ($bannertypes as $bannertype)
+                    <option value="{{ $bannertype->id }}" data-nt="{{ $bannertype->needsTitle }}" data-nst="{{ $bannertype->needsSubtitle }}"
+                        {{ $bannertype->id == $selectedBannerTypeId  ? 'selected' : '' }}
                         >
-                        {{ $position['name'] }}
+                        {{ $bannertype->bannertype }}
                     </option>
                     @endforeach
 

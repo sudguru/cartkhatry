@@ -12,7 +12,7 @@ Contents - Admin
 <div class="d-flex align-items-center">
     <h2 class="pt-2 mb-0">Contents</h2>
     <span class="ml-auto">
-        <a href="/adm/content/create" class="btn btn-outline-success btn-sm">
+        <a href="/adm/content/create?contenttype_id={{ $contenttype_id }}" class="btn btn-outline-success btn-sm">
             <i class="fas fa-plus"></i> Add New 
         </a>
     </span>
@@ -22,17 +22,23 @@ Contents - Admin
 @if ($message = Session::get('success'))
 <div id="snackbar">{{ $message }}</div>
 @endif
-<div class="row justify-content-start">
-    <div class="col-md-12">
-        <a href="{{ route('content.index') }}">All</a>
-        @foreach ($contenttypes as $contenttype)
-            | <a href="{{ route('content.index') }}?contenttype_id={{$contenttype->id}}">{{ $contenttype->contenttype}} </a>
-        @endforeach
-    </div>
-</div>
 
-<div class="row justify-content-center mt-1">
-    <div class="col-md-10">
+<div class="row justify-content-start">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+            @foreach ($contenttypes as $contenttype)
+                <li class="nav-item">
+                    <a href="{{ route('content.index') }}?contenttype_id={{$contenttype->id}}"
+                    class="nav-link {{ $contenttype_id == $contenttype->id ? 'active' : '' }}"
+                    >{{ $contenttype->contenttype}} </a>
+                </li>
+            @endforeach
+            </ul>
+        </div>
+    </div>
+
+<div class="row justify-content-center mt-0">
+    <div class="col-md-12">
         <ul class="list-group mt-2" id="{{ isset($contenttype_id) ? 'my-ui-list' : '' }}">
             @foreach ($contents as $content)
             <li class="list-group-item d-flex" data-id="{{ $content->id }}" style="cursor: {{ isset($contenttype_id) ? 'move' : '' }}">

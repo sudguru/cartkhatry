@@ -1,20 +1,12 @@
 @extends('layouts.admin')
 
 @section('pagetitle')
-XXBanner - Admin
+Banner - Admin
 @endsection
 
 @section('extracss')
 <link rel="stylesheet" href="{{ asset('assets/css/snackbar.css') }}">
-<style>
-    .highlight {
-        font-weight: bold;
-        color: indigo;
-        font-size: 120%;
-        display: inline-block;
-        margin: 0 15px;
-    }
-</style>
+
 @endsection
 
 @section('content')
@@ -33,16 +25,22 @@ XXBanner - Admin
 
 <div class="row justify-content-start">
     <div class="col-md-12">
+        <ul class="nav nav-tabs">
         @foreach ($bannertypes as $bannertype)
-            <a href="{{ route('banner.index') }}?bannertype_id={{$bannertype->id}}"
-                class="{{ $bannertype_id == $bannertype->id ? 'highlight' : '' }}"
+            <li class="nav-item">
+                <a href="{{ route('banner.index') }}?bannertype_id={{$bannertype->id}}"
+                class="nav-link {{ $bannertype_id == $bannertype->id ? 'active' : '' }}"
                 >{{ $bannertype->bannertype}} </a>
+            </li>
         @endforeach
+        </ul>
     </div>
 </div>
 
-<div class="row justify-content-center mt-3">
-    <div class="col-md-10">
+
+
+<div class="row justify-content-center mt-0">
+    <div class="col-md-12">
         <ul class="list-group mt-2"  id="my-ui-list">
             @foreach ($banners as $banner)
             <li class="list-group-item d-flex align-items-center justify-content-between" data-id="{{ $banner->id }}"  style="cursor: {{ isset($bannertype_id) ? 'move' : '' }}">

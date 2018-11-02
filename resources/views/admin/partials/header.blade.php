@@ -49,7 +49,7 @@
                         </ul>
                     </li>
 
-                    <li><a href="#" class="sf-with-ul">SHOP</a>
+                    <li class="{{ $active == 'Products' ? 'active' : '' }}"><a href="#" class="sf-with-ul">SHOP</a>
                         <ul>
                             <li><a href="{{ route('category.index') }}">Product Categories</a></li>
                             <li><a href="{{ route('paymentmethod.index') }}">Payment Methods</a></li>
@@ -57,14 +57,14 @@
                             <li><a href="{{ route('order.index') }}">Manage Orders</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" class="sf-with-ul">Lists</a>
+                    <li class="{{ $active == 'Lists' ? 'active' : '' }}"><a href="#" class="sf-with-ul">Lists</a>
                         <ul>
                             <li><a href="{{ route('newlist.index') }}">New Products</a></li>
                             <li><a href="{{ route('featuredlist.index') }}">Featured Products</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('userdetail.index') }}">Manage Users</a></li>
-                    <li><a href="{{ route('setting.index') }}">Settings</a></li>
+                    <li class="{{ $active == 'Users' ? 'active' : '' }}"><a href="{{ route('userdetail.index') }}">Manage Users</a></li>
+                    <li class="{{ $active == 'Settings' ? 'active' : '' }}"><a href="{{ route('setting.index') }}">Settings</a></li>
                     <li class="float-right">
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                             if (! confirm('Are You Sure?')) { return false; } 

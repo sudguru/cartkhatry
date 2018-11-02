@@ -88,7 +88,8 @@ Edit Content Type - admin
             ['fontsize', ['fontsize']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['insert', ['link','picture', 'video', 'table', 'hr']],
-            ['height', ['height']]
+            ['height', ['height']],
+            ['fullscreen']
         ]
         });
     });

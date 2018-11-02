@@ -9,9 +9,8 @@ Add Banner - admin
     <h2 class="pt-2 mb-0">Banner - Add</h2>
 
 </div>
-    {{ $errors }}
 
-    <form action="{{ route('banner.store') }}?bannertype_id={{$bannertype_id}}" method="POST" enctype="multipart/form-data" id="thisForm" autocomplete="off"
+    <form action="{{ route('banner.store') }}" method="POST" enctype="multipart/form-data" id="thisForm" autocomplete="off"
         novalidate class="mb-1">
 
         @csrf
@@ -26,6 +25,13 @@ Add Banner - admin
             </span>
             @endif
         </div>
+        @php
+        if(old('bannertype_id')):
+            $selectedBannerTypeId = old('bannertype_id');
+        else:
+            $selectedBannerTypeId = $bannertype_id;
+        endif
+        @endphp
         <div class="col-md-8">
             <div class="form-group">
                 <label for="bannertype_id">Banner Type <span class="required">*</span></label>
@@ -33,7 +39,7 @@ Add Banner - admin
                     <option value="0" data-nt="1" data-nst="1">Select Banner Position</option>
                     @foreach ($bannertypes as $bannertype)
                     <option value="{{ $bannertype->id }}" data-nt="{{ $bannertype->needsTitle }}" data-nst="{{ $bannertype->needsSubtitle }}"
-                        {{ (old('bannertype_id') || (isset($bannertype_id) && $bannertype_id == $bannertype->id)) ? 'selected' : '' }}>
+                        {{ $selectedBannerTypeId == $bannertype->id ? 'selected' : '' }}>
                         {{ $bannertype->bannertype }}
                     </option>
                     @endforeach
