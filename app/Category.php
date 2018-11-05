@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['id'];
+
 
     public function children() {
 		return $this->hasMany(static::class, 'parent_id');
@@ -16,9 +17,9 @@ class Category extends Model
 	{
 		return $this::with(array(
             'children' => function ($query) {
-            $query->orderBy('category', 'asc');
+            $query->orderBy('display_order');
             }
-            ))->where('parent_id', 0)
-            ->orderBy('category', 'asc')->get();
+            ))->whereNull('parent_id')
+            ->orderBy('display_order')->get();
 	}
 }

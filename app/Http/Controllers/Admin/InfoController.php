@@ -63,7 +63,7 @@ class InfoController extends Controller
             'title' => 'required|max:50',
             'subtitle' => 'required|max:200',
             'icon' => 'required',
-            'link' => 'required|url',
+            'link' => 'nullable|url',
         ]);
     }
 

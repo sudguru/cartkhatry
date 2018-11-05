@@ -1,20 +1,15 @@
 <header class="header">
     <div class="header-top">
         <div class="container">
-            <div class="header-left">
-
-                    
+            <div class="header-left">   
                     <ul id="message_ticker" class="welcome-msg">
-                        {{-- {% for message in messages %}
-                            <li><a href="{{message.link}}" class="text-promo">{{message.title}}</a></li>
-                        {% endfor %} --}}
+                        @foreach($promos as $promo)
+                            <li><span class="badge badge-warning">Ad</span>&nbsp; <a href="{{$promo->link}}" class="text-promo">{{$promo->title}}</a></li>
+                        @endforeach
                     </ul>
-
             </div>
 
             <div class="header-right">
-
-
                 <div class="header-dropdown dropdown-expanded">
                     <a href="#" style="font-weight: bold">Links</a>
                     <div class="header-menu">
@@ -64,19 +59,19 @@
                             <input type="search" class="form-control" name="q" id="q" placeholder="Search..." required>
                             <div class="select-custom">
                                 <select id="cat" name="cat">
-                                    {{-- {% for category in categories %}
-                                    {% if category.children | length > 0 %}
-                                    <option value="{{category.id}}">{{category.category}}</option>
-    
-                                        {% for child in category.children %}
-                                            <option value="{{child.id}}"> - {{child.category}}</option>
-                                        {% endfor %}
-
-                
-                                    {% else %}
-                                    <option value="{{category.id}}">{{category.category}}</option>
-                                    {% endif %}
-                                    {% endfor %} --}}
+                                    @foreach($categories as $parent)
+                                    <option value="{{$parent->id}}">{{$parent->category}}</option>
+                                    @if($parent->children)
+                                        @foreach($parent->children as $child)
+                                            <option value="{{$child->id}}"> -- {{$child->category}}</option>
+                                            @if($child->children)
+                                                @foreach($child->children as $grandchild)
+                                                    <option value="{{$grandchild->id}}"> ---- {{$grandchild->category}}</option>
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                    @endforeach
                                 </select>
                             </div><!-- End .select-custom -->
                             <button class="btn" type="submit"><i class="icon-magnifier"></i></button>

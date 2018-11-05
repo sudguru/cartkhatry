@@ -36,7 +36,7 @@ Add Banner - admin
             <div class="form-group">
                 <label for="bannertype_id">Banner Type <span class="required">*</span></label>
                 <select id="bannertype_id" name="bannertype_id" class="form-control{{ $errors->has('bannertype_id') ? ' is-invalid' : '' }}">
-                    <option value="0" data-nt="1" data-nst="1">Select Banner Position</option>
+                    <option value="0" data-nt="1" data-nst="1">Select Banner Type</option>
                     @foreach ($bannertypes as $bannertype)
                     <option value="{{ $bannertype->id }}" data-nt="{{ $bannertype->needsTitle }}" data-nst="{{ $bannertype->needsSubtitle }}"
                         {{ $selectedBannerTypeId == $bannertype->id ? 'selected' : '' }}>
@@ -67,7 +67,7 @@ Add Banner - admin
             <div class="form-group">
                 <label for="subtitle">Subitle</label>
                 <input id="subtitle" type="text" class="form-control{{ $errors->has('subtitle') ? ' is-invalid' : '' }}"
-                    name="subtitle" value="{{ old('subtitle') }}" autofocus>
+                    name="subtitle" value="{{ old('subtitle') }}">
 
                 @if ($errors->has('subtitle'))
                 <span class="invalid-feedback" role="alert">
@@ -79,7 +79,7 @@ Add Banner - admin
             <div class="form-group">
                 <label for="link">Link</label>
                 <input id="link" type="text" class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" name="link"
-                    value="{{ old('link') }}" autofocus>
+                    value="{{ old('link') }}">
                 <small id="linkHelp" class="form-text text-muted">Must Start with http:// or https:// but can be empty</small>
                 @if ($errors->has('link'))
                 <span class="invalid-feedback" role="alert">
@@ -102,10 +102,17 @@ Add Banner - admin
 @section('extrajs')
 <script>
     $(document).ready(function () {
-        $('#bannertype_id').change(function () {
+        //at page load
+        
+
+        $('#bannertype_id').on('change',function () {
             var selected = $(this).find('option:selected');
             var needsTitle = selected.data('nt');
             var needsSubtitle = selected.data('nst');
+            enableDisable(needsTitle, needsSubtitle);
+        });
+        $('#bannertype_id').val('{{$bannertype_id}}').trigger('change');
+        function enableDisable(needsTitle, needsSubtitle) {
             if (needsTitle) {
                 $("#title").prop('disabled', false);
             } else {
@@ -118,7 +125,7 @@ Add Banner - admin
                 // $('#subtitle').val('');
                 $("#subtitle").prop('disabled', true);
             }
-        });
+        }
 
         $('#picImage').on('click', function () {
             $('#banner').click();

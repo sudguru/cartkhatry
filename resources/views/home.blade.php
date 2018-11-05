@@ -1,11 +1,11 @@
 @extends('layouts.site')
 
 @section('content')
-    {{-- @include('partials.home-slider') --}}
+    @include('partials.home-slider')
 
-    {{-- @include('partials.home-infoboxes') --}}
+    @include('partials.home-infoboxes')
 
-    {{-- @include('partials.horizontal-banners') --}}
+    @include('partials.horizontal-banners')
 
     {{ Auth::id() }}
     @include('partials.home-featured')

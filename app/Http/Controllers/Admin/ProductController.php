@@ -8,14 +8,12 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $active = "Products";
     public function index()
     {
-        //
+        return view('admin.product.index', [
+            'active' => $this->active
+        ]);
     }
 
     /**
