@@ -28,6 +28,8 @@ class AccountController extends Controller
     }
 
     public function update(Request $request) {
+
+        // dd($request->payment_methods);
         $this->validateRequest($request);
         $name = request('name');
         $user = User::find(auth()->user()->id);
@@ -46,7 +48,7 @@ class AccountController extends Controller
             'fax' => $request->fax,
             'website' => $request->website,
             'description' => $request->description,
-            'payment_methods' => "[" . implode(",", $request->payment_methods) . "]",
+            'payment_methods' => implode(",", $request->payment_methods),
             'bank_info' => $request->bank_info
         ]);
 
@@ -57,7 +59,8 @@ class AccountController extends Controller
 
     private function validateRequest(Request $request) {
         return $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'payment_methods' => 'required'
         ]);
     }
 }

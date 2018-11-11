@@ -32,4 +32,8 @@ class User extends Authenticatable
     public function userdetail() {
         return $this->hasOne('App\Userdetail');
     }
+
+    public function products() {
+        return $this->hasMany('App\Product');
+    }
 }

@@ -13,7 +13,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
 
         View::composer(
-            'layouts.site', 'App\Http\ViewComposers\CommonComposer'
+            ['account.product.add', 'layouts.site'], '\App\Http\ViewComposers\CommonComposer'
         );
 
 
@@ -25,6 +25,10 @@ class ComposerServiceProvider extends ServiceProvider
 
     public function register()
     {
-        //
+        $this->app->singleton('\App\Http\ViewComposers\CommonComposer', function ($app) {
+            return new \App\Http\ViewComposers\CommonComposer;
+        });
     }
+
+
 }

@@ -1,5 +1,9 @@
 @extends('layouts.site')
 
+@section('pagetitle')
+    Reset Your Password
+@endsection
+
 @section('content')
 
 <div class="container mt-3 mb-3">

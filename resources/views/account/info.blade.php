@@ -1,4 +1,7 @@
 @extends('layouts.site')
+@section('pagetitle')
+    Account Information
+@endsection
 @section('extracss')
   <link rel="stylesheet" href="{{ asset('assets/css/snackbar.css') }}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
@@ -17,7 +20,7 @@
 @if ($message = Session::get('success'))
 <div id="snackbar">{{ $message }}</div>
 @endif
-<div class="container">
+
     <div class="container">
         <div class="row">
             <div class="col-lg-9 order-lg-last dashboard-content">
@@ -110,24 +113,26 @@
                                 <input type="company_name" class="form-control" id="company_name" name="company_name"
                                     value="{{$userdetail->company_name}}" />
                             </div>
-                            <div class="row">
-                                <div class="col-md-6" style="border-right: 1px solid #ccc">
-                                    <strong>Payment Methods </strong>
-                                    <div class="form-group-custom-control">
+                            <div class="form-group">
+                                <strong>Payment Methods </strong>
+                                <div class="form-group-custom-control row" style="padding: 0 15px">
 
-                                        @foreach($paymentmethods as $paymentmethod)
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="paymentmethods[]" value="{{$paymentmethod->id}}"
-                                                class="custom-control-input" id="paymentmethod_{{$paymentmethod->id}}">
-                                            <label class="custom-control-label" for="paymentmethod_{{$paymentmethod->id}}">{{$paymentmethod->payment_method}}</label>
-                                        </div><!-- End .custom-checkbox -->
-                                        @endforeach
-                                    </div>
+                                    @foreach($paymentmethods as $paymentmethod)
+                                    <div class="custom-control custom-checkbox col-md-6">
+                                        <input type="checkbox" name="payment_methods[]" value="{{$paymentmethod->id}}"
+                                            class="custom-control-input" id="paymentmethod_{{$paymentmethod->id}}"
+                                            {{ in_array($paymentmethod->id, explode(",", $userdetail->payment_methods)) ? 'checked' : '' }}
+                                            >
+                                        <label class="custom-control-label" for="paymentmethod_{{$paymentmethod->id}}">{{$paymentmethod->payment_method}}</label>
+                                    </div><!-- End .custom-checkbox -->
+                                    @endforeach
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="form-group">
+ 
                                     <strong>Bank Info</strong>
                                     <textarea class="form-control" name="bank_info" id="bank_info">{{$userdetail->bank_info}}</textarea>
-                                </div>
+
                             </div><!-- End .row -->
                             <div class="form-group">
                                 <strong>Short Company Description</strong>
@@ -161,7 +166,7 @@
             </aside><!-- End .col-lg-3 -->
         </div><!-- End .row -->
     </div><!-- End .container -->
-</div><!-- End .container -->
+
 
 <div class="mb-5"></div><!-- margin -->
 @endsection

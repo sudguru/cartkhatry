@@ -45,7 +45,7 @@ Edit Category - admin
             <div class="form-group">
                     <img src="{{$src}}" style="width:100%; margin: 0 auto; cursor: pointer" id="picImage" />
                     <small><em>Click the banner above to Add/Change</em></small>
-                    <input type="file" name="banner" id="banner" class="{{ $errors->has('banner') ? 'is-invalid' : '' }}" style="display: block" accept="image/x-png,image/gif,image/jpeg" />
+                    <input type="file" name="banner" id="banner" class="{{ $errors->has('banner') ? 'is-invalid' : '' }}" style="display: none" accept="image/x-png,image/gif,image/jpeg" />
                     @if ($errors->has('banner'))
                     <span class="required" role="alert">
                         <br><strong>{{ $errors->first('banner') }}</strong>
