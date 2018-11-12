@@ -1,11 +1,12 @@
 @extends('layouts.site')
 @section('pagetitle')
-Add New Product
+Add Images of Product
 @endsection
 
 @section('extracss')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('assets/css/customize_summernote.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/snackbar.css') }}">
 @endsection
 
 @section('content')
@@ -26,8 +27,29 @@ Add New Product
 <div class="container">
     <div class="row">
         <div class="col-lg-9 order-lg-last dashboard-content">
-            <h2>Add New Product</h2>
-            <form action="{{ route('account.product.store') }}" method="POST" autocomplete="off" novalidate class="mb-1">
+            <div class="card">
+                <div class="card-header">
+                    Product Images
+                    <a href="#" class="card-edit" data-toggle="modal" data-target="#myModal"><i class="fas fa-plus"></i>
+                        &nbsp;Add New Image</a>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div style="background-color: #ddd">Image</div>
+                        </div>
+                        <div class="col-md-2">
+                            Image
+                        </div>
+                        <div class="col-md-2">
+                            Image
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2>Edit Product</h2>
+            <form action="{{ route('account.product.update', $product->id) }}" method="POST" autocomplete="off" novalidate class="mb-1">
                 <div class="form-group">
                     <label for="name">Product Name <span class="required">*</span></label>
                     <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" 
@@ -105,9 +127,7 @@ Add New Product
                     </div>
                     <div class="col-md-6">
                         <label for="description">Short Description</label>
-                        <textarea class="form-control editor" name="description" id="description" style="height: calc(100% - 46px)">
-                          {{ old('description') ?? $product->description }}
-                        </textarea>
+                        <textarea class="form-control editor" name="description" id="description" style="height: calc(100% - 46px)">{{ old('description') ?? $product->description }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -118,36 +138,15 @@ Add New Product
                 </div>
 
                 <div class="form-footer" style="margin-top: 0; padding-top:0">
-                    <button type="submit" class="btn btn-primary btn-md">Save Product</button>
+                    <button type="submit" class="btn btn-primary btn-md">Update Product</button>
                 </div><!-- End .form-footer -->
                 @csrf
+                {{ method_field('PUT') }}
             </form>
 
 
             <div class="mb-2"></div><!-- margin -->
 
-
-            {{-- <div class="card">
-                <div class="card-header">
-                    Product Images
-                    <a href="#" class="card-edit" data-toggle="modal" data-target="#imageModal"><i class="fas fa-plus"></i>
-                        &nbsp;Add New Image</a>
-                </div><!-- End .card-header -->
-
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div style="background-color: #ddd">Image</div>
-                        </div>
-                        <div class="col-md-2">
-                            Image
-                        </div>
-                        <div class="col-md-2">
-                            Image
-                        </div>
-                    </div>
-                </div><!-- End .card-body -->
-            </div><!-- End .card --> --}}
         </div><!-- End .col-lg-9 -->
 
         <aside class="sidebar col-lg-3">
@@ -164,8 +163,9 @@ Add New Product
 
 
 <div class="mb-5"></div><!-- margin -->
-{{Debugbar::info('Error!')}}
-<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+
+@include('account.upload.imagemanager')
+{{-- <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -184,7 +184,7 @@ Add New Product
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection
 
@@ -192,6 +192,14 @@ Add New Product
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
 <script>
     $(document).ready(function () {
+
+        var x = document.getElementById("snackbar");
+        if (x) {
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        } 
 
         $('#picButton').on('click', function () {
             $('#prodImage').click();

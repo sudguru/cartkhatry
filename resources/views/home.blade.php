@@ -1,5 +1,9 @@
 @extends('layouts.site')
 
+@section('pagetitle')
+{{$setting->site_name}}
+@endsection
+
 @section('content')
     @include('partials.home-slider')
 

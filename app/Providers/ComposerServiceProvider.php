@@ -11,9 +11,13 @@ class ComposerServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
-        View::composer(
-            ['account.product.add', 'layouts.site'], '\App\Http\ViewComposers\CommonComposer'
+        View::composer([
+                'account.product.add',
+                'account.product.edit',
+                'layouts.site',
+                'home'
+            ], 
+            '\App\Http\ViewComposers\CommonComposer'
         );
 
 
