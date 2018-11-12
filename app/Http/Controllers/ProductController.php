@@ -12,7 +12,7 @@ class ProductController extends Controller
     }
 
     public function index() {
-        $products = Product::all();
+        $products = Product::where('user_id', auth()->user()->id)->get();
         return view('account.product.index')->withProducts($products)->with('currentPage', 'merchangeproducts');
     }
     public function create() {

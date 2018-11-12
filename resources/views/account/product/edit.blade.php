@@ -49,11 +49,12 @@ Add Images of Product
                 </div>
             </div>
             <h2>Edit Product</h2>
-            <form action="{{ route('account.product.update', $product->id) }}" method="POST" autocomplete="off" novalidate class="mb-1">
+            <form action="{{ route('account.product.update', $product->id) }}" method="POST" autocomplete="off"
+                novalidate class="mb-1">
                 <div class="form-group">
                     <label for="name">Product Name <span class="required">*</span></label>
-                    <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" 
-                    value="{{ old('name') ?? $product->name }}" autofocus>
+                    <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name"
+                        name="name" value="{{ old('name') ?? $product->name }}" autofocus>
 
                     @if ($errors->has('name'))
                     <span class="invalid-feedback" role="alert">
@@ -69,16 +70,16 @@ Add Images of Product
                             <select class="custom-select" name="category_id" id="category_id">
                                 @foreach($categories as $parent)
                                 <option value="{{$parent->id}}">{{$parent->category}}</option>
-                                    @if($parent->children)
-                                    @foreach($parent->children as $child)
-                                        <option value="{{$child->id}}"> -- {{$child->category}}</option>
-                                        @if($child->children)
-                                        @foreach($child->children as $grandchild)
-                                            <option value="{{$grandchild->id}}"> ---- {{$grandchild->category}}</option>
-                                        @endforeach
-                                         @endif
-                                    @endforeach
-                                    @endif
+                                @if($parent->children)
+                                @foreach($parent->children as $child)
+                                <option value="{{$child->id}}"> -- {{$child->category}}</option>
+                                @if($child->children)
+                                @foreach($child->children as $grandchild)
+                                <option value="{{$grandchild->id}}"> ---- {{$grandchild->category}}</option>
+                                @endforeach
+                                @endif
+                                @endforeach
+                                @endif
                                 @endforeach
                             </select>
                         </div>
@@ -86,8 +87,8 @@ Add Images of Product
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="SKU">SKU <span class="required">*</span></label>
-                                    <input type="text" class="form-control{{ $errors->has('SKU') ? ' is-invalid' : '' }}" id="SKU" name="SKU" 
-                                    value="{{ old('SKU') ?? $product->SKU }}">
+                                    <input type="text" class="form-control{{ $errors->has('SKU') ? ' is-invalid' : '' }}"
+                                        id="SKU" name="SKU" value="{{ old('SKU') ?? $product->SKU }}">
                                     @if ($errors->has('SKU'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('SKU') }}</strong>
@@ -98,8 +99,8 @@ Add Images of Product
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="stock">Available Stock <span class="required">*</span></label>
-                                    <input type="number" class="form-control{{ $errors->has('stock') ? ' is-invalid' : '' }}" id="stock" name="stock" 
-                                    value="{{ old('stock') ?? $product->stock }}">
+                                    <input type="number" class="form-control{{ $errors->has('stock') ? ' is-invalid' : '' }}"
+                                        id="stock" name="stock" value="{{ old('stock') ?? $product->stock }}">
                                     @if ($errors->has('stock'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('stock') }}</strong>
@@ -132,9 +133,7 @@ Add Images of Product
                 </div>
                 <div class="form-group">
                     <label for="specification">Detailed Specification</label>
-                    <textarea class="form-control editor" name="specification" id="specification">
-                      {{ old('specification') ?? $product->specification }}
-                    </textarea>
+                    <textarea class="form-control editor" name="specification" id="specification">{{ old('specification') ?? $product->specification }}</textarea>
                 </div>
 
                 <div class="form-footer" style="margin-top: 0; padding-top:0">
@@ -174,7 +173,7 @@ Add Images of Product
             </div>
             <div class="modal-body">
                 <div style="text-align: center">
-                  <img src="/assets/images/product-placeholder.png" style="width: 300px; margin: 0 auto" id="prodImagePic" />
+                    <img src="/assets/images/product-placeholder.png" style="width: 300px; margin: 0 auto" id="prodImagePic" />
                 </div>
             </div>
             <div class="modal-footer">
@@ -199,22 +198,7 @@ Add Images of Product
             setTimeout(function () {
                 x.className = x.className.replace("show", "");
             }, 3000);
-        } 
-
-        $('#picButton').on('click', function () {
-            $('#prodImage').click();
-        });
-
-        $('#prodImage').on('change', function (e) {
-            var file = document.getElementById('prodImage').files[0];
-            var prodImagePic = document.getElementById('prodImagePic');
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                imageDataURL = e.target.result;
-                prodImagePic.src = imageDataURL;
-            }
-            reader.readAsDataURL(file);
-        });
+        }
 
         $('#specification').summernote({
             height: 150,
@@ -229,7 +213,92 @@ Add Images of Product
                 ['fullscreen']
             ]
         });
+
+        $('#btnInsert').hide();
+
+        $('#caption_form').on("submit", function (event) {
+            //insert button click
+            event.preventDefault();
+            if ($('#pic_id').val() == 0) return;
+            if ($('#caption').val() == "") {
+                alert("Please type image caption. Later this will help you search for this images.")
+                return;
+            }
+            var form = new FormData(this);
+            $.ajax({
+                url: '/image/savecaption',
+                data: form,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success: function (response) {
+                    console.log(response);
+
+                    var featured = $("input[name='featured']:checked").val();
+                    if (featured == 1)
+                        $('#featured_pic_id').val($('#pic_id').val()); //for page save
+                    var element = CKEDITOR.dom.element.createFromHtml(response);
+                    CKEDITOR.instances.content.insertElement(element);
+                    //Close
+                    $('#myModal').modal('hide');
+                },
+                error: function (a, b, err) {
+                    document.write(a.responseText);
+                }
+            });
+
+        });
+
+
+
+
+
+        $('#upload_form').on("submit", function (event) {
+            $('#imageHolder').html('<img src="/assets/images/blueloading.gif"/>');
+            $('#lg').attr('disabled', false);
+            $('#md').attr('disabled', false);
+            $('#sm').attr('disabled', false);
+            $('#xs').attr('disabled', false);
+            event.preventDefault();
+            var image = $('#image')[0].files[0];
+            var form = new FormData(this);
+
+            $.ajax({
+                url: '/image/upload',
+                data: form,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success: function (response) {
+                    //alert('hello');
+                    var obj = JSON.parse(response);
+
+                    if (obj.lg == "0") $('#lg').attr('disabled', true);
+                    if (obj.md == "0") $('#md').attr('disabled', true);
+                    if (obj.sm == "0") $('#sm').attr('disabled', true);
+                    if (obj.xs == "0") $('#xs').attr('disabled', true);
+
+                    $('#imageHolder').html('<img src="' + obj.path + '" class="img-responsive"/>');
+                    $('#pic_id').val(obj.pic_id); //for caption save
+                    $('#pic_name').val(obj.basename);
+                    $('#btnInsert').show();
+                },
+                error: function (data) {
+                    var errors = data.responseJSON;
+                    //var errors = data.responseText;
+                    $('#imageHolder').html(
+                        '<img src="/assets/images/product-placeholder.png" class="img-responsive" />'
+                    );
+
+                    console.log(errors);
+  
+                }
+            });
+        });
     });
+
 </script>
 
 
