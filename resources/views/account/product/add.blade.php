@@ -105,9 +105,7 @@ Add New Product
                     </div>
                     <div class="col-md-6">
                         <label for="description">Short Description</label>
-                        <textarea class="form-control editor" name="description" id="description" style="height: calc(100% - 46px)">
-                            {{ old('description') }}
-                        </textarea>
+                        <textarea class="form-control editor" name="description" id="description" style="height: calc(100% - 46px)">{{ old('description') }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -126,28 +124,6 @@ Add New Product
 
             <div class="mb-2"></div><!-- margin -->
 
-
-            {{-- <div class="card">
-                <div class="card-header">
-                    Product Images
-                    <a href="#" class="card-edit" data-toggle="modal" data-target="#imageModal"><i class="fas fa-plus"></i>
-                        &nbsp;Add New Image</a>
-                </div><!-- End .card-header -->
-
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div style="background-color: #ddd">Image</div>
-                        </div>
-                        <div class="col-md-2">
-                            Image
-                        </div>
-                        <div class="col-md-2">
-                            Image
-                        </div>
-                    </div>
-                </div><!-- End .card-body -->
-            </div><!-- End .card --> --}}
         </div><!-- End .col-lg-9 -->
 
         <aside class="sidebar col-lg-3">
@@ -164,27 +140,8 @@ Add New Product
 
 
 <div class="mb-5"></div><!-- margin -->
-{{Debugbar::info('Error!')}}
-<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="imageModalLabel">Upload Product Image</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div style="text-align: center">
-                  <img src="/assets/images/product-placeholder.png" style="width: 300px; margin: 0 auto" id="prodImagePic" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input type="file" name="prodImage" id="prodImage" style="display: none" accept="image/x-png,image/gif,image/jpeg" />
-                <button type="button" class="btn btn-primary" id="picButton">Select Image</button>
-                <button type="submit" class="btn btn-success">Upload</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 
 @endsection
 
