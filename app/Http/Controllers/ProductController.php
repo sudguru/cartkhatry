@@ -39,7 +39,8 @@ class ProductController extends Controller
     }
 
     public function edit(Product $product) {
-        return view('account.product.edit', ['product' => $product, 'currentPage' => 'merchantnewproduct']);
+        $userpics = auth()->user()->pics;
+        return view('account.product.edit', ['product' => $product, 'userpics' => $userpics, 'currentPage' => 'merchantnewproduct']);
     }
 
     public function update(Request $request, Product $product) {

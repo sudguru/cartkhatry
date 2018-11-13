@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="tabs">
+                <div class="tabs" id="myTabs">
                     <ul class="nav nav-tabs nav-justified flex-column flex-md-row">
                         <li class="nav-item active">
                             <a href="#new" class="nav-link active show" data-toggle="tab">Upload New Image</a>
@@ -16,7 +16,7 @@
                             @include('uploadimagesimple.imageupload')
                         </div>
                         <div id="browse" class="tab-pane">
-                            {{-- @include('account.upload.imagebrowse') --}}
+                            @include('uploadimagesimple.imagebrowse')
                         </div>
                     </div>
                 </div>
