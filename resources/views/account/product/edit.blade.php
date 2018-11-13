@@ -163,27 +163,8 @@ Add Images of Product
 
 <div class="mb-5"></div><!-- margin -->
 
-@include('account.upload.imagemanager')
-{{-- <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="imageModalLabel">Upload Product Image</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div style="text-align: center">
-                    <img src="/assets/images/product-placeholder.png" style="width: 300px; margin: 0 auto" id="prodImagePic" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input type="file" name="prodImage" id="prodImage" style="display: none" accept="image/x-png,image/gif,image/jpeg" />
-                <button type="button" class="btn btn-primary" id="picButton">Select Image</button>
-                <button type="submit" class="btn btn-success">Upload</button>
-            </div>
-        </div>
-    </div>
-</div> --}}
+@include('uploadimagesimple.imagemanager')
+
 
 @endsection
 
