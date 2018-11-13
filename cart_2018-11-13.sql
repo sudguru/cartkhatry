@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.7.17)
 # Database: cart
-# Generation Time: 2018-11-12 11:32:33 +0000
+# Generation Time: 2018-11-13 10:19:39 +0000
 # ************************************************************
 
 
@@ -365,18 +365,6 @@ DROP TABLE IF EXISTS `pics`;
 
 CREATE TABLE `pics` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-# Dump of table productimages
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `productimages`;
-
-CREATE TABLE `productimages` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` int(10) unsigned NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `pic_path` varchar(50) NOT NULL DEFAULT '',
@@ -385,11 +373,33 @@ CREATE TABLE `productimages` (
   `sm` tinyint(4) NOT NULL,
   `xs` tinyint(4) NOT NULL,
   `caption` varchar(100) DEFAULT NULL,
+  `display_order` int(11) NOT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `pics` WRITE;
+/*!40000 ALTER TABLE `pics` DISABLE KEYS */;
+
+INSERT INTO `pics` (`id`, `product_id`, `user_id`, `pic_path`, `lg`, `md`, `sm`, `xs`, `caption`, `display_order`, `deleted`, `created_at`, `updated_at`)
+VALUES
+	(2,2,1,'1542079414.jpg',0,1,1,1,'Viswakarma',4,NULL,'2018-11-13 03:23:34','2018-11-13 07:32:21'),
+	(3,2,1,'1542079514.jpg',1,1,1,1,'Jai Shiava',2,NULL,'2018-11-13 03:25:15','2018-11-13 07:32:21'),
+	(4,2,1,'1542079625.jpg',0,0,1,1,'Stupa',3,NULL,'2018-11-13 03:27:05','2018-11-13 07:32:21'),
+	(5,2,1,'1542079778.jpg',0,0,1,1,'Hara Hara Mahadev',0,1,'2018-11-13 03:29:38','2018-11-13 05:25:02'),
+	(6,2,1,'1542079970.jpg',0,1,1,1,'Hireme REquest',0,1,'2018-11-13 03:32:50','2018-11-13 07:34:18'),
+	(7,2,1,'1542080045.jpg',1,1,1,1,'Certificate',0,1,'2018-11-13 03:34:08','2018-11-13 07:34:25'),
+	(8,2,1,'1542080276.jpg',0,1,1,1,'Indian Wood bed',1,NULL,'2018-11-13 03:37:56','2018-11-13 07:31:39'),
+	(9,2,1,'1542080309.jpg',0,0,1,1,'Modern Design',6,NULL,'2018-11-13 03:38:29','2018-11-13 07:31:38'),
+	(10,2,1,'1542094363.jpg',1,1,1,1,'Bed',5,NULL,'2018-11-13 07:32:44','2018-11-13 07:34:42'),
+	(11,1,1,'1542101545.jpg',0,0,0,1,'Bread',2,NULL,'2018-11-13 09:32:26','2018-11-13 09:33:47'),
+	(12,1,1,'1542101582.jpg',0,0,0,1,'Celery',1,NULL,'2018-11-13 09:33:02','2018-11-13 09:33:47'),
+	(13,1,1,'1542101818.jpg',0,0,0,1,'Cookies',3,NULL,'2018-11-13 09:36:58','2018-11-13 09:37:05');
+
+/*!40000 ALTER TABLE `pics` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table productprices
@@ -441,7 +451,7 @@ LOCK TABLES `products` WRITE;
 INSERT INTO `products` (`id`, `category_id`, `name`, `SKU`, `description`, `specification`, `user_id`, `stock`, `min_order_unit`, `min_stock_level`, `ordered_rank`, `viewed_rank`, `approved`, `created_at`, `updated_at`)
 VALUES
 	(1,11,'asdf','asdf','asdf','<p>asdf</p>',1,1,1,10,NULL,NULL,NULL,'2018-11-07 18:22:01','2018-11-07 18:22:01'),
-	(2,11,'Second Prouduct','668','Short','<p>Specification</p>',1,1,1,10,NULL,NULL,NULL,'2018-11-07 18:24:24','2018-11-07 18:24:24'),
+	(2,13,'Second Prouduct','668','Short','<p>Specification</p>',1,1,1,10,NULL,NULL,NULL,'2018-11-07 18:24:24','2018-11-13 04:14:15'),
 	(3,9,'Second Prouct','445','Short De','<p>Specifacation</p>',1,100,2,6,NULL,NULL,NULL,'2018-11-09 10:49:25','2018-11-09 10:49:25');
 
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
