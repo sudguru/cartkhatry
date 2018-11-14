@@ -13,7 +13,7 @@
 	@foreach($userpics as $pic)
 		@php
 		$picpath = '/storage/images/' . auth()->user()->id . '/thumb_240' . '/' . $pic->pic_path;
-		$this_caption = $pic->caption;
+		$this_caption = $pic->products[0]->pivot->caption;
 		@endphp
 		<div class="col-sm-6 col-md-3">
 			<div class="thumbnail">

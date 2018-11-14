@@ -8,6 +8,8 @@ use Storage;
 use App\Pic;
 // use App\File;
 use Response;
+use App\Product;
+use Debugbar;
 
 class UploadController extends Controller
 {
@@ -49,18 +51,15 @@ class UploadController extends Controller
 			}
 		}
 		$basename = basename($path);
-
+		Debugbar::info($request->product_id);
 		//Save to table
-		$display_order = Pic::where('product_id', $request->product_id)->whereNull('deleted')->count() + 1;
 		$pic = Pic::create([
             'pic_path' => $basename,
-			'product_id' => $request->product_id,
 			'user_id' => auth()->user()->id,
 			'lg' => $lg,
 			'md' => $md,
 			'sm' => $sm,
-			'xs' => $xs,
-			'display_order' => $display_order
+			'xs' => $xs
 			]);
 
 		$path = '/storage/images/'. auth()->user()->id . '/' . 'thumb_240/'. $basename;
@@ -71,25 +70,25 @@ class UploadController extends Controller
 
     public function savecaption(Request $request) {
 
-		$pic = Pic::find($request->pic_id);
-		$display_order = $pic->display_order;
-		if ($display_order == 0) {
-			$display_order = Pic::where('product_id', $request->product_id)->whereNull('deleted')->count() + 1;
+		$product = Product::find($request->product_id);
+		$display_order = $product->pics()->count() + 1;
+		$picId = $request->pic_id;
+		$caption = $request->caption;
+		$hasPic = $product->pics()->where('pic_id', $picId)->exists();
+		if(!$hasPic) {
+			$product->pics()->attach($picId, ["caption" => $caption, 'display_order' => $display_order]);
+			return 'true';
+		} else {
+			return 'false';
 		}
-		$pic->update([
-			'caption' => $request->caption,
-			'deleted' => null,
-			'display_order' => $display_order
-		]);
-		return json_encode(array('message' => 'BceOk'));
+
+		
 	}
 
-	public function destroy(Request $request) {
-		$pic = Pic::find($request->pic_id);
-		$pic->update([
-			'display_order' => 0,
-			'deleted' => 1
-		]);
+	public function removePic(Request $request) {
+		$product = Product::find($request->product_id);
+		$picId = $request->pic_id;
+		$product->pics()->detach($picId);
 		return json_encode(array('message' => 'BceOk'));
 	}
 
@@ -97,17 +96,41 @@ class UploadController extends Controller
 	{
 
 		$s = request('s');
-		$pics = Pic::where('caption', 'LIKE', '%'.$s.'%')->where('user_id', auth()->user()->id)->get();
-		return $pics;
+		$res = [];
+		$userpics = Pic::where('user_id', auth()->user()->id)->get();
+		foreach($userpics as $pic) {
+			$productpics = $pic->products;
+			foreach($productpics as $productpic)
+			$p = stripos($productpic->pivot->caption, $s);
+			if( $p !== false) {
+				$obj = new \stdClass;
+				$obj->id = $pic->id;
+				$obj->pic_path = $pic->pic_path;
+				$obj->lg = $pic->lg;
+				$obj->md = $pic->md;
+				$obj->sm = $pic->sm;
+				$obj->xs = $pic->xs;
+				$obj->caption = $productpic->pivot->caption;
+				array_push($res, $obj);
+			}
+		}
+		return $res;
+
 	}
 	
 	public function imagesort(Request $request) {
+		$product = Product::find($request->product_id);
+		$productpics = $product->pics;
 		$order = $request->order;
-        foreach ($order as $key => $value) {
-            $p = Pic::find($value);
-            $p->display_order = $key + 1;
-            $p->save();
-        }
-        return response()->json('ok', 200);
+		$x = "";
+		foreach($productpics as $productpic) {
+			$key = array_search($productpic->pivot->pic_id, $order);
+			$x .= $key . ",";
+			$productpic->pivot->display_order = $key + 1;
+			$productpic->pivot->save();
+		} 
+
+		return response()->json($x, 200);
+		
     }
 }

@@ -14,6 +14,23 @@ ul#productImages li{
     margin-right: 15px;
     margin-bottom: 15px;
 }
+.thumbnail {
+    border: 1px solid #efefef;
+}
+#productImages {
+    margin-bottom: 0px;
+}
+#productImages li{
+    border: 1px solid #efefef;
+    position: relative;
+    
+}
+.js-remove {
+
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+}
 </style>
 @endsection
 
@@ -33,8 +50,13 @@ ul#productImages li{
 @endif
 
 <div class="container">
+
     <div class="row">
         <div class="col-lg-9 order-lg-last dashboard-content">
+            <div class="d-flex justify-content-between">
+                <h2>Edit Product</h2>
+                <button class="btn btn-sm btn-info">Done</button>
+            </div>
             <div class="card">
                 <div class="card-header">
                     Product Images
@@ -42,7 +64,7 @@ ul#productImages li{
                         &nbsp;Add New Image</a>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body" style="padding-bottom: 0">
                     <ul id="productImages">
                         @foreach($product->pics as $pic)
                             <li data-id="{{ $pic->id }}">
@@ -53,7 +75,41 @@ ul#productImages li{
                     </ul>
                 </div>
             </div>
-            <h2>Edit Product</h2>
+
+            <div class="card">
+                <div class="card-header">
+                    Product Prices
+                    <a href="#" class="card-edit" data-toggle="modal" data-target="#myModal"><i class="fas fa-plus"></i>
+                        &nbsp;Add New Price</a>
+                </div>
+
+                <div class="card-body" style="padding-bottom: 0; min-height: 50px">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Attributes</th>
+                                <th>Colors</th>
+                                <th style="text-align: right">Regular</th>
+                                <th style="text-align: right">Discounted</th>
+                                <th>Valid Until</th>
+                                <th>Del</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Standard</td>
+                                <td>Colrs</td>
+                                <td style="text-align: right">Rs. 230</td>
+                                <td style="text-align: right">Rs. 200</td>
+                                <td>Jan 1, 2019</td>
+                                <td><i class="fas fa-trash"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            
             <form action="{{ route('account.product.update', $product->id) }}" method="POST" autocomplete="off"
                 novalidate class="mb-1">
                 <div class="form-group">
@@ -174,231 +230,5 @@ ul#productImages li{
 @endsection
 
 @section('extrajs')
-<script src="{{ asset('assets/js/sortable.min.js') }}"></script>
-<script>
-    var list = document.getElementById("productImages");
-    Sortable.create(list, {
-        animation: 150,
-        filter: '.js-remove',
-		onFilter: function (evt) {
-            if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) {
-                evt.item.parentNode.removeChild(evt.item);
-                console.log(evt.item.getAttribute("data-id"));
-                var data = {
-                    pic_id: evt.item.getAttribute("data-id"),
-                    _token: '<?php echo csrf_token() ?>'
-                };
-                $.ajax({
-                    type:'POST',
-                    url:'/image/delete',
-                    data: data,
-                    success:function(data){
-                        console.log(data);
-                    }
-                });
-            }
-		},
-        store: {
-            get: function (sortable) {
-                var order = sortable.toArray();
-            },
-
-            set: function (sortable) {
-                var order = sortable.toArray();
-                console.log(order);
-                var data = {
-                    order: order,
-                    _token: '<?php echo csrf_token() ?>'
-                };
-
-                $.ajax({
-                    type:'POST',
-                    url:'/image/sort',
-                    data: data,
-                    success:function(data){
-                        console.log(data);
-                    }
-                });
-            }
-        }
-    });
-
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
-<script>
-    $(document).ready(function () {
-
-        var x = document.getElementById("snackbar");
-        if (x) {
-            x.className = "show";
-            setTimeout(function () {
-                x.className = x.className.replace("show", "");
-            }, 3000);
-        }
-
-        $('#specification').summernote({
-            height: 150,
-            toolbar: [
-                // [groupName, [list of button]]
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link', 'picture', 'video', 'table', 'hr']],
-                ['height', ['height']],
-                ['fullscreen']
-            ]
-        });
-
-        $('#btnInsert').hide();
-
-        $('#caption_form').on("submit", function (event) {
-            //insert button click
-            event.preventDefault();
-            if ($('#pic_id').val() == 0) return;
-            if ($('#caption').val() == "") {
-                alert("Please type image caption. Later this will help you search for this images.")
-                return;
-            }
-            var form = new FormData(this);
-            $.ajax({
-                url: '/image/savecaption',
-                data: form,
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'POST',
-                success: function (response) {
-
-                    // 1. save caption
-                    // 2. add image to productimage list
-                    var newimage = '<li data-id="'+$('#pic_id').val()+'">' +
-                                   '<img src="' + $('#pic_name').val() + '" style="width: 100%;cursor:move" />' +
-                                   '<i class="js-remove" style="cursor:pointer">✖</i>' +
-                                   '</li>';
-                    console.log(newimage);
-                    $('#productImages').append(newimage);
-                    $('#caption_form').trigger("reset");
-                    $('#upload_form').trigger("reset");
-                    $('#imageHolder').html(
-                        '<img src="/assets/images/product-placeholder.png" class="img-responsive" />'
-                    );
-                    $('#btnInsert').hide();
-                    $('#myModal').modal('hide');
-                },
-                error: function (a, b, err) {
-                    document.write(a.responseText);
-                }
-            });
-
-        });
-
-        $('#upload_form').on("submit", function (event) {
-            $('#imageHolder').html('<img src="/assets/images/blueloading.gif"/>');
-
-            event.preventDefault();
-            var image = $('#image')[0].files[0];
-            var form = new FormData(this);
-
-            $.ajax({
-                url: '/image/upload',
-                data: form,
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'POST',
-                success: function (response) {
-
-                    var obj = JSON.parse(response);
-
-                    $('#imageHolder').html('<img src="' + obj.path + '" class="img-responsive"/>');
-                    $('#pic_id').val(obj.pic_id); //for caption save
-                    $('#pic_name').val(obj.path);
-                    $('#btnInsert').show();
-                },
-                error: function (data) {
-                    var errors = data.responseJSON;
-                    $('#imageHolder').html(
-                        '<img src="/assets/images/product-placeholder.png" class="img-responsive" />'
-                    );
-
-                    console.log(errors);
-  
-                }
-            });
-        });
-
-        $('#search_form').on( "submit", function(event) { 
-            event.preventDefault();
-            var form = new FormData(this);
-
-            $.ajax({
-                url: '/image/search',
-                data: form,
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'POST',
-                success:function(response) {
-                    console.log(response);
-
-                    var fullpath = '/storage/images/{{ auth()->user()->id}}/thumb_240/';
-
-                    var output = '';
-                    var picpath = '';
-                    response.forEach(function(row) {
-                        picpath = fullpath + row.pic_path;
-                        datasizes = row.lg + '-' + row.md + '-' + row.sm + '_' + row.xs;
-                        output += '<div class="col-sm-6 col-md-3">' +
-                                    '<div class="thumbnail">' +
-                                        '<div class="fixedbox">' +
-                                            '<img src="'+picpath+'" class="sitepics" style="width: 100%" id="pic-'+row.id+'" data-sizes="'+datasizes+'" data-caption="'+row.caption+'" />' +
-                                        '</div>' +
-                                        '<div class="caption">' +
-                                            row.caption
-                                        +'</div>' +
-                                    '</div>' +
-                                '</div>';
-                    });
-                    $('#image_browse').html(output);
-                    
-                },
-                error: function(a,b,err) {
-                    document.write(a.responseText);
-                }
-            });
-        });
-
-         $('#image_browse').on('click', 'img.sitepics' , function(){
-
-            $('#lg').attr('disabled', false);
-            $('#md').attr('disabled', false);
-            $('#sm').attr('disabled', false);
-            $('#xs').attr('disabled', false);
-
-            var pic = (this.id).split('-');
-            var pic_id = pic[1];
-            var src = this.src;
-            //src = src.replace("_240/", "_400/");
-            console.log(src);
-            $('#myTabs a[href="#new"]').tab('show');
-            var sizes = $(this).data("sizes").split("-");
-            var caption = $(this).data("caption");
-            console.log(caption);
-            if(sizes[0] == "0") $('#lg').attr('disabled', true);
-            if(sizes[1] == "0") $('#md').attr('disabled', true);
-            if(sizes[2] == "0") $('#sm').attr('disabled', true);
-            if(sizes[3] == "0") $('#xs').attr('disabled', true);
-
-            $('#imageHolder').html('<img src="' + src + '" style="width:100%" />');
-            $('#pic_id').val(pic_id); //for caption save
-            $('#pic_name').val(src);
-            $('#caption').val(caption);
-            $('#btnInsert').show();
-        });
-    });
-
-</script>
-
-
+    @include('uploadimagesimple.js')
 @endsection

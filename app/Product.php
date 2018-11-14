@@ -12,10 +12,14 @@ class Product extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function allpics() {
-        return $this->hasMany('App\Pic');
-    }
+    // public function allpics() {
+    //     return $this->hasMany('App\Pic');
+    // }
+    // public function pics() {
+    //     return $this->hasMany('App\Pic')->whereNull('deleted')->orderBy('display_order');
+    // }
+
     public function pics() {
-        return $this->hasMany('App\Pic')->whereNull('deleted')->orderBy('display_order');
+        return $this->belongsToMany('App\Pic')->withPivot('display_order', 'caption');
     }
 }

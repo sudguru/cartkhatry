@@ -56,7 +56,7 @@ class ProductController extends Controller
             'min_order_unit' => $request->min_order_unit,
             'min_stock_level' => $request->min_stock_level
         ]);
-        return redirect()->route('account.product.index')->with('success', 'Product Updated Successfully');
+        return redirect()->route('account.product.edit', $product->id)->with('success', 'Product Updated Successfully');
     }
 
     private function validateRequest(Request $request) {

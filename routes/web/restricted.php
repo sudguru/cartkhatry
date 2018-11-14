@@ -13,5 +13,5 @@ Route::put('/account/product/{product}', 'ProductController@update')->name('acco
 Route::post('/image/upload', 'UploadController@upload')->name('image.upload');
 Route::post('/image/savecaption', 'UploadController@savecaption')->name('image.savecaption');
 Route::post('/image/sort', 'UploadController@imagesort')->name('image.imagesort');
-Route::post('/image/delete', 'UploadController@destroy')->name('image.destroy');
+Route::post('/image/delete', 'UploadController@removePic')->name('image.destroy');
 Route::post('/image/search' , 'UploadController@searchimage')->name('image.search');
