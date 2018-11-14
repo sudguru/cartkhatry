@@ -293,8 +293,6 @@ ul#productImages li{
 
         });
 
-
-
         $('#upload_form').on("submit", function (event) {
             $('#imageHolder').html('<img src="/assets/images/blueloading.gif"/>');
 
