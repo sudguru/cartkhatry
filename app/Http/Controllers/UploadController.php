@@ -100,18 +100,19 @@ class UploadController extends Controller
 		$userpics = Pic::where('user_id', auth()->user()->id)->get();
 		foreach($userpics as $pic) {
 			$productpics = $pic->products;
-			foreach($productpics as $productpic)
-			$p = stripos($productpic->pivot->caption, $s);
-			if( $p !== false) {
-				$obj = new \stdClass;
-				$obj->id = $pic->id;
-				$obj->pic_path = $pic->pic_path;
-				$obj->lg = $pic->lg;
-				$obj->md = $pic->md;
-				$obj->sm = $pic->sm;
-				$obj->xs = $pic->xs;
-				$obj->caption = $productpic->pivot->caption;
-				array_push($res, $obj);
+			foreach($productpics as $productpic) {
+				$p = stripos($productpic->pivot->caption, $s);
+				if( $p !== false) {
+					$obj = new \stdClass;
+					$obj->id = $pic->id;
+					$obj->pic_path = $pic->pic_path;
+					$obj->lg = $pic->lg;
+					$obj->md = $pic->md;
+					$obj->sm = $pic->sm;
+					$obj->xs = $pic->xs;
+					$obj->caption = $productpic->pivot->caption;
+					array_push($res, $obj);
+				}
 			}
 		}
 		return $res;

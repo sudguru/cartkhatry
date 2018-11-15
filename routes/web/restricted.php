@@ -10,6 +10,13 @@ Route::post('/account/product', 'ProductController@store')->name('account.produc
 Route::get('/account/product/{product}/edit', 'ProductController@edit')->name('account.product.edit');
 Route::put('/account/product/{product}', 'ProductController@update')->name('account.product.update');
 
+Route::get('/account/product/prices', 'ProductController@getprices')->name('account.product.prices');
+Route::post('/account/product/price', 'ProductController@saveprice');
+Route::post('/account/product/price/delete', 'ProductController@deleteprice');
+Route::post('/account/product/price/color', 'ProductController@addcolor');
+Route::post('/account/product/price/color/remove', 'ProductController@removecolor');
+Route::delete('/account/product/{product}', 'ProductController@destroy');
+
 Route::post('/image/upload', 'UploadController@upload')->name('image.upload');
 Route::post('/image/savecaption', 'UploadController@savecaption')->name('image.savecaption');
 Route::post('/image/sort', 'UploadController@imagesort')->name('image.imagesort');

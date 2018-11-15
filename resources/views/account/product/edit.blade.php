@@ -7,8 +7,10 @@ Add Images of Product
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('assets/css/customize_summernote.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/snackbar.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/datepicker.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/colorpicker/css/bootstrap-colorpicker.css') }}">
 <style>
-ul#productImages li{
+    ul#productImages li{
     display: inline-block;
     width: 150px;
     margin-right: 15px;
@@ -31,6 +33,46 @@ ul#productImages li{
     bottom: 10px;
     right: 15px;
 }
+.color {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.colorRemove {
+    position: absolute;
+    right: 5px;
+    bottom: 0;
+}
+
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 0 4px 4px 0;
+    border-left: none;
+}
+
+.colorpicker-element .input-group-addon i,
+.colorpicker-element .add-on i {
+  margin-top: 4px;
+  display: inline-block;
+  cursor: pointer;
+  height: 25px;
+  vertical-align: text-center;
+  width: 25px;
+}
+
+.deletePrice {
+    cursor: pointer;
+}
 </style>
 @endsection
 
@@ -39,7 +81,7 @@ ul#productImages li{
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Product</li>
 
         </ol>
     </div><!-- End .container -->
@@ -55,7 +97,7 @@ ul#productImages li{
         <div class="col-lg-9 order-lg-last dashboard-content">
             <div class="d-flex justify-content-between">
                 <h2>Edit Product</h2>
-                <button class="btn btn-sm btn-info">Done</button>
+                <a class="btn btn-sm btn-info" style="height:36px; padding: .6rem 1.5rem" href="/account/products">Done</a>
             </div>
             <div class="card">
                 <div class="card-header">
@@ -67,10 +109,10 @@ ul#productImages li{
                 <div class="card-body" style="padding-bottom: 0">
                     <ul id="productImages">
                         @foreach($product->pics as $pic)
-                            <li data-id="{{ $pic->id }}">
-                                <img src="/storage/images/{{auth()->user()->id}}/thumb_240/{{$pic->pic_path}}" style="width: 100%; cursor: move" />
-                                <i class="js-remove" style="cursor: pointer ">✖</i>
-                            </li>
+                        <li data-id="{{ $pic->id }}">
+                            <img src="/storage/images/{{auth()->user()->id}}/thumb_240/{{$pic->pic_path}}" style="width: 100%; cursor: move" />
+                            <i class="js-remove" style="cursor: pointer; color: #000000">✖</i>
+                        </li>
                         @endforeach
                     </ul>
                 </div>
@@ -79,11 +121,11 @@ ul#productImages li{
             <div class="card">
                 <div class="card-header">
                     Product Prices
-                    <a href="#" class="card-edit" data-toggle="modal" data-target="#myModal"><i class="fas fa-plus"></i>
+                    <a href="#" class="card-edit" data-toggle="modal" data-target="#priceModalAdd"><i class="fas fa-plus"></i>
                         &nbsp;Add New Price</a>
                 </div>
 
-                <div class="card-body" style="padding-bottom: 0; min-height: 50px">
+                <div class="card-body table-responsive" style="padding-bottom: 0; min-height: 50px">
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -95,21 +137,54 @@ ul#productImages li{
                                 <th>Del</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Standard</td>
-                                <td>Colrs</td>
-                                <td style="text-align: right">Rs. 230</td>
-                                <td style="text-align: right">Rs. 200</td>
-                                <td>Jan 1, 2019</td>
-                                <td><i class="fas fa-trash"></i></td>
+                        <tbody id="productPrices">
+                            @foreach($product->prices as $price)
+                            <tr id="row-{{$price->id}}">
+                                <td>{{$price->attributes}}</td>
+                                <td class="d-flex justify-content-start">
+                                    <div class="d-flex flex-wrap justify-content-start" id="color-{{$price->id}}">
+                                        @php
+                                            $colors = explode('~', ltrim($price->colors,'~'));
+                                        @endphp
+                                        @foreach($colors as $color)
+                                            <div class="color" style="background-color: {{$color}}">
+                                                <i class="colorRemove" style="cursor:pointer" data-color="{{$color}}">✖</i>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="color" style="background-color: #ddd; text-align: center">
+                                        <a href="javascript:void(0)" class="addpriceid" data-toggle="modal" data-target="#colorPickerModal">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td style="text-align: right">{{$price->regular}}</td>
+                                <td style="text-align: right">{{$price->discounted}}</td>
+                                <td>{{$price->discount_valid_until}}</td>
+                                <td><i class="fas fa-trash deletePrice" id="{{$price->id}}"></i></td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
+            {{-- Color Picker Modal --}}
+            <input type="text" id="currentPriceId" />
+            <div class="modal fade" id="colorPickerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body d-flex flex-column">
+                            <div id="cp7" class="input-group colorpicker-component">
+                                <input type="text" id="selectedColor" value="" class="form-control" />
+                                <span class="input-group-addon"><i></i></span>
+                            </div>
+                            <button class="btn btn-primary button-sm mt-4 ml-auto" id="btnColor">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Color Picker Modal End --}}
 
-            
             <form action="{{ route('account.product.update', $product->id) }}" method="POST" autocomplete="off"
                 novalidate class="mb-1">
                 <div class="form-group">
@@ -130,17 +205,21 @@ ul#productImages li{
 
                             <select class="custom-select" name="category_id" id="category_id">
                                 @foreach($categories as $parent)
-                                    <option value="{{$parent->id}}" {{$parent->id == $product->category_id ? 'selected': ''}}>{{$parent->category}}</option>
-                                    @if($parent->children)
-                                        @foreach($parent->children as $child)
-                                            <option value="{{$child->id}}" {{$child->id == $product->category_id ? 'selected': ''}}> -- {{$child->category}}</option>
-                                            @if($child->children)
-                                                @foreach($child->children as $grandchild)
-                                                    <option value="{{$grandchild->id}}"  {{$grandchild->id == $product->category_id ? 'selected': ''}}> ---- {{$grandchild->category}}</option>
-                                                @endforeach
-                                            @endif
-                                        @endforeach
-                                    @endif
+                                <option value="{{$parent->id}}"
+                                    {{$parent->id == $product->category_id ? 'selected': ''}}>{{$parent->category}}</option>
+                                @if($parent->children)
+                                @foreach($parent->children as $child)
+                                <option value="{{$child->id}}" {{$child->id == $product->category_id ? 'selected': ''}}>
+                                    -- {{$child->category}}</option>
+                                @if($child->children)
+                                @foreach($child->children as $grandchild)
+                                <option value="{{$grandchild->id}}"
+                                    {{$grandchild->id == $product->category_id ? 'selected': ''}}> ----
+                                    {{$grandchild->category}}</option>
+                                @endforeach
+                                @endif
+                                @endforeach
+                                @endif
                                 @endforeach
                             </select>
                         </div>
@@ -225,10 +304,11 @@ ul#productImages li{
 <div class="mb-5"></div><!-- margin -->
 
 @include('uploadimagesimple.imagemanager')
+@include('account.product.price')
 
 
 @endsection
 
 @section('extrajs')
-    @include('uploadimagesimple.js')
+@include('uploadimagesimple.js')
 @endsection

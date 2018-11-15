@@ -49,10 +49,96 @@
         }
     });
 
+    function setCurrentPriceId(priceid) {
+        $('#currentPriceId').val(priceid)
+    }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+<script src="{{ asset('assets/plugins/colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+<script src="{{ asset('assets/js/datepicker.min.js') }}"></script>
 <script>
     $(document).ready(function () {
+
+        $('#cp7').colorpicker({
+            color: '#ffaa00'
+        });
+
+
+        $('#btnColor').on('click', function() {
+            var data = {
+                price_id: $('#currentPriceId').val(),
+                _token: '<?php echo csrf_token() ?>',
+                newcolor: $('#selectedColor').val()
+            }
+            $.ajax({
+                url: '/account/product/price/color',
+                data: data,
+                type: 'POST',
+                success: function (response) {
+                    var newcolor = '<div class="color" style="background-color: '+ $('#selectedColor').val()+'">' +
+                        '<i class="colorRemove" style="cursor:pointer" data-color="'+ $('#selectedColor').val()+'">✖</i>' +
+                        '</div>';
+                    var colorDiv = "#color-" + $('#currentPriceId').val(); 
+                    $(colorDiv).append(newcolor);
+                    $('#colorPickerModal').modal('hide');
+                }
+            });
+            
+        });
+
+        $('body').on('click', '.colorRemove' , function(){
+            if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) {
+                var colortoremove = $(this).data('color');
+                // alert(colortoremove);
+                $('#currentPriceId').val($(this).parent().parent().attr('id').split('-')[1]);
+                var data = {
+                    price_id: $('#currentPriceId').val(),
+                    _token: '<?php echo csrf_token() ?>',
+                    colortoremove: "~" + colortoremove
+                }
+                var that = this;
+                $.ajax({
+                    url: '/account/product/price/color/remove',
+                    data: data,
+                    type: 'POST',
+                    success: function (response) {
+
+                        $(that).parent().remove();
+                    }
+                });
+            }
+        });
+
+        $('#productPrices').on('click', '.deletePrice' , function(){
+            if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) {
+                var data = {
+                    price_id: this.id,
+                    _token: '<?php echo csrf_token() ?>'
+                }
+                $.ajax({
+                    url: '/account/product/price/delete',
+                    data: data,
+                    type: 'POST',
+                    success: function (response) {
+                        
+                        var rowtoremove = "#row-" + response;
+                        $(rowtoremove).remove();
+                    }
+                });
+            }
+        });
+
+        $('#productPrices').on('click', '.addpriceid' , function(){
+            $('#currentPriceId').val($(this).parent().prev().attr('id').split('-')[1]);
+        });
+
+        $('[data-toggle="datepicker"]').datepicker({
+            date: new Date(),
+            startDate: new Date(),
+            autoHide: true,
+            format: 'yyyy/mm/dd',
+            zIndex: 2000
+        });
 
         var x = document.getElementById("snackbar");
         if (x) {
@@ -112,6 +198,50 @@
                     } else {
                         alert('Image already exists for this Product');
                     }
+                },
+                error: function (a, b, err) {
+                    document.write(a.responseText);
+                }
+            });
+
+        });
+
+        $('#form-add-price').on("submit", function (event) {
+
+            event.preventDefault();
+
+            var form = new FormData(this);
+            $.ajax({
+                url: '/account/product/price',
+                data: form,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success: function (response) {
+
+                    $('#currentPriceId').val(response);
+                        var newprice = '<tr id="row-'+response+'">' +
+                                '<td>'+$('#attributes').val()+'</td>' +
+                                '<td class="d-flex justify-content-start">' +
+                                    '<div class="d-flex flex-wrap justify-content-start" id="color-'+response+'">' +
+                                    '</div>' +
+                                    '<div class="color" style="background-color: #ddd; text-align: center">' +
+                                        '<a href="javascript:void(0)" class="addpriceid" data-toggle="modal" data-target="#colorPickerModal">' +
+                                            '<i class="fas fa-plus"></i></a>' +
+                                    '</div>' +
+                                '</td>' +
+                                '<td style="text-align: right">'+$('#regular').val()+'</td>' +
+                                '<td style="text-align: right">'+$('#discounted').val()+'</td>' +
+                                '<td>'+$('#discount_valid_until').val()+'</td>' +
+                                '<td><i class="fas fa-trash deletePrice" id="'+response+'"></i></td>' +
+                            '</tr>';
+
+                        $('#productPrices').append(newprice);
+                        $('#form-add-price').trigger("reset");
+ 
+                        $('#priceModalAdd').modal('hide');
+
                 },
                 error: function (a, b, err) {
                     document.write(a.responseText);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Productprice;
 
 class ProductController extends Controller
 {
@@ -59,6 +60,14 @@ class ProductController extends Controller
         return redirect()->route('account.product.edit', $product->id)->with('success', 'Product Updated Successfully');
     }
 
+    public function destroy(Product $product) {
+
+        $product->prices()->delete();
+        $product->pics()->detach();
+        $product->delete();
+        return back()->with('success','Product deleted successfully.');
+    }
+
     private function validateRequest(Request $request) {
         return $request->validate([
             'name' => 'required',
@@ -66,4 +75,45 @@ class ProductController extends Controller
             'stock' => 'required|numeric'
         ]);
     }
+
+    //Product Price
+
+    public function saveprice(Request $request) {
+ 
+        $productprice = Productprice::create([
+            'product_id' => $request->product_id,
+            'attributes' => $request->txtattributes,
+            'regular' => $request->regular,
+            'discounted' => $request->discounted,
+            'discount_valid_until' => $request->discount_valid_until
+        ]);
+        return $productprice->id;   
+    }
+
+    public function deleteprice() {
+        Productprice::destroy(request('price_id'));
+        return request('price_id');
+    }
+
+    public function addcolor() {
+        $pid = request('price_id');
+        $newcolor = request('newcolor');
+        $pp = Productprice::find($pid);
+        $colors = $pp->colors;
+        $pp->colors = $colors . "~" . $newcolor;
+        $pp->save();
+        return request('price_id');
+    }
+
+    public function removecolor() {
+        $pid = request('price_id');
+        $colortoremove = request('colortoremove');
+        $pp = Productprice::find($pid);
+        $colors = $pp->colors;
+        $colors = str_replace($colortoremove, "", $colors);
+        $pp->colors = $colors;
+        $pp->save();
+        return $colortoremove;
+    }
+    
 }
