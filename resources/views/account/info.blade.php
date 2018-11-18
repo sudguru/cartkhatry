@@ -51,8 +51,7 @@
                     <div class="checkout-discount">
                         <h4>
                             <a data-toggle="collapse" href="#address-section" class="collapsed" role="button"
-                                aria-expanded="false" aria-controls="address-section" style="color: green">Set Shipping
-                                & Billing Address</a>
+                                aria-expanded="false" aria-controls="address-section" style="color: green">Address</a>
                         </h4>
 
                         <div class="collapse" id="address-section">

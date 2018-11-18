@@ -17,8 +17,7 @@ Route::prefix('adm')->middleware(['auth', 'is_admin'])->group(function () {
     Route::resource('product', 'Admin\ProductController');
     Route::resource('order', 'Admin\OrderController');
 
-    Route::resource('newlist', 'Admin\NewlistController');
-    Route::resource('featuredlist', 'Admin\FeaturedlistController');
+    Route::resource('productlist', 'Admin\ProductlistController');
 
     Route::resource('userdetail','Admin\UserdetailController');
     Route::resource('setting','Admin\SettingController');

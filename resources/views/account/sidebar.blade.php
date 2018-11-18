@@ -6,8 +6,6 @@
 
 <li><h5 style="margin: 0; margin-top: 20px; color: #999">For Customer</h5></li>
 <li class="{{ $currentPage == 'clientorders' ? 'active' : '' }}"><a href="/account/customer/orders">My Orders</a></li>
-<li><a href="/cart">My Wishlist</a></li>
-<li><a href="/wishlist">Currently in my Cart</a></li>
 <li class="{{ $currentPage == 'clientmessages' ? 'active' : '' }}"><a href="#">My Messages</a></li>
 
 <li><h5 style="margin: 0; margin-top: 20px; color: #999">For Merchant</h5></li>
