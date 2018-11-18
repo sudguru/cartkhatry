@@ -33,4 +33,5 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/banner/sortit', 'Admin\BannerController@sortit');
     Route::post('/banner/upload', 'Admin\BannerController@upload');
     Route::post('/paymentmethod/sortit', 'Admin\PaymentmethodController@sortit');
+    Route::post('/productlist/sortit', 'Admin\ProductlistController@sortit');
 });

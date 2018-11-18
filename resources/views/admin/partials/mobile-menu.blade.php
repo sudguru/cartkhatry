@@ -38,8 +38,8 @@
                 </li>
                 <li><a href="#" class="sf-with-ul">Lists</a>
                     <ul>
-                        <li><a href="{{ route('newlist.index') }}">New Products</a></li>
-                        <li><a href="{{ route('featuredlist.index') }}">Featured Products</a></li>
+                        <li><a href="{{ route('productlist.index') }}?listname=new">New Products</a></li>
+                        <li><a href="{{ route('productlist.index') }}?listname=featured">Featured Products</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('userdetail.index') }}">Manage Users</a></li>

@@ -1,22 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Productlist;
+use App\Productlist;
+use App\Http\Controllers\Controller;
 class ProductlistController extends Controller
 {
-    public function index() {
+    protected $active = "Products";
+
+    public function index(Request $request) {
         $listname = $request->query('listname');
         if(!$listname) {
             $listname = "New";
         }
         $productlists = Productlist::where('listname', $listname)->orderBy('display_order')->get();
-        return view('admin.banner.index', [
+        return view('admin.productlist.index', [
             'productlists' => $productlists,
             'active' => $this->active,
-            'bannertypes' => $bannertypes,
             'listname' => $listname
         ]);
+    }
+
+    public function create(Request $request) {
+        $listname = $request->query('listname');
+        return view('admin.producttype.add', ['active' => $this->active, 'listname' => $listname]);
     }
 }

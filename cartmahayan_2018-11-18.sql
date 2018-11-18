@@ -6,8 +6,8 @@
 # https://github.com/sequelpro/sequelpro
 #
 # Host: localhost (MySQL 5.7.17)
-# Database: cart
-# Generation Time: 2018-11-18 12:43:00 +0000
+# Database: cartmahayan
+# Generation Time: 2018-11-18 13:11:32 +0000
 # ************************************************************
 
 
@@ -121,18 +121,13 @@ LOCK TABLES `categories` WRITE;
 
 INSERT INTO `categories` (`id`, `category`, `description`, `banner`, `display_order`, `slug`, `parent_id`, `created_at`, `updated_at`)
 VALUES
-	(1,'Potato','Potatoes, Tomatoes',NULL,2,'potato',17,NULL,'2018-11-14 08:21:08'),
-	(6,'Fruits','',NULL,8,'fruits',NULL,NULL,'2018-11-14 08:21:44'),
-	(7,'Grain','',NULL,10,'grain',NULL,NULL,'2018-11-14 08:21:08'),
-	(8,'Meat','',NULL,11,'meat',NULL,NULL,'2018-11-14 08:21:08'),
-	(9,'Dairy','',NULL,6,'dairy',NULL,NULL,'2018-11-14 08:21:08'),
-	(10,'Oils',NULL,NULL,12,'oils',NULL,NULL,'2018-11-14 08:21:08'),
-	(11,'Ayurvedic','<p>                    sudeep\'s . priority</p><ul><li>Work</li><li>God</li><li>Health</li></ul>','1541246407.jpg',4,'ayurvedic',NULL,NULL,'2018-11-14 08:21:08'),
-	(12,'Food Supplement','',NULL,7,'food-supplement',NULL,NULL,'2018-11-14 08:21:08'),
-	(13,'Breads','',NULL,5,'breads',NULL,NULL,'2018-11-14 08:21:08'),
-	(14,'White Potato','',NULL,3,'white-potato',1,NULL,'2018-11-14 08:21:08'),
-	(15,'Mango','',NULL,9,'mango',6,NULL,'2018-11-14 08:21:44'),
-	(17,'Vegetables','<p>&nbsp;&nbsp;</p>',NULL,1,'vegetables',NULL,'2018-11-03 09:16:25','2018-11-14 08:21:08');
+	(18,'Dress',NULL,NULL,1,'dress',NULL,'2018-11-15 12:26:14','2018-11-15 12:26:14'),
+	(19,'Gloves',NULL,NULL,2,'gloves',NULL,'2018-11-15 12:26:14','2018-11-15 12:26:14'),
+	(20,'Outer',NULL,NULL,3,'outer',NULL,'2018-11-15 12:26:14','2018-11-15 12:26:14'),
+	(21,'Poncho',NULL,NULL,4,'poncho',NULL,'2018-11-15 12:26:14','2018-11-15 12:26:14'),
+	(22,'Shawl',NULL,NULL,5,'shawl',NULL,'2018-11-15 12:26:14','2018-11-15 12:26:32'),
+	(23,'Stole',NULL,NULL,6,'stole',NULL,'2018-11-15 12:26:14','2018-11-15 12:26:14'),
+	(24,'Sweater',NULL,NULL,7,'sweater',NULL,'2018-11-15 12:26:14','2018-11-15 12:26:14');
 
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -374,13 +369,9 @@ LOCK TABLES `pic_product` WRITE;
 
 INSERT INTO `pic_product` (`id`, `product_id`, `pic_id`, `display_order`, `caption`)
 VALUES
-	(9,2,16,3,'Cucumber'),
-	(11,2,17,1,'Biscuits'),
-	(13,1,17,3,'Biscuits'),
-	(14,2,18,2,'Breads'),
-	(15,1,16,1,'Cucumber'),
-	(16,1,18,2,'Breads'),
-	(17,1,19,4,'Stupa');
+	(24,5,20,1,'One Piece Dress'),
+	(25,6,21,2,'Blue Color Poncho'),
+	(26,6,22,1,'Pind Poncho');
 
 /*!40000 ALTER TABLE `pic_product` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -409,13 +400,29 @@ LOCK TABLES `pics` WRITE;
 
 INSERT INTO `pics` (`id`, `user_id`, `pic_path`, `lg`, `md`, `sm`, `xs`, `created_at`, `updated_at`)
 VALUES
-	(16,1,'1542177347.jpg',0,0,0,1,'2018-11-14 06:35:47','2018-11-14 06:35:47'),
-	(17,1,'1542178374.jpg',0,0,0,1,'2018-11-14 06:52:54','2018-11-14 06:52:54'),
-	(18,1,'1542192866.jpg',0,0,0,1,'2018-11-14 10:54:26','2018-11-14 10:54:26'),
-	(19,1,'1542255997.jpg',0,0,1,1,'2018-11-15 04:26:37','2018-11-15 04:26:37');
+	(20,1,'1542286410.jpg',0,0,1,1,'2018-11-15 12:53:30','2018-11-15 12:53:30'),
+	(21,1,'1542286643.jpg',0,0,1,1,'2018-11-15 12:57:23','2018-11-15 12:57:23'),
+	(22,1,'1542286694.jpg',0,0,1,1,'2018-11-15 12:58:14','2018-11-15 12:58:14');
 
 /*!40000 ALTER TABLE `pics` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# Dump of table productlists
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `productlists`;
+
+CREATE TABLE `productlists` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(10) unsigned NOT NULL,
+  `listname` varchar(30) DEFAULT NULL,
+  `displayorder` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 # Dump of table productprices
@@ -441,7 +448,9 @@ LOCK TABLES `productprices` WRITE;
 
 INSERT INTO `productprices` (`id`, `product_id`, `attributes`, `regular`, `discounted`, `discount_valid_until`, `colors`, `created_at`, `updated_at`)
 VALUES
-	(21,2,'Jumbo 2 Ltr',220.00,190.00,'2018-11-29','','2018-11-15 10:07:03','2018-11-15 10:08:13');
+	(23,5,'Medium',3000.00,2800.00,'2018-11-30','~#191813','2018-11-15 12:54:30','2018-11-15 12:54:47'),
+	(24,6,'Medium',1900.00,1700.00,'2018-11-30','~#30c3e3~#f525a1','2018-11-15 12:58:53','2018-11-15 13:00:48'),
+	(25,6,'Large',2200.00,2100.00,'2018-11-30','~#e3309b~#30c3e3','2018-11-15 12:59:07','2018-11-15 13:00:26');
 
 /*!40000 ALTER TABLE `productprices` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -476,8 +485,8 @@ LOCK TABLES `products` WRITE;
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `SKU`, `description`, `specification`, `user_id`, `stock`, `min_order_unit`, `min_stock_level`, `ordered_rank`, `viewed_rank`, `approved`, `created_at`, `updated_at`)
 VALUES
-	(1,11,'Some Cool No One Product','asdf','asdf','<p>asdf</p>',1,1,1,10,NULL,NULL,NULL,'2018-11-07 18:22:01','2018-11-14 11:12:02'),
-	(2,13,'Second Prouduct','668','Shortd','<p>Specification</p>',1,1,1,10,NULL,NULL,NULL,'2018-11-07 18:24:24','2018-11-15 07:17:42');
+	(5,18,'One Piece Dress','D001','Beautifully designed one piece Pashmina Dress.','<p>Pashmina 100%<br>Stole: 0%</p>',1,100,1,10,NULL,NULL,NULL,'2018-11-15 12:28:28','2018-11-15 12:28:28'),
+	(6,18,'Design Poncho','P001','Square Design Poncho','Pashmina: 40%',1,50,1,10,NULL,NULL,NULL,'2018-11-15 12:56:31','2018-11-15 13:23:36');
 
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -503,7 +512,9 @@ LOCK TABLES `promos` WRITE;
 
 INSERT INTO `promos` (`id`, `title`, `link`, `display_order`, `created_at`, `updated_at`)
 VALUES
-	(19,'Thi sis a  promo title','http://asdfadsf.com',6,'2018-10-28 10:09:53','2018-11-02 09:27:03'),
+	(20,'Another Promotion','http://facebook.com',3,'2018-10-28 10:10:32','2018-11-02 09:27:03'),
+	(21,'More Promotion Titles','http://twitter.com',5,'2018-10-28 10:12:29','2018-11-02 09:27:03'),
+	(22,'This is Promo Title','https://yahoo.com',4,'2018-10-28 10:29:03','2018-11-02 09:27:03'),
 	(24,'New Message','http://facebook.com',1,'2018-10-28 14:41:12','2018-11-02 09:27:03');
 
 /*!40000 ALTER TABLE `promos` ENABLE KEYS */;
@@ -541,7 +552,7 @@ LOCK TABLES `settings` WRITE;
 
 INSERT INTO `settings` (`id`, `site_name`, `phone1`, `phone2`, `address`, `email`, `order_email`, `description`, `facebook`, `googleplus`, `twitter`, `youtube`, `viber`, `whatsapp`, `skype`, `created_at`, `updated_at`)
 VALUES
-	(1,'Thok Samanx','977 1 837363x','977 1 838473x','Nayabazar, Kathmandu Nepalx','info@thoksaman.comx','order@thoksaman.comx','Your Local market. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla natus nisi adipisci vel voluptate, sint ducimus minus! Officia dolorum id eligendi, vero, aliquid delectus unde architecto dolores voluptas maiores aliquam?xxx','https://www.facebook.com/thoksamanx','xgpfx','twitterx','ytx','9876765456x','x9876765456x','9876765456x',NULL,'2018-11-02 09:15:16');
+	(1,'Mahayan Traders','977 1 837363x','977 1 838473x','France','info@thoksaman.comx','order@thoksaman.comx','Your Local market. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla natus nisi adipisci vel voluptate, sint ducimus minus! Officia dolorum id eligendi, vero, aliquid delectus unde architecto dolores voluptas maiores aliquam?xxx','https://www.facebook.com/thoksamanx','xgpfx','twitterx','ytx','9876765456x','x9876765456x','9876765456x',NULL,'2018-11-15 11:26:33');
 
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;

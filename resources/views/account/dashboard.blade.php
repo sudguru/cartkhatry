@@ -1,4 +1,7 @@
 @extends('layouts.site')
+@section('pagetitle')
+    Dashboard
+@endsection
 
 @section('content')
 <nav aria-label="breadcrumb" class="breadcrumb-nav">
