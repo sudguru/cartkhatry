@@ -7,13 +7,11 @@ Add Product List - Admin
 @section('content')
 <div class="d-flex align-items-center">
     <h2 class="pt-2 mb-0">Product List - Add</h2>
-
 </div>
 
     <form action="{{ route('productlist.store') }}" method="POST" autocomplete="off" novalidate class="mb-1">
         @csrf
         <div class="row justify-content-center mt-3">
-
         @php
         if(old('listname')):
             $selectedlistname = old('listname');
@@ -26,8 +24,8 @@ Add Product List - Admin
                 <label for="listname">List Name<span class="required">*</span></label>
                 <select id="listname" name="listname" class="form-control{{ $errors->has('listname') ? ' is-invalid' : '' }}">
                     <option value="0">List Name</option>
-                    <option value="New" {{ $selectedlistname == 'New' ? 'selected' : '' }}>New</option>
-                    <option value="New" {{ $selectedlistname == 'Featured' ? 'selected' : '' }}>New</option>
+                    <option value="new" {{ $selectedlistname == 'new' ? 'selected' : '' }}>New</option>
+                    <option value="featured" {{ $selectedlistname == 'featured' ? 'selected' : '' }}>Featured</option>
                 </select>
                 @if ($errors->has('listname'))
                 
