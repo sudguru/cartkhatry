@@ -27,6 +27,7 @@ class ProductController extends Controller
         $this->validateRequest($request);
         $product = Product::create([
             'name' => $request->name,
+            'slug' => str_slug($request->name, '-'),
             'category_id' => $request->category_id,
             'SKU' => $request->SKU,
             'description' => $request->description,
@@ -48,6 +49,7 @@ class ProductController extends Controller
         $this->validateRequest($request);
         $product->update([
             'name' => $request->name,
+            'slug' => str_slug($request->name, '-'),
             'category_id' => $request->category_id,
             'SKU' => $request->SKU,
             'description' => $request->description,

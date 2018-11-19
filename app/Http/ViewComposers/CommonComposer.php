@@ -9,26 +9,12 @@ use App\Setting;
 use App\Category;
 // use App\Info;
 use App\Promo;
+use App\Productlist;
+use App\Outlet;
 
 class CommonComposer
 {
-    private $setting;
-    private $promos;
-    private $categories;
-    
 
-    // public function compose(View $view)
-    // {
-    //   if (!$this->setting) {
-    //     $this->setting = Setting::first();
-    //     $this->promos = Promo::orderBy('display_order')->limit(10)->get();
-    //     $category = new Category;
-    //     $this->categories = $category->allCategories();
-    //   }
-    //   return $view->with('setting', $this->setting)
-    //       ->with('promos', $this->promos)
-    //       ->with('categories', $this->categories);
-    // }
 
     public function compose(View $view)
     {
@@ -44,6 +30,18 @@ class CommonComposer
       $view->with('categories', Cache::remember('categories', 1, function() {
         $category = new Category;
         return $category->allCategories();
+      }));
+
+      $view->with('outlets', Cache::remember('outlets', 1, function() {
+        return Outlet::orderBy("outlet")->get();
+      }));
+
+      $view->with('featureds', Cache::remember('featureds', 1, function() {
+        return Productlist::where('listname', 'featured')->take(10)->get();
+      }));
+
+      $view->with('newarrivals', Cache::remember('newarrivals', 1, function() {
+        return Productlist::where('listname', 'new')->take(10)->get();
       }));
 
     }

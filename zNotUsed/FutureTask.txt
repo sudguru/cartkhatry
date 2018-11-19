@@ -1,6 +1,19 @@
 Complet Authentication Cycle !Important
+Account Change Password
 Search
-Make Individual product price editable
+Make Individual product price record editable
 Make Account Info State 1-7 Selectatble
 Account Address Book 
-Account Change Password
+Admin -> Product List Available Products if there are many many products then filter feature
+Products SKU -> Automate? for general users as they might be confused and also if the users themselves enter the SKU, then it WILL NOT be UNIQUE
+Admin -> Products -> category_order 
+Admin -> Manage Users
+    SN
+    Username
+    User Roles (Super, Admin, Vendor, [Vendor, Customer])
+    No of Products
+    Orders Out (completed/Total)
+    Orders In (completd/Total)
+    Payment Methods
+
+Site -> Best Deals, Sales Later

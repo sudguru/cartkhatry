@@ -10,16 +10,20 @@ class Category extends Model
 
 
     public function children() {
-		return $this->hasMany(static::class, 'parent_id');
+		  return $this->hasMany(static::class, 'parent_id');
+    }
+
+    public function products() {
+      return $this->hasMany('App\Product');
     }
     
     public function allCategories()
-	{
-		return $this::with(array(
+	  {
+		  return $this::with(array(
             'children' => function ($query) {
             $query->orderBy('display_order');
             }
             ))->whereNull('parent_id')
             ->orderBy('display_order')->get();
-	}
+	  }
 }

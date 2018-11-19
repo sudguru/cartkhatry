@@ -12,12 +12,9 @@ class Product extends Model
         return $this->belongsTo('App\User');
     }
 
-    // public function allpics() {
-    //     return $this->hasMany('App\Pic');
-    // }
-    // public function pics() {
-    //     return $this->hasMany('App\Pic')->whereNull('deleted')->orderBy('display_order');
-    // }
+    public function category() {
+        return $this->belongsTo('App\Category');
+    }
 
     public function pics() {
         return $this->belongsToMany('App\Pic')->withPivot('display_order', 'caption');
@@ -25,5 +22,13 @@ class Product extends Model
 
     public function prices() {
         return $this->hasMany('App\ProductPrice');
+    }
+
+    public static function product_not_in_the_list_yet($listname) {
+        return static::whereNotIn('id', function($query) use($listname) {
+            $query->select('product_id')
+            ->from('productlists')
+            ->where('listname', '=', $listname);
+        })->get();
     }
 }

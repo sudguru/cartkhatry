@@ -37,29 +37,17 @@ Product LIst - Admin
 
 
 
-<div class="row justify-content-center mt-0">
-    <div class="col-md-4">
-        <ul class="list-group mt-3" id="plist">
-            @foreach($products as $product)
-            <li class="list-group-item d-flex align-items-center justify-content-between" id="p-{{$product->id}}">
-                <span style="width: 70%">
-                    {{$product->name}}
-                </span>
-                <span class="ml-auto">
-                    <a href='javascript:void(0)' class="addProduct"><i class="fas fa-plus"></i> Add</a>
-                </span>
-            </li>
-            @endforeach
-        </ul>
-    </div>
-    <div class="col-md-1">&nbsp;</div>
+<div class="row justify-content-center mt-3">
+    
+    
     <div class="col-md-7">
+        <h4>Products in the List</h4>
         <ul class="list-group mt-2" id="my-ui-list">
             @foreach ($productlists as $productlist)
             <li class="list-group-item d-flex align-items-center justify-content-between" data-id="{{ $productlist->id }}"
                 style="cursor: move">
                 <span style="width: 70%">
-                    <a href='{{ route('productlist.edit',$productlist->id) }}'>{{ $productlist->productlist }}</a>
+                    <a href='{{ route('productlist.edit',$productlist->id) }}'>{{ $productlist->product['name']}}</a>
                 </span>
                 <span class="ml-auto">
                     <a href="/adm/productlist/{{ $productlist->id }}" onclick="event.preventDefault();
@@ -75,6 +63,22 @@ Product LIst - Admin
                 </span>
             </li>
 
+            @endforeach
+        </ul>
+    </div>
+    <div class="col-md-1">&nbsp;</div>
+    <div class="col-md-4">
+        <h4>Available Products</h4>
+        <ul class="list-group mt-3">
+            @foreach($products as $product)
+            <li class="list-group-item d-flex align-items-center justify-content-between" id="p-{{$product->id}}">
+                <span style="width: 70%">
+                    {{$product->name}}
+                </span>
+                <span class="ml-auto">
+                    <a href='javascript:void(0)' class="addProduct"><i class="fas fa-plus"></i> Add</a>
+                </span>
+            </li>
             @endforeach
         </ul>
     </div>
@@ -94,12 +98,10 @@ Product LIst - Admin
         }, 3000);
     }
 
-    var plist = document.getElementById("plist");
-    Sortable.create(plist, { animation: 150, group: "omega" });
+
     var list = document.getElementById("my-ui-list");
     Sortable.create(list, {
         animation: 150,
-        group: "omega",
         store: {
             get: function (sortable) {
                 var order = sortable.toArray();
@@ -128,9 +130,44 @@ Product LIst - Admin
 <script>
     $(document).ready(function() {
         $('.addProduct').on('click', function(){
-            var id = $(this).parent().parent().attr('id');
-            var product_id = id.split('-')[1];
-            alert(product_id);
+            var rowid = $(this).parent().parent().attr('id');
+            var product_id = rowid.split('-')[1];
+            $('#'+rowid).remove();
+            var data = {
+                listname: "{{$listname}}",
+                product_id: product_id,
+                _token: '<?php echo csrf_token() ?>'
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/adm/productlist',
+                data: data,
+                success: function (data) {
+                    dataObj = JSON.parse(data);
+                    if (data) {
+                        var item = '<li class="list-group-item d-flex align-items-center justify-content-between" ' +
+                            'data-id="'+dataObj.id+'" style="cursor: move">' +
+                            '<span style="width: 70%">' +
+                                '<a href="#">'+dataObj.name+'</a>' +
+                            '</span>' +
+                            '<span class="ml-auto">' +
+                                '<a href="/adm/productlist/'+dataObj.id+'" onclick="event.preventDefault();' +
+                                'if ( confirm(\'You are about to delete this item?\\n \\\'Cancel\\\' to stop, \\\'OK\\\' to delete.\') ) ' +
+                                '{ document.getElementById(\'delete-form-'+dataObj.id+'\').submit();}return false;">' +
+                                    '<i class="fas fa-trash text-danger"></i>' +
+                                '</a>' +
+                                '<form id="delete-form-'+dataObj.id+'" action="/adm/productlist/'+dataObj.id+'" method="POST" style="display: none;">' +
+                                    '<input type="hidden" name="_token" value="'+dataObj.token+'">'+
+                                    '<input type="hidden" name="_method" value="delete">'+
+                                    '<input type="hidden" name="id" value="'+dataObj.id+'" />' +
+                                '</form>' +
+                            '</span>' +
+                        '</li>';
+                        console.log(item);
+                        $('#my-ui-list').append(item);
+                    }
+                }
+            });
         })
     });
 </script>

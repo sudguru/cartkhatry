@@ -37,3 +37,5 @@ ul#ticker li {
     margin-bottom: 2rem;
 }
 
+
+.add-compare::before{content:'\e80c'}

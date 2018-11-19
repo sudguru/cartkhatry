@@ -5,7 +5,7 @@ Add New Content Type - Admin
 @endsection
 
 @section('extracss')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/summernote.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/customize_summernote.css') }}">
 @endsection
 
@@ -54,9 +54,7 @@ Add New Content Type - Admin
             <div class="form-group">
                 <label for="content">Content</label>
 
-                <textarea id="content" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content">
-                    {{ old('content') }}
-                </textarea>
+                <textarea id="content" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content">{{ old('content') }}</textarea>
 
                 @if ($errors->has('content'))
                 <span class="invalid-feedback" role="alert">
@@ -77,7 +75,7 @@ Add New Content Type - Admin
 @endsection
 
 @section('extrajs')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+<script src="{{ asset('assets/js/summernote.min.js') }}"></script>
 <script>
     $(document).ready(function() {
         $('#content').summernote({
