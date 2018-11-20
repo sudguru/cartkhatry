@@ -81,7 +81,7 @@ Add Images of Product
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit Product</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit {{$product->name}}</li>
 
         </ol>
     </div><!-- End .container -->
@@ -96,7 +96,7 @@ Add Images of Product
     <div class="row">
         <div class="col-lg-9 order-lg-last dashboard-content">
             <div class="d-flex justify-content-between">
-                <h2>Edit Product</h2>
+                <h2><span class="text-muted">Edit</span> {{$product->name}}</h2>
                 <a class="btn btn-sm btn-info" style="height:36px; padding: .6rem 1.5rem" href="/account/products">Done</a>
             </div>
             <div class="card">

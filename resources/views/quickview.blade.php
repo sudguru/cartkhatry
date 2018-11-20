@@ -26,13 +26,13 @@
                 <div class="product-single-details">
                     <h1 class="product-title">{{$product->name}}</h1>
     
-                    <div class="ratings-container">
+                    {{-- <div class="ratings-container">
                         <div class="product-ratings">
                             <span class="ratings" style="width:60%"></span><!-- End .ratings -->
                         </div><!-- End .product-ratings -->
     
                         <a href="#" class="rating-link">( 6 Reviews )</a>
-                    </div><!-- End .product-container -->
+                    </div><!-- End .product-container --> --}}
     
                     <div class="price-box">
                         <span class="old-price">$81.00</span>
@@ -40,7 +40,7 @@
                     </div><!-- End .price-box -->
     
                     <div class="product-desc">
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non.</p>
+                        <p>{{$product->description}}</p>
                     </div><!-- End .product-desc -->
     
                     <div class="product-filters-container">
