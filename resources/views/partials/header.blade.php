@@ -90,7 +90,7 @@
                 </div><!-- End .header-contact -->
 
                 <div class="dropdown cart-dropdown">
-                    @include('partials.quickcart')
+                    @include('partials.cart-menu')
                 </div><!-- End .dropdown -->
             </div><!-- End .header-right -->
         </div><!-- End .container -->

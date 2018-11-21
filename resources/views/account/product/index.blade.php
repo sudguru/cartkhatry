@@ -45,7 +45,7 @@ Products
                     @foreach ($products as $key=>$product)
                     <tr>
                         <td>{{ ++$key }}</td>
-                        <td><a href="{{ route('account.product.edit', $product->id) }}">{{$product->name}}</a></td>
+                        <td><a href="{{ route('account.product.edit', $product->slug) }}">{{$product->name}}</a></td>
                         <td>{{$product->SKU}}</td>
                         <td class="{{ $product->stock <= $product->min_stock_level ? 'required' : '' }}">{{$product->stock}}</td>
                         <td>{{$product->min_stock_level}}</td>

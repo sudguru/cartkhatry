@@ -27,7 +27,7 @@ class ProductController extends Controller
         $this->validateRequest($request);
         $product = Product::create([
             'name' => $request->name,
-            'slug' => str_slug($request->name, '-'),
+            'slug' => 'temp',
             'category_id' => $request->category_id,
             'SKU' => $request->SKU,
             'description' => $request->description,
@@ -36,6 +36,9 @@ class ProductController extends Controller
             'stock' => $request->stock,
             'min_order_unit' => $request->min_order_unit,
             'min_stock_level' => $request->min_stock_level
+        ]);
+        $product->update([
+            'slug' => $product->id . '-' . str_slug($request->name, '-')
         ]);
         return redirect()->route('account.product.edit', $product->id)->with('success','Product Added Successfully, Now Add Product Image(s)');
     }
@@ -49,7 +52,7 @@ class ProductController extends Controller
         $this->validateRequest($request);
         $product->update([
             'name' => $request->name,
-            'slug' => str_slug($request->name, '-'),
+            'slug' => $product->id . '-' . str_slug($request->name, '-'),
             'category_id' => $request->category_id,
             'SKU' => $request->SKU,
             'description' => $request->description,
@@ -84,7 +87,9 @@ class ProductController extends Controller
  
         $productprice = Productprice::create([
             'product_id' => $request->product_id,
-            'attributes' => $request->txtattributes,
+            'name' => $request->name,
+            'fromqty' => $request->fromqty,
+            'toqty' => $request->toqty,
             'regular' => $request->regular,
             'discounted' => $request->discounted,
             'discount_valid_until' => $request->discount_valid_until

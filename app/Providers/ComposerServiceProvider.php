@@ -15,7 +15,8 @@ class ComposerServiceProvider extends ServiceProvider
                 'account.product.add',
                 'account.product.edit',
                 'layouts.site',
-                'home'
+                'home',
+                'singleproduct'
             ], 
             '\App\Http\ViewComposers\CommonComposer'
         );

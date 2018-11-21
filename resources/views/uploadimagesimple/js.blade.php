@@ -209,7 +209,10 @@
         $('#form-add-price').on("submit", function (event) {
 
             event.preventDefault();
-
+            var discounted = $('#discounted').val();
+            if( discounted == '' || discounted == 0) {
+                $('#discounted').val($('#regular').val());
+            }
             var form = new FormData(this);
             $.ajax({
                 url: '/account/product/price',
@@ -221,26 +224,27 @@
                 success: function (response) {
 
                     $('#currentPriceId').val(response);
-                        var newprice = '<tr id="row-'+response+'">' +
-                                '<td>'+$('#attributes').val()+'</td>' +
-                                '<td class="d-flex justify-content-start">' +
-                                    '<div class="d-flex flex-wrap justify-content-start" id="color-'+response+'">' +
-                                    '</div>' +
-                                    '<div class="color" style="background-color: #ddd; text-align: center">' +
-                                        '<a href="javascript:void(0)" class="addpriceid" data-toggle="modal" data-target="#colorPickerModal">' +
-                                            '<i class="fas fa-plus"></i></a>' +
-                                    '</div>' +
-                                '</td>' +
-                                '<td style="text-align: right">'+$('#regular').val()+'</td>' +
-                                '<td style="text-align: right">'+$('#discounted').val()+'</td>' +
-                                '<td>'+$('#discount_valid_until').val()+'</td>' +
-                                '<td><i class="fas fa-trash deletePrice" id="'+response+'"></i></td>' +
-                            '</tr>';
+                    var newprice = '<tr id="row-'+response+'">' +
+                            '<td>'+$('#pricename').val()+'</td>' +
+                            '<td class="d-flex justify-content-start">' +
+                                '<div class="d-flex flex-wrap justify-content-start" id="color-'+response+'">' +
+                                '</div>' +
+                                '<div class="color" style="background-color: #ddd; text-align: center">' +
+                                    '<a href="javascript:void(0)" class="addpriceid" data-toggle="modal" data-target="#colorPickerModal">' +
+                                        '<i class="fas fa-plus"></i></a>' +
+                                '</div>' +
+                            '</td>' +
+                            '<td>'+$('#fromqty').val()+' - '+$('#toqty').val()+'</td>' +
+                            '<td style="text-align: right">'+$('#regular').val()+'</td>' +
+                            '<td style="text-align: right">'+$('#discounted').val()+'</td>' +
+                            '<td>'+$('#discount_valid_until').val()+'</td>' +
+                            '<td><i class="fas fa-trash deletePrice" id="'+response+'"></i></td>' +
+                        '</tr>';
 
-                        $('#productPrices').append(newprice);
-                        $('#form-add-price').trigger("reset");
- 
-                        $('#priceModalAdd').modal('hide');
+                    $('#productPrices').append(newprice);
+                    $('#form-add-price').trigger("reset");
+
+                    $('#priceModalAdd').modal('hide');
 
                 },
                 error: function (a, b, err) {

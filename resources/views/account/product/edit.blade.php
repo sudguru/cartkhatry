@@ -129,8 +129,9 @@ Add Images of Product
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Attributes</th>
+                                <th>Name</th>
                                 <th>Colors</th>
+                                <th>Qty</th>
                                 <th style="text-align: right">Regular</th>
                                 <th style="text-align: right">Discounted</th>
                                 <th>Valid Until</th>
@@ -140,17 +141,19 @@ Add Images of Product
                         <tbody id="productPrices">
                             @foreach($product->prices as $price)
                             <tr id="row-{{$price->id}}">
-                                <td>{{$price->attributes}}</td>
+                                <td>{{$price->name}}</td>
                                 <td class="d-flex justify-content-start">
                                     <div class="d-flex flex-wrap justify-content-start" id="color-{{$price->id}}">
                                         @php
                                             $colors = explode('~', ltrim($price->colors,'~'));
                                         @endphp
-                                        @foreach($colors as $color)
-                                            <div class="color" style="background-color: {{$color}}">
-                                                <i class="colorRemove" style="cursor:pointer" data-color="{{$color}}">✖</i>
-                                            </div>
-                                        @endforeach
+                                        @if($price->colors)
+                                            @foreach($colors as $color)
+                                                <div class="color" style="background-color: {{$color}}">
+                                                    <i class="colorRemove" style="cursor:pointer" data-color="{{$color}}">✖</i>
+                                                </div>
+                                            @endforeach
+                                        @endif
                                     </div>
                                     <div class="color" style="background-color: #ddd; text-align: center">
                                         <a href="javascript:void(0)" class="addpriceid" data-toggle="modal" data-target="#colorPickerModal">
@@ -158,6 +161,7 @@ Add Images of Product
                                         </a>
                                     </div>
                                 </td>
+                                <td>{{$price->fromqty}} - {{$price->toqty}}</td>
                                 <td style="text-align: right">{{$price->regular}}</td>
                                 <td style="text-align: right">{{$price->discounted}}</td>
                                 <td>{{$price->discount_valid_until}}</td>

@@ -9,7 +9,7 @@
                         <a href="/product/{{$featured->product['slug']}}" class="product-image">
                             <img src="/storage/images/{{$featured->product['user_id']}}/thumb_400/{{$featured->product->pics->first()->pic_path}}" alt="product">
                         </a>
-                        <a href="ajax/product-quick-view/{{$featured->product_id}}" class="btn-quickview">Quickviews</a>
+                        <a href="ajax/product-quick-view/{{$featured->product['slug']}}" class="btn-quickview">Quickviews</a>
                     </figure>
                     <div class="product-details">
                         <div class="ratings-container">

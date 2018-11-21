@@ -12,9 +12,21 @@
                 <form action="/account/product/price" method="POST" id="form-add-price">
                     @csrf
                     <div class="row">
-                        <div class="col-md-12">
-                            <label for="attributes">Price Attribute</label>
-                            <input id="attributes" type="text" name="txtattributes" required class="form-control">
+                        <div class="col-md-6">
+                            <label for="pricename">Price Name (50 Chars Max)</label>
+                            <input id="pricename" type="text" name="name" required class="form-control" maxlength="50">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="fromqty">From (Qty)</label>
+                                    <input type="number" name="fromqty" id="fromqty" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="toqty">To (Qty)</label>
+                                    <input type="number" name="toqty" id="toqty" class="form-control">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -25,7 +37,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="discounted">Discount Price</label>
-                            <input id="discounted" type="number" name="discounted" required class="form-control">
+                            <input id="discounted" type="number" name="discounted" class="form-control">
 
                         </div>
                         <div class="col-md-4">

@@ -5,7 +5,7 @@
                     <div class="product-single-carousel owl-carousel owl-theme">
                         @foreach($product->pics as $pic)
                         <div class="product-item">
-                            <img class="product-single-image" src="/storage/images/{{$product->user_id}}/thumb_400/{{$pic->pic_path}}" 
+                            <img class="product-single-image" src="/storage/images/{{$product->user_id}}/original/{{$pic->pic_path}}" 
                             data-zoom-image="/storage/images/{{$product->user_id}}/original/{{$pic->pic_path}}"/>
                         </div>
                         @endforeach
@@ -34,10 +34,10 @@
                         <a href="#" class="rating-link">( 6 Reviews )</a>
                     </div><!-- End .product-container --> --}}
     
-                    <div class="price-box">
+                    {{-- <div class="price-box">
                         <span class="old-price">$81.00</span>
                         <span class="product-price">$101.00</span>
-                    </div><!-- End .price-box -->
+                    </div><!-- End .price-box --> --}}
     
                     <div class="product-desc">
                         <p>{{$product->description}}</p>
@@ -45,50 +45,48 @@
                     
 
 
-                    <div class="toggle toggle-primary" data-plugin-toggle data-plugin-options="{ 'isAccordion': true }">
-                        <section class="toggle active">
-                            <label>Curabitur eget leo at velit imperdiet vague iaculis vitaes?</label>
-                            <div class="toggle-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque neque eget diam posuere porta. Quisque ut nulla at nunc <a href="#">vehicula</a> lacinia. Proin adipiscing porta tellus, ut feugiat nibh adipiscing sit amet. In eu justo a felis faucibus ornare vel id metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eu libero ligula. Fusce eget metus lorem, ac viverra leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque neque eget diam posuere porta. Quisque ut nulla at nunc <a href="#">vehicula</a> lacinia. </p>
+                    <div style="margin-bottom: 2rem" class="product-filters-container">
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Product Price
+                            </button>
+                            <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @foreach($product->prices as $price)
+                                <a class="dropdown-item custom-dropdown-link changeprice" 
+                                    href="javascript:void(0)" 
+                                    id="{{$price->id }}" 
+                                    data-regular = "{{$price->regular}}" 
+                                    data-discounted = "{{$price->discounted}}" 
+                                    >
+                                    {{$price->attributes}}
+                                </a>
+                                @endforeach
                             </div>
-                        </section>
-                        <section class="toggle">
-                            <label>Curabitur eget leo at velit imperdiet vague iaculis vitaes?</label>
-                            <div class="toggle-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget leo at velit imperdiet varius. In eu ipsum vitae velit congue iaculis vitae at risus. Nullam tortor nunc, bibendum vitae semper a, volutpat eget massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla, orci sit amet posuere auctor, orci eros pellentesque odio, nec pellentesque erat ligula nec massa. Aenean consequat lorem ut felis ullamcorper posuere gravida tellus faucibus. Maecenas dolor elit, pulvinar eu vehicula eu, consequat et lacus. Duis et purus ipsum. In auctor mattis ipsum id molestie. Donec risus nulla, fringilla a rhoncus vitae, semper a massa. Vivamus ullamcorper, enim sit amet consequat laoreet, tortor tortor dictum urna, ut egestas urna ipsum nec libero. Nulla justo leo, molestie vel tempor nec, egestas at massa. Aenean pulvinar, felis porttitor iaculis pulvinar, odio orci sodales odio, ac pulvinar felis quam sit.</p>
-                            </div>
-                        </section>
-                        <section class="toggle">
-                            <label>Curabitur eget leo at velit imperdiet vague iaculis vitaes?</label>
-                            <div class="toggle-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget leo at velit imperdiet varius. In eu ipsum vitae velit congue iaculis vitae at risus. Nullam tortor nunc, bibendum vitae semper a, volutpat eget massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla, orci sit amet posuere auctor, orci eros pellentesque odio, nec pellentesque erat ligula nec massa. Aenean consequat lorem ut felis ullamcorper posuere gravida tellus faucibus. Maecenas dolor elit, pulvinar eu vehicula eu, consequat et lacus. Duis et purus ipsum. In auctor mattis ipsum id molestie. Donec risus nulla, fringilla a rhoncus vitae, semper a massa. Vivamus ullamcorper, enim sit amet consequat laoreet, tortor tortor dictum urna, ut egestas urna ipsum nec libero. Nulla justo leo, molestie vel tempor nec, egestas at massa. Aenean pulvinar, felis porttitor iaculis pulvinar, odio orci sodales odio, ac pulvinar felis quam sit.</p>
-                            </div>
-                        </section>
+                          </div>
+                          <div id="product-price-detail">
+                                <div class="product-single-filter">
+                                        <label>Colors:</label>
+                                        <ul class="config-swatch-list">
+                                            <li class="active">
+                                                <a href="#" style="background-color: #6085a5;"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" style="background-color: #ab6e6e;"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" style="background-color: #b19970;"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" style="background-color: #11426b;"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                          </div>
                     </div>
-                </div>
-                      
 
 
     
-                    <div class="product-filters-container">
-                        <div class="product-single-filter">
-                            <label>Colors:</label>
-                            <ul class="config-swatch-list">
-                                <li class="active">
-                                    <a href="#" style="background-color: #6085a5;"></a>
-                                </li>
-                                <li>
-                                    <a href="#" style="background-color: #ab6e6e;"></a>
-                                </li>
-                                <li>
-                                    <a href="#" style="background-color: #b19970;"></a>
-                                </li>
-                                <li>
-                                    <a href="#" style="background-color: #11426b;"></a>
-                                </li>
-                            </ul>
-                        </div><!-- End .product-single-filter -->
-                    </div><!-- End .product-filters-container -->
+
     
                     <div class="product-action">
                         <div class="product-single-qty">
@@ -115,3 +113,11 @@
             </div><!-- End .col-lg-5 -->
         </div><!-- End .row -->
     </div><!-- End .product-single-container -->    
+{{-- 
+    <script>
+    $(doucment).ready(function() {
+        $('.changeprice').on('click', function() {
+            alert($(this).attr('id'));
+        })
+    });
+    </script> --}}

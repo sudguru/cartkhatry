@@ -32,4 +32,8 @@ class HomeController extends Controller
     public function quickview(Product $product) {
         return view('quickview', compact('product'));
     }
+
+    public function singleproduct(Product $product) {
+        return view('singleproduct', compact('product'));
+    }
 }

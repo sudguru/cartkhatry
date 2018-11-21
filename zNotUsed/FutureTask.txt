@@ -2,6 +2,7 @@ Complet Authentication Cycle !Important
 Account Change Password
 Search
 Make Individual product price record editable
+Make productprice sortable
 Make Account Info State 1-7 Selectatble
 Account Address Book 
 Admin -> Product List Available Products if there are many many products then filter feature
@@ -17,3 +18,5 @@ Admin -> Manage Users
     Payment Methods
 
 Site -> Best Deals, Sales Later
+
+Why is Product price and picture related javascript in uploadimagesimple.js ??
