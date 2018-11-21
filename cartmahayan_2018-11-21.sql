@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.7.17)
 # Database: cartmahayan
-# Generation Time: 2018-11-19 10:38:55 +0000
+# Generation Time: 2018-11-21 11:12:38 +0000
 # ************************************************************
 
 
@@ -447,7 +447,9 @@ DROP TABLE IF EXISTS `productprices`;
 CREATE TABLE `productprices` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` int(10) unsigned NOT NULL,
-  `attributes` varchar(300) NOT NULL DEFAULT '',
+  `name` varchar(50) NOT NULL DEFAULT '',
+  `fromqty` int(11) DEFAULT NULL,
+  `toqty` int(11) DEFAULT NULL,
   `regular` double(15,2) NOT NULL,
   `discounted` double(15,2) NOT NULL DEFAULT '0.00',
   `discount_valid_until` date DEFAULT NULL,
@@ -460,11 +462,12 @@ CREATE TABLE `productprices` (
 LOCK TABLES `productprices` WRITE;
 /*!40000 ALTER TABLE `productprices` DISABLE KEYS */;
 
-INSERT INTO `productprices` (`id`, `product_id`, `attributes`, `regular`, `discounted`, `discount_valid_until`, `colors`, `created_at`, `updated_at`)
+INSERT INTO `productprices` (`id`, `product_id`, `name`, `fromqty`, `toqty`, `regular`, `discounted`, `discount_valid_until`, `colors`, `created_at`, `updated_at`)
 VALUES
-	(23,5,'Medium',3000.00,2800.00,'2018-11-30','~#191813','2018-11-15 12:54:30','2018-11-15 12:54:47'),
-	(24,6,'Medium',1900.00,1700.00,'2018-11-30','~#30c3e3~#f525a1','2018-11-15 12:58:53','2018-11-15 13:00:48'),
-	(25,6,'Large',2200.00,2100.00,'2018-11-30','~#e3309b~#30c3e3','2018-11-15 12:59:07','2018-11-15 13:00:26');
+	(24,6,'Medium',NULL,NULL,1900.00,1700.00,'2018-11-30','~#30c3e3~#f525a1','2018-11-15 12:58:53','2018-11-15 13:00:48'),
+	(25,6,'Large',NULL,NULL,2200.00,2100.00,'2018-11-30','~#e3309b~#30c3e3','2018-11-15 12:59:07','2018-11-15 13:00:26'),
+	(33,5,'Small 1- 10',1,10,100.00,900.00,NULL,'~#ffaa00~#2cf1a8','2018-11-21 08:28:53','2018-11-21 10:04:20'),
+	(34,5,'Small 11 - 20',11,20,850.00,850.00,NULL,NULL,'2018-11-21 08:29:08','2018-11-21 08:29:08');
 
 /*!40000 ALTER TABLE `productprices` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -500,8 +503,8 @@ LOCK TABLES `products` WRITE;
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `SKU`, `description`, `specification`, `user_id`, `stock`, `min_order_unit`, `min_stock_level`, `category_order`, `viewed_rank`, `approved`, `created_at`, `updated_at`)
 VALUES
-	(5,18,'One Piece Dress','one-piece-dress','D001','Beautifully designed one piece Pashmina Dress.','<p>Pashmina 100%<br>Stole: 0%</p>',1,100,1,10,NULL,NULL,0,'2018-11-15 12:28:28','2018-11-19 09:10:27'),
-	(6,18,'Design Poncho','design-poncho','P001','Square Design Poncho','Pashmina: 40%',1,50,1,10,NULL,NULL,0,'2018-11-15 12:56:31','2018-11-19 09:10:39');
+	(5,18,'One Piece Dress','5-one-piece-dress','D001','Beautifully designed one piece Pashmina Dress.','<p>Pashmina 100%<br>Stole: 0%</p>',1,100,1,10,NULL,NULL,0,'2018-11-15 12:28:28','2018-11-19 09:10:27'),
+	(6,18,'Design Poncho','6-design-poncho','P001','Square Design Poncho','Pashmina: 40%',1,50,1,10,NULL,NULL,0,'2018-11-15 12:56:31','2018-11-19 09:10:39');
 
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
