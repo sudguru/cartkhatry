@@ -20,3 +20,11 @@ Admin -> Manage Users
 Site -> Best Deals, Sales Later
 
 Why is Product price and picture related javascript in uploadimagesimple.js ??
+
+
+//Product Edit Modifications
+Delivery
+    Charges
+    Kathmandu
+    Pokhara
+    Duraction From - To

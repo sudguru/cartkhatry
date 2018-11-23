@@ -16,7 +16,8 @@ class AccountController extends Controller
             ['id' => auth()->user()->id],
             [
                 'is_admin' => 0,
-                'is_super' => 0
+                'is_super' => 0,
+                'vendor_level' => 'NotYet'
             ]
         );
 
@@ -45,7 +46,10 @@ class AccountController extends Controller
             'city' => $request->city,
             'country' => $request->country,
             'fax' => $request->fax,
-            'website' => $request->website
+            'website' => $request->website,
+            'description' => $request->description,
+            'payment_methods' => implode(",", $request->payment_methods),
+            'bank_info' => $request->bank_info
         ]);
 
 
@@ -55,7 +59,8 @@ class AccountController extends Controller
 
     private function validateRequest(Request $request) {
         return $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'payment_methods' => 'required'
         ]);
     }
 }

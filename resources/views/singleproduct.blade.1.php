@@ -15,9 +15,8 @@
             <li class="breadcrumb-item"><a href="#">Electronics</a></li>
             <li class="breadcrumb-item active" aria-current="page">Headsets</li>
         </ol>
-    </div>
+    </div><!-- End .container -->
 </nav>
-<input type="text" id="cart_product_id" value="{{$product->id}}" />
 <div class="container">
     <div class="row">
         <div class="col-lg-9">
@@ -33,6 +32,7 @@
                                 </div>
                                 @endforeach
                             </div>
+                            <!-- End .product-single-carousel -->
                             <span class="prod-full-screen">
                                 <i class="icon-plus"></i>
                             </span>
@@ -44,15 +44,25 @@
                             </div>
                             @endforeach
                         </div>
-                    </div>
+                    </div><!-- End .col-lg-7 -->
 
                     <div class="col-lg-5 col-md-6">
                         <div class="product-single-details">
                             <h1 class="product-title">{{$product->name}}</h1>
 
+                            {{-- <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:60%"></span><!-- End .ratings -->
+                                </div><!-- End .product-ratings -->
+
+                                <a href="#" class="rating-link">( 6 Reviews )</a>
+                            </div><!-- End .product-container --> --}}
+
+
+
                             <div class="product-desc">
                                 <p>{{$product->description}}</p>
-                            </div>
+                            </div><!-- End .product-desc -->
 
                             <div style="margin-bottom: 2rem" class="product-filters-container">
                                 <small>Prices</small>
@@ -62,7 +72,11 @@
                                         {{$product->prices->first()->name}}
                                     </button>
                                     <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        @php $qty_range = ""; @endphp
                                         @foreach($product->prices as $price)
+                                        @php
+                                            $qty_range .= $price->id . "," . $price->fromqty . "," . $price->toqty . "~";
+                                        @endphp
                                         <a class="dropdown-item custom-dropdown-link changeprice" href="javascript:void(0)"
                                             id="{{$price->id }}"
                                             data-fromqty="{{$price->fromqty}}" 
@@ -79,9 +93,12 @@
                                     <div class="price-box">
                                         @php
                                             $first_product_price  = $product->prices->first();
+                                            
                                             $regular = $first_product_price->regular;
                                             $discounted = $first_product_price->discounted;
                                             $colors = explode('~', ltrim($first_product_price->colors,'~'));
+                                            $price_id = $first_product_price->id;
+                                            $fromqty = $first_product_price->fromqty;
                                         @endphp
 
                                         @if( $regular == $discounted)
@@ -107,6 +124,15 @@
                                 </div>
                             </div>
 
+                            <div>
+                                <input type="text" id="cart_product_id" value="{{$product->id}}" />
+                                <input type="text" id="cart_price" value= "{{$discounted}}" />
+                                <input type="text" id="cart_color" value="{{$colors[0]}}"  />
+                                <input type="text" id="cart_price_id" value="{{$price_id}}"  />
+                                <input type="text" id="qty_range" value="{{$qty_range}}"  />
+                                <input type="text" id="fromqty" value="{{$fromqty}}"  />
+
+                            </div>
                             <div class="sticky-header">
                                 <div class="container">
                                     <div class="sticky-img">
@@ -123,14 +149,20 @@
                                                 <span class="old-price" id="sticky-old-price">Rs. {{$regular}}</span>
                                                 <span class="product-price" id="sticky-product-price">Rs. {{$discounted}}</span>
                                                 @endif
-                                            </div>
+                                            </div><!-- End .price-box -->
                                         </div>
+                                        {{-- <div class="ratings-container">
+                                            <div class="product-ratings">
+                                                <span class="ratings" style="width:60%"></span><!-- End .ratings -->
+                                            </div><!-- End .product-ratings -->
 
-                                    </div>
-                                    <a href="javascript:void(0)" class="paction add-cart btn-add-to-cart" title="Add to Cart">
+                                            <a href="#" class="rating-link"> ( In stock ) </a>
+                                        </div><!-- End .product-container --> --}}
+                                    </div><!-- End .sticky-detail -->
+                                    <a href="cart.html" class="paction add-cart" title="Add to Cart">
                                         <span>Add to Cart</span>
                                     </a>
-                                </div>
+                                </div><!-- end .container -->
                             </div><!-- end .sticky-header -->
 
                             <div class="product-action product-all-icons">
@@ -138,7 +170,7 @@
                                     <input class="horizontal-quantity form-control" id="productQty" type="text">
                                 </div><!-- End .product-single-qty -->
 
-                                <a href="cart.html" class="paction add-cart btn-add-to-cart" title="Add to Cart">
+                                <a href="cart.html" class="paction add-cart" title="Add to Cart">
                                     <span>Add to Cart</span>
                                 </a>
                                 <a href="#" class="paction add-wishlist" title="Add to Wishlist">

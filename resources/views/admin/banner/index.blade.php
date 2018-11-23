@@ -96,7 +96,7 @@ Banner - Admin
 
                 $.ajax({
                     type:'POST',
-                    url:'/banner/sortit',
+                    url:'/adm/banner/sortit',
                     data: data,
                     success:function(data){
                         console.log(data);

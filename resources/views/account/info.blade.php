@@ -48,101 +48,47 @@
                     </div>
 
 
-                    <div class="checkout-discount">
-                        <h4>
-                            <a data-toggle="collapse" href="#address-section" class="collapsed" role="button"
-                                aria-expanded="false" aria-controls="address-section" style="color: green">Address</a>
-                        </h4>
-
-                        <div class="collapse" id="address-section">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Billing info</strong>
-                                    <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <input type="text" class="form-control" id="address" name="address" value="{{$userdetail->address}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="city">City</label>
-                                        <input type="text" class="form-control" id="city" name="city" value="{{$userdetail->city}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="state">State</label>
-                                        <input type="text" class="form-control" id="state" name="state" value="{{$userdetail->state}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="postal_code">Postal Code</label>
-                                        <input type="text" class="form-control" id="postal_code" name="postal_code"
-                                            value="{{$userdetail->postal_code}}">
-                                    </div>
+                    <div class="row">
+                            <div class="col-md-6">
+                                <strong>Billing info</strong>
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address" value="{{$userdetail->address}}">
                                 </div>
-                                <div class="col-md-6">
-                                    <br />
-                                    <div class="form-group">
-                                        <label for="country">Country</label>
-                                        <input type="text" class="form-control" id="country" name="country" value="{{$userdetail->country}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone">Phone</label>
-                                        <input type="text" class="form-control" id="phone" name="phone" value="{{$userdetail->phone}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="fax">Fax</label>
-                                        <input type="text" class="form-control" id="fax" name="fax" value="{{$userdetail->fax}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="website">Web Site</label>
-                                        <input type="text" class="form-control" id="website" name="website" value="{{$userdetail->website}}">
-                                    </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city" name="city" value="{{$userdetail->city}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <input type="text" class="form-control" id="state" name="state" value="{{$userdetail->state}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="postal_code">Postal Code</label>
+                                    <input type="text" class="form-control" id="postal_code" name="postal_code"
+                                        value="{{$userdetail->postal_code}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <br />
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <input type="text" class="form-control" id="country" name="country" value="{{$userdetail->country}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="text" class="form-control" id="phone" name="phone" value="{{$userdetail->phone}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fax">Fax</label>
+                                    <input type="text" class="form-control" id="fax" name="fax" value="{{$userdetail->fax}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="website">Web Site</label>
+                                    <input type="text" class="form-control" id="website" name="website" value="{{$userdetail->website}}">
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="checkout-discount">
-                        <h4>
-                            <a data-toggle="collapse" href="#merchant-info-section" class="collapsed" role="button"
-                                aria-expanded="false" aria-controls="checkout-discount-section" style="color: green">Additional
-                                Info for Merchants</a>
-                        </h4>
-
-                        <div class="collapse" id="merchant-info-section">
-                            <div class="form-group">
-                                <label for="company_name">Company Name</label>
-                                <input type="company_name" class="form-control" id="company_name" name="company_name"
-                                    value="{{$userdetail->company_name}}" />
-                            </div>
-                            <div class="form-group">
-                                <strong>Payment Methods </strong>
-                                <div class="form-group-custom-control row" style="padding: 0 15px">
-
-                                    @foreach($paymentmethods as $paymentmethod)
-                                    <div class="custom-control custom-checkbox col-md-6">
-                                        <input type="checkbox" name="payment_methods[]" value="{{$paymentmethod->id}}"
-                                            class="custom-control-input" id="paymentmethod_{{$paymentmethod->id}}"
-                                            {{ in_array($paymentmethod->id, explode(",", $userdetail->payment_methods)) ? 'checked' : '' }}
-                                            >
-                                        <label class="custom-control-label" for="paymentmethod_{{$paymentmethod->id}}">{{$paymentmethod->payment_method}}</label>
-                                    </div><!-- End .custom-checkbox -->
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="form-group">
- 
-                                    <strong>Bank Info</strong>
-                                    <textarea class="form-control" name="bank_info" id="bank_info">{{$userdetail->bank_info}}</textarea>
-
-                            </div><!-- End .row -->
-                            <div class="form-group">
-                                <strong>Short Company Description</strong>
-                                <textarea class="form-control" name="description" id="description">{{$userdetail->description}}</textarea>
-                            </div>
-
-
-
-                        </div><!-- End .collapse -->
-                    </div><!-- End .checkout-discount -->
-
 
                     <div class="form-footer">
 

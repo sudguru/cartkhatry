@@ -13,7 +13,7 @@ class OutletController extends Controller
 
     public function index(Request $request) {
   
-        $outlets = Outlet::orderBy('outlet')->get();
+        $outlets = Outlet::orderBy('display_order')->get();
         return view('admin.outlet.index', [
             'outlets' => $outlets, 
             'active' => $this->active,
@@ -32,6 +32,7 @@ class OutletController extends Controller
 
     public function store(Request $request)
     {
+        $display_order = Outlet::count() + 1;
         $this->validateRequest($request);
         Outlet::create([
             'outlet' => $request->outlet,
@@ -45,7 +46,8 @@ class OutletController extends Controller
             'whatsapp' => $request->whatsapp,
             'skype' => $request->skype,
             'lat' => $request->lat,
-            'lng' => $request->lng
+            'lng' => $request->lng,
+            'display_order' => $display_order
         ]);
         return redirect()->route('outlet.index')->with('success','Outlet Added Successfully.');
     }
@@ -90,5 +92,14 @@ class OutletController extends Controller
         ]);
     }
 
+    public function sortit(Request $request) {
+        $order = $request->order;
+        foreach ($order as $key => $value) {
+            $p = Outlet::find($value);
+            $p->display_order = $key + 1;
+            $p->save();
+        }
+        return response()->json('ok', 200);
+    }
 
 }

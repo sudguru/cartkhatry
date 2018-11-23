@@ -4,10 +4,17 @@
 
         <div class="featured-products owl-carousel owl-theme">
             @foreach ($featureds as $featured)
+            @php
+                if(count($featured->product->pics) > 0) {
+                    $image_path = '<img src="/storage/images/'.$featured->product['user_id'].'/thumb_400'.'/' . $featured->product->pics->first()->pic_path .'" />';
+                } else {
+                    $image_path = "&nbsp;";
+                }
+            @endphp
             <div class="product">
                     <figure class="product-image-container">
                         <a href="/product/{{$featured->product['slug']}}" class="product-image">
-                            <img src="/storage/images/{{$featured->product['user_id']}}/thumb_400/{{$featured->product->pics->first()->pic_path}}" alt="product">
+                            {!!$image_path!!}
                         </a>
                         <a href="ajax/product-quick-view/{{$featured->product['slug']}}" class="btn-quickview">Quickviews</a>
                     </figure>

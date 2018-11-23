@@ -79,7 +79,7 @@ Info Boxes - Admin
 
                 $.ajax({
                     type:'POST',
-                    url:'/info/sortit',
+                    url:'/adm/info/sortit',
                     data: data,
                     success:function(data){
                         console.log(data);

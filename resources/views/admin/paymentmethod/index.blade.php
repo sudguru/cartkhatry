@@ -75,7 +75,7 @@ Payment Methods - Admin
 
                 $.ajax({
                     type:'POST',
-                    url:'/paymentmethod/sortit',
+                    url:'/adm/paymentmethod/sortit',
                     data: data,
                     success:function(data){
                         console.log(data);

@@ -44,14 +44,16 @@ $(document).ready(function () {
         $('#dropdownMenuButtonPrice').html(name);
         $('#product-price-detail').html($selectedprice);
 
+  
         var calc_qty = fromqty ? fromqty : 1;
 
         $('#productQty').val(calc_qty);
-        // $('#cart_price').val(discounted);
-        // $('#cart_color').val($('.activeColor').data('color'));
-        // $('#cart_price_id').val(id);
-        // $('#fromqty').val(fromqty);
+        $('#cart_price').val(discounted);
+        $('#cart_color').val($('.activeColor').data('color'));
+        $('#cart_price_id').val(id);
+        $('#fromqty').val(fromqty);
         
+
         if (regular == discounted) {
             $('#sticky-old-price').html('');
             $('#sticky-product-price').html(regular);
@@ -93,13 +95,5 @@ $(document).ready(function () {
     $('body').on('click', '.productColor', function () {
         $('#cart_color').val($(this).data('color'));
         $(this).addClass('active').addClass('activeColor').siblings().removeClass('active').removeClass('activeColor');
-    });
-
-    $('.btn-add-to-cart').on('click', function(){
-        var product_id = $('#cart_product_id').val();
-        var price_id 
-        var price
-        var color
-        var qty 
     });
 });

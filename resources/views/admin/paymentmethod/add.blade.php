@@ -30,7 +30,7 @@ Add New Payment Method - Admin
 
             <div class="form-footer" style="margin-top: 0; padding-top:0">
 
-                <button type="submit" class="btn btn-primary btn-md">Save Promo</button>
+                <button type="submit" class="btn btn-primary btn-md">Save Payment Method</button>
                 <a class="btn btn-light btn-md" href="{{ route('paymentmethod.index') }}">Cancel</a>
             </div><!-- End .form-footer -->
 

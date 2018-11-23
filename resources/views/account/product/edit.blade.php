@@ -34,8 +34,8 @@ Add Images of Product
     right: 15px;
 }
 .color {
-    width: 25px;
-    height: 25px;
+    width: 45px;
+    height: 45px;
     margin-right: 5px;
     margin-bottom: 5px;
     position: relative;
@@ -73,6 +73,17 @@ Add Images of Product
 .deletePrice {
     cursor: pointer;
 }
+
+.copycolor {
+    cursor: pointer;
+}
+
+#txtcopycolor {
+    display: none;
+    position: relative;;
+    left: -1000px
+}
+
 </style>
 @endsection
 
@@ -149,17 +160,21 @@ Add Images of Product
                                         @endphp
                                         @if($price->colors)
                                             @foreach($colors as $color)
-                                                <div class="color" style="background-color: {{$color}}">
+    
+                                                <div class="color" style="background-color: {{$color}}; text-align: center">
                                                     <i class="colorRemove" style="cursor:pointer" data-color="{{$color}}">✖</i>
+                                                    <span style="font-size: 9px" class="copycolor" data-color="{{$color}}">Copy</span>
                                                 </div>
+                                                
                                             @endforeach
                                         @endif
                                     </div>
                                     <div class="color" style="background-color: #ddd; text-align: center">
                                         <a href="javascript:void(0)" class="addpriceid" data-toggle="modal" data-target="#colorPickerModal">
-                                            <i class="fas fa-plus"></i>
+                                            <i class="fas fa-plus" style="margin-top: 16px"></i>
                                         </a>
                                     </div>
+                                    <input type="text" id="txtcopycolor"/>
                                 </td>
                                 <td>{{$price->fromqty}} - {{$price->toqty}}</td>
                                 <td style="text-align: right">{{$price->regular}}</td>
@@ -315,4 +330,5 @@ Add Images of Product
 
 @section('extrajs')
 @include('uploadimagesimple.js')
+@include('account.product.js')
 @endsection

@@ -76,7 +76,7 @@ Content Types - Admin
 
                 $.ajax({
                     type:'POST',
-                    url:'/contenttype/sortit',
+                    url:'/adm/contenttype/sortit',
                     data: data,
                     success:function(data){
                         console.log(data);

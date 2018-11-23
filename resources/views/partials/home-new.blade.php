@@ -1,13 +1,20 @@
 <div class="carousel-section">
     <div class="container">
         <h2 class="h3 title mb-4 text-center">New Arrivals</h2>
-
+        
         <div class="new-products owl-carousel owl-theme">
                 @foreach ($newarrivals as $newarrival)
+                @php
+                    if(count($newarrival->product->pics) > 0) {
+                        $image_path = '<img src="/storage/images/'.$newarrival->product['user_id'].'/thumb_400'.'/' . $newarrival->product->pics->first()->pic_path .'" />';
+                    } else {
+                        $image_path = "";
+                    }
+                @endphp
                 <div class="product">
                         <figure class="product-image-container">
                             <a href="/product/{{$newarrival->product['slug']}}" class="product-image">
-                                <img src="/storage/images/{{$newarrival->product['user_id']}}/thumb_400/{{$newarrival->product->pics->first()->pic_path}}" alt="product">
+                                {!!$image_path!!}
                             </a>
                             <a href="ajax/product-quick-view/{{$newarrival->product_id}}" class="btn-quickview">Quickviews</a>
                         </figure>

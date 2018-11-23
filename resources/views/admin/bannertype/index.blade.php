@@ -75,7 +75,7 @@ Banner Types - Admin
 
                 $.ajax({
                     type:'POST',
-                    url:'/bannertype/sortit',
+                    url:'/adm/bannertype/sortit',
                     data: data,
                     success:function(data){
                         console.log(data);

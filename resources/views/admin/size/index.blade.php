@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('pagetitle')
-Outlet - Admin
+Sizes - Admin
 @endsection
 
 @section('extracss')
@@ -10,9 +10,9 @@ Outlet - Admin
 
 @section('content')
 <div class="d-flex align-items-center pb-3" style="border-bottom: 2px solid #ccc">
-    <h2 class="pt-2 mb-0">Outlet</h2>
+    <h2 class="pt-2 mb-0">Sizes</h2>
     <span class="ml-auto">
-        <a href="/adm/outlet/create" class="btn btn-outline-success btn-sm">
+        <a href="/adm/size/create" class="btn btn-outline-success btn-sm">
             <i class="fas fa-plus"></i> Add New
         </a>
     </span>
@@ -24,18 +24,18 @@ Outlet - Admin
 <div class="row justify-content-center mt-0">
     <div class="col-md-12">
         <ul class="list-group mt-2" id="my-ui-list">
-            @foreach ($outlets as $outlet)
-            <li class="list-group-item d-flex" data-id="{{ $outlet->id }}"  style="cursor: move">
-                <a href='{{ route('outlet.edit', $outlet->id) }}'>{{ $outlet->outlet }}</a>
+            @foreach ($sizes as $size)
+            <li class="list-group-item d-flex" data-id="{{ $size->id }}" style="cursor: move">
+                <a href='{{ route('size.edit',$size->id) }}'>{{ $size->size }}</a>
                 <span class="ml-auto">
-                    <a href="/adm/outlet/{{ $outlet->id }}" onclick="event.preventDefault();
-                    if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$outlet->id}}').submit();}return false;">
+                    <a href="/adm/size/{{ $size->id }}" onclick="event.preventDefault();
+                    if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$size->id}}').submit();}return false;">
                         <i class="fas fa-trash text-danger"></i>
                     </a>
-                    <form id="delete-form-{{$outlet->id}}" action="/adm/outlet/{{ $outlet->id }}" method="POST" style="display: none;">
+                    <form id="delete-form-{{$size->id}}" action="/adm/size/{{ $size->id }}" method="POST" style="display: none;">
                         @csrf
                         {{ method_field('delete') }}
-                        <input type="hidden" name="id" value="{{ $outlet->id }}" />
+                        <input type="hidden" name="id" value="{{ $size->id }}" />
                     </form>
                 </span>
             </li>
@@ -68,7 +68,6 @@ Outlet - Admin
 
             set: function (sortable) {
                 var order = sortable.toArray();
-                console.log(order);
                 var data = {
                     order: order,
                     _token: '<?php echo csrf_token() ?>'
@@ -76,7 +75,7 @@ Outlet - Admin
 
                 $.ajax({
                     type:'POST',
-                    url:'/adm/outlet/sortit',
+                    url:'/adm/size/sortit',
                     data: data,
                     success:function(data){
                         console.log(data);

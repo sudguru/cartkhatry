@@ -92,7 +92,7 @@ Contents - Admin
 
                 $.ajax({
                     type:'POST',
-                    url:'/content/sortit',
+                    url:'/adm/content/sortit',
                     data: data,
                     success:function(data){
                         console.log(data);

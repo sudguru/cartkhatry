@@ -75,7 +75,7 @@ Promo Links - Admin
 
                 $.ajax({
                     type:'POST',
-                    url:'/promo/sortit',
+                    url:'/adm/promo/sortit',
                     data: data,
                     success:function(data){
                         console.log(data);
