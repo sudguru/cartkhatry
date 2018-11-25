@@ -15,6 +15,7 @@ Route::prefix('adm')->middleware(['auth', 'is_admin'])->group(function () {
     Route::resource('category', 'Admin\CategoryController');
     Route::resource('paymentmethod', 'Admin\PaymentmethodController');
     Route::resource('size', 'Admin\SizeController');
+    Route::resource('brand', 'Admin\BrandController');
     Route::resource('order', 'Admin\OrderController');
 
     Route::resource('productlist', 'Admin\ProductlistController');

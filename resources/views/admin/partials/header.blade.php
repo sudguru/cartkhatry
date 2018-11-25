@@ -57,6 +57,7 @@
                             <li><a href="{{ route('category.index') }}">Product Categories</a></li>
                             <li><a href="{{ route('paymentmethod.index') }}">Payment Methods</a></li>
                             <li><a href="{{ route('size.index') }}">Product Sizes</a></li>
+                            <li><a href="{{ route('brand.index') }}">Brands</a></li>
                         </ul>
                     </li>
                     <li class="{{ $active == 'Lists' ? 'active' : '' }}"><a href="#" class="sf-with-ul">Lists</a>
