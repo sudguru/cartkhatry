@@ -13,11 +13,7 @@
                 console.log(evt.item.getAttribute("data-id"));
                 var data = {
                     pic_id: evt.item.getAttribute("data-id"),
-                    product_id: {
-                        {
-                            $product - > id
-                        }
-                    },
+                    product_id: {{ $product->id }},
                     _token: '<?php echo csrf_token() ?>'
                 };
                 $.ajax({
@@ -40,17 +36,13 @@
                 console.log(order);
                 var data = {
                     order: order,
-                    product_id: {
-                        {
-                            $product - > id
-                        }
-                    },
+                    product_id: {{$product->id }},
                     _token: '<?php echo csrf_token() ?>'
                 };
 
                 $.ajax({
                     type: 'POST',
-                    url: '/image/sort',
+                    url: '/adm/image/sort',
                     data: data,
                     success: function (data) {
                         console.log(data);
@@ -164,6 +156,15 @@
                 x.className = x.className.replace("show", "");
             }, 3000);
         }
+
+        $('#description').summernote({
+            height: 150,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']]
+            ]
+        });
 
         $('#specification').summernote({
             height: 150,

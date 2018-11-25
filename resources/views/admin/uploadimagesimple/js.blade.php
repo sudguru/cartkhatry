@@ -17,7 +17,7 @@
             }
             var form = new FormData(this);
             $.ajax({
-                url: '/image/savecaption',
+                url: '/adm/image/savecaption',
                 data: form,
                 cache: false,
                 contentType: false,
@@ -59,7 +59,7 @@
             var form = new FormData(this);
 
             $.ajax({
-                url: '/image/upload',
+                url: '/adm/image/upload',
                 data: form,
                 cache: false,
                 contentType: false,
@@ -91,7 +91,7 @@
             var form = new FormData(this);
 
             $.ajax({
-                url: '/image/search',
+                url: '/adm/image/search',
                 data: form,
                 cache: false,
                 contentType: false,

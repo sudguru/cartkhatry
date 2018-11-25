@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Paymentmethod;
 class SettingController extends Controller
 {
     protected $active = "Settings";
@@ -12,7 +13,8 @@ class SettingController extends Controller
     public function index(Request $request) {
 
         $setting = Setting::first();
-        return view('admin.setting.edit', ['setting' => $setting, 'active' => $this->active]);
+        $paymentmethods = Paymentmethod::orderBy('display_order')->get();
+        return view('admin.setting.edit', ['setting' => $setting, 'active' => $this->active, 'paymentmethods' => $paymentmethods]);
     }
 
 
@@ -33,7 +35,12 @@ class SettingController extends Controller
             'viber' => $request->viber,
             'youtube' => $request->youtube,
             'whatsapp' => $request->whatsapp,
-            'skype' => $request->skype
+            'skype' => $request->skype,
+            'delivery_charge_local' => $request->delivery_charge_local,
+            'delivery_charge_intercity' => $request->delivery_charge_intercity,
+            'delivery_charge_intl' => $request->delivery_charge_intl,
+            'payment_methods' => implode(",", $request->payment_methods),
+            'bank_info' => $request->bank_info
         ]);
   
         return redirect()->route('setting.index')

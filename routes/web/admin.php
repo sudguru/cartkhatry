@@ -34,6 +34,7 @@ Route::prefix('adm')->middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/paymentmethod/sortit', 'Admin\PaymentmethodController@sortit');
     Route::post('/productlist/sortit', 'Admin\ProductlistController@sortit');
     Route::post('/size/sortit', 'Admin\SizeController@sortit');
+    Route::post('/brand/sortit', 'Admin\BrandController@sortit');
 
     Route::get('/products', 'Admin\ProductController@index')->name('product.index');
     Route::get('/product/create', 'Admin\ProductController@create')->name('product.create');

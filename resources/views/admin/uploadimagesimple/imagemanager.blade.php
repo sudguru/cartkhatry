@@ -13,10 +13,10 @@
                     </ul>
                     <div class="tab-content">
                         <div id="new" class="tab-pane active show">
-                            @include('uploadimagesimple.imageupload')
+                            @include('admin.uploadimagesimple.imageupload')
                         </div>
                         <div id="browse" class="tab-pane">
-                            @include('uploadimagesimple.imagebrowse')
+                            @include('admin.uploadimagesimple.imagebrowse')
                         </div>
                     </div>
                 </div>

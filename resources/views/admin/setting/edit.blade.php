@@ -5,7 +5,7 @@ Settings- Admin
 @endsection
 
 @section('extracss')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+<link href="{{asset('assets/css/summernote.min.css')}}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('assets/css/customize_summernote.css') }}">
 @endsection
 
@@ -192,6 +192,51 @@ Settings- Admin
                 @endif
             </div>
 
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="delivery_charge_local">Delivery Charge Local <span class="required">*</span></label>
+                        <input type="number" class="form-control" id="delivery_charge_local" name="delivery_charge_local"
+                            value="{{ old('delivery_charge_local') ?? $setting->delivery_charge_local }}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="delivery_charge_intercity">Delivery Charge Intercity <span class="required">*</span></label>
+                        <input type="number" class="form-control" id="delivery_charge_intercity" name="delivery_charge_intercity"
+                            value="{{ old('delivery_charge_intercity') ?? $setting->delivery_charge_intercity }}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="delivery_charge_intl">Delivery Charge Intl <span class="required">*</span></label>
+                        <input type="number" class="form-control" id="delivery_charge_intl" name="delivery_charge_intl"
+                            value="{{ old('delivery_charge_intl') ?? $setting->delivery_charge_intl }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <strong>Payment Methods </strong>
+                <div class="form-group-custom-control row" style="padding: 0 15px">
+
+                    @foreach($paymentmethods as $paymentmethod)
+                    <div class="custom-control custom-checkbox col-md-6">
+                        <input type="checkbox" name="payment_methods[]" value="{{$paymentmethod->id}}" class="custom-control-input"
+                            id="paymentmethod_{{$paymentmethod->id}}"
+                            {{ in_array($paymentmethod->id, explode(",", $setting->payment_methods)) ? 'checked' : '' }}>
+                        <label class="custom-control-label" for="paymentmethod_{{$paymentmethod->id}}">{{$paymentmethod->payment_method}}</label>
+                    </div><!-- End .custom-checkbox -->
+                    @endforeach
+                </div>
+            </div>
+            <div class="form-group">
+
+                <strong>Bank Info</strong>
+                <textarea class="form-control" name="bank_info" id="bank_info">{{ old('bank_info') ?? $setting->bank_info }}</textarea>
+
+            </div><!-- End .row -->
+
 
             <div class="form-footer" style="margin-top: 0; padding-top:0">
                 <button type="submit" class="btn btn-primary btn-md">Save Outlet</button>
@@ -204,7 +249,7 @@ Settings- Admin
 </div>
 @endsection
 @section('extrajs')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+<script src="{{ asset('assets/js/summernote.min.js') }}"></script>
 <script>
     $(document).ready(function () {
         $('#description').summernote({
@@ -223,47 +268,4 @@ Settings- Admin
     });
 
 </script>
-
-
-<script>
-    function initMap() {
-        var l = {
-            {
-                $setting - > lat
-            }
-        };
-        var n = {
-            {
-                $setting - > lng
-            }
-        };
-        var ktm = {
-            lat: l,
-            lng: n
-        };
-        var map = new google.maps.Map(
-            document.getElementById('map'), {
-                zoom: 15,
-                center: ktm
-            });
-        var marker = new google.maps.Marker({
-            position: ktm,
-            map: map,
-            draggable: true
-        });
-        google.maps.event.addListener(marker, "dragend", function (event) {
-            var lat = event.latLng.lat();
-            var lng = event.latLng.lng();
-            $("#lat").val(lat);
-            $("#lng").val(lng);
-            map.setCenter({
-                lat: lat,
-                lng: lng
-            });
-        });
-    }
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDM56_qNOsN6oNmaRapcWK5rZbFK69K6co&callback=initMap"
-    async defer></script>
 @endsection
