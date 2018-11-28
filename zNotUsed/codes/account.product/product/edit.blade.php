@@ -34,8 +34,8 @@ Add Images of Product
     right: 15px;
 }
 .color {
-    width: 30px;
-    height: 30px;
+    width: 45px;
+    height: 45px;
     margin-right: 5px;
     margin-bottom: 5px;
     position: relative;
@@ -75,10 +75,7 @@ Add Images of Product
 }
 
 .copycolor {
-    position: absolute;
     cursor: pointer;
-    top: 0;
-    left: 2px;
 }
 
 #txtcopycolor {
@@ -123,120 +120,74 @@ Add Images of Product
 
     <div class="card">
         <div class="card-header">
-            Size / Price / Color
-            <a href="#" class="card-edit" id="btn-add-price"><i class="fas fa-plus"></i>
-                &nbsp;Add New</a>
+            Product Prices
+            <a href="#" class="card-edit" data-toggle="modal" data-target="#priceModalAdd"><i class="fas fa-plus"></i>
+                &nbsp;Add New Price</a>
         </div>
 
         <div class="card-body table-responsive" style="padding-bottom: 0; min-height: 50px">
-            <form action="route('price.store') }}" method="POST" id="form-add-price">
-                @csrf
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th style="width: 10%">Size</th>
-                            <th style="width: 30%">Colors</th>
-                            <th>Qty From</th>
-                            <th>To</th>
-                            <th style="text-align: right">Regular</th>
-                            <th style="text-align: right">Discounted</th>
-                            <th>Valid Until</th>
-                            <th>Del</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productPrices">
-                        @foreach($product->prices as $price)
-                        <tr id="row-{{$price->id}}">
-                            <td>{{$price->size->size}}</td>
-                            <td class="d-flex justify-content-start">
-                                <div class="d-flex flex-wrap justify-content-start" id="color-{{$price->id}}">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Colors</th>
+                        <th>Qty</th>
+                        <th style="text-align: right">Regular</th>
+                        <th style="text-align: right">Discounted</th>
+                        <th>Valid Until</th>
+                        <th>Del</th>
+                    </tr>
+                </thead>
+                <tbody id="productPrices">
+                    @foreach($product->prices as $price)
+                    <tr id="row-{{$price->id}}">
+                        <td>{{$price->name}}</td>
+                        <td class="d-flex justify-content-start">
+                            <div class="d-flex flex-wrap justify-content-start" id="color-{{$price->id}}">
+                                @php
+                                $colors = explode('~', ltrim($price->colors,'~'));
+                                @endphp
+                                @if($price->colors)
+                                @foreach($colors as $color)
 
-                                    @foreach($price->colors as $color)
-
-                                    <div class="color" style="background-color: {{$color->color}}; text-align: center">
-                                        <i class="colorRemove" style="cursor:pointer" data-color="{{$color->color}}">✖</i>
-                                        <span style="font-size: 9px" class="copycolor" data-color="{{$color->color}}">Copy</span>
-                                    </div>
-
-                                    @endforeach
-
+                                <div class="color" style="background-color: {{$color}}; text-align: center">
+                                    <i class="colorRemove" style="cursor:pointer" data-color="{{$color}}">✖</i>
+                                    <span style="font-size: 9px" class="copycolor" data-color="{{$color}}">Copy</span>
                                 </div>
-                                <div class="color" style="background-color: #ddd; text-align: center">
-                                    <a href="javascript:void(0)" class="addpriceid" data-toggle="modal" data-target="#colorPickerModal">
-                                        <i class="fas fa-plus" style="margin-top: 8px"></i>
-                                    </a>
-                                </div>
-                                <input type="text" id="txtcopycolor" />
 
-                            </td>
-                            <td>{{$price->fromqty}}</td>
-                            <td>{{$price->toqty}}</td>
-                            <td style="text-align: right">{{$price->regular}}</td>
-                            <td style="text-align: right">{{$price->discounted}}</td>
-                            <td>{{$price->discount_valid_until}}</td>
-                            <td><i class="fas fa-trash deletePrice" id="{{$price->id}}"></i></td>
-                        </tr>
-
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td>
-                                <select name="size_id" class="form-control selectsizeclass">
-                                    @foreach($sizes as $size)
-                                    <option value="{{$size->id}}" data-size="{{$size->size}}">{{$size->size}}</option>
-                                    @endforeach
-                                </select>
-                                <input type="text" id="sizename" value="{{$sizes[0]->size}}" />
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>
-                                <input type="number" name="fromqty" id="fromqty" class="form-control">
-                            </td>
-                            <td>
-                                <input type="number" name="toqty" id="toqty" class="form-control">
-                            </td>
-                            <td>
-                                <input id="regular" type="number" name="regular" required class="form-control">
-                            </td>
-                            <td>
-                                <input id="discounted" type="number" name="discounted" class="form-control">
-                            </td>
-                            <td>
-                                <input id="discount_valid_until" type="text" name="discount_valid_until" data-toggle="datepicker"
-                                    class="form-control" autocomplete="off">
-                            </td>
-                            <td>
-                                <input type="hidden" name="product_id" value={{$product->id}} />
-                                <button type="submit" class="btn btn-primary btn-sm float-right">Save Price</button>
-                            </td>
-                        </tr>
-
-                    </tfoot>
-                </table>
-            </form>
+                                @endforeach
+                                @endif
+                            </div>
+                            <div class="color" style="background-color: #ddd; text-align: center">
+                                <a href="javascript:void(0)" class="addpriceid" data-toggle="modal" data-target="#colorPickerModal">
+                                    <i class="fas fa-plus" style="margin-top: 16px"></i>
+                                </a>
+                            </div>
+                            <input type="text" id="txtcopycolor" />
+                        </td>
+                        <td>{{$price->fromqty}} - {{$price->toqty}}</td>
+                        <td style="text-align: right">{{$price->regular}}</td>
+                        <td style="text-align: right">{{$price->discounted}}</td>
+                        <td>{{$price->discount_valid_until}}</td>
+                        <td><i class="fas fa-trash deletePrice" id="{{$price->id}}"></i></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
-
     {{-- Color Picker Modal --}}
-    <input type="text" id="currentPriceId" value="999" />
+    <input type="text" id="currentPriceId" />
     <div class="modal fade" id="colorPickerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Product Color & SKU</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <div class="modal-body d-flex flex-column">
                     <div id="cp7" class="input-group colorpicker-component">
                         <input type="text" id="selectedColor" value="" class="form-control" />
                         <span class="input-group-addon"><i></i></span>
                     </div>
-                    <input type="text" id="sku" class="form-control my-3" placeholder="SKU" />
-                    <button class="btn btn-primary button-sm ml-auto" id="btnColor">Done</button>
+                    <button class="btn btn-primary button-sm mt-4 ml-auto" id="btnColor">Done</button>
                 </div>
             </div>
         </div>
@@ -381,7 +332,7 @@ Add Images of Product
 <div class="mb-5"></div><!-- margin -->
 
 @include('admin.uploadimagesimple.imagemanager')
-
+@include('admin.product.price')
 
 
 @endsection

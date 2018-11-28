@@ -9,6 +9,9 @@ use App\Productprice;
 use App\Category;
 use App\Brand;
 use App\Setting;
+use App\Size;
+use App\Productcolor;
+
 class ProductController extends Controller
 {
     protected $active = "Products";
@@ -35,6 +38,7 @@ class ProductController extends Controller
         $product = Product::create([
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
+            'model' => $request->model,
             'name' => $request->name,
             'slug' => 'temp',
             'description' => $request->description,
@@ -59,13 +63,15 @@ class ProductController extends Controller
         $category = new Category;
         $brands = Brand::orderBy('display_order')->get();
         $setting = Setting::first();
+        $sizes = Size::orderBy('display_order')->get();
         return view('admin.product.edit', [
             'active' => $this->active,
             'categories' => $category->allCategories(),
             'brands' => $brands,
             'setting' => $setting,
             'userpics' => $userpics,
-            'product' => $product
+            'product' => $product,
+            'sizes' => $sizes
         ]);
     }
 
@@ -74,6 +80,7 @@ class ProductController extends Controller
         $product->update([
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
+            'model' => $request->model,
             'name' => $request->name,
             'slug' => $product->id . '-' . str_slug($request->name, '-'),
             'description' => $request->description,
@@ -109,14 +116,31 @@ class ProductController extends Controller
  
         $productprice = Productprice::create([
             'product_id' => $request->product_id,
-            'name' => $request->name,
+            'size_id' => $request->size_id,
             'fromqty' => $request->fromqty,
             'toqty' => $request->toqty,
             'regular' => $request->regular,
             'discounted' => $request->discounted,
             'discount_valid_until' => $request->discount_valid_until
         ]);
+        // $productprice = Productprice::create([
+        //     'product_id' => $request->product_id,
+        //     'size_id' => 1,
+        //     'regular' => 0,
+        //     'discounted' => 0
+        // ]);
         return $productprice->id;   
+    }
+
+    public function updateprice(Request $request) {
+        $field = $request->field;
+        $id = $request->id;
+        $value = $request->value;
+        $productprice = Productprice::find($id);
+        $productprice->update([
+            $field => $value
+        ]);
+        return $id;
     }
 
     public function deleteprice() {
@@ -125,24 +149,27 @@ class ProductController extends Controller
     }
 
     public function addcolor() {
-        $pid = request('price_id');
+        // $pid = request('price_id');
+        // $newcolor = request('newcolor');
+        // $pp = Productprice::find($pid);
+        // $colors = $pp->colors;
+        // $pp->colors = $colors . "~" . $newcolor;
+        // $pp->save();
+        // return request('price_id');
+        $productprice_id = request('price_id');
         $newcolor = request('newcolor');
-        $pp = Productprice::find($pid);
-        $colors = $pp->colors;
-        $pp->colors = $colors . "~" . $newcolor;
-        $pp->save();
-        return request('price_id');
+        $sku = request('sku');
+        $productcolor = Productcolor::create([
+            'productprice_id' => $productprice_id,
+            'color' => $newcolor,
+            'sku' => $sku
+        ]);
+
     }
 
     public function removecolor() {
-        $pid = request('price_id');
-        $colortoremove = request('colortoremove');
-        $pp = Productprice::find($pid);
-        $colors = $pp->colors;
-        $colors = str_replace($colortoremove, "", $colors);
-        $pp->colors = $colors;
-        $pp->save();
-        return $colortoremove;
+        Productcolor::destroy(request('price_id'));
+        return request('price_id');
     }
     
 }

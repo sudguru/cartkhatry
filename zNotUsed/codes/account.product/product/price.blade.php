@@ -55,10 +55,3 @@
         </div>
     </div>
 </div>
-<div id="sizeselect">
-    <select id="ttt" class="sizeselectclass form-control">
-        @foreach($sizes as $size)
-            <option value="{{$size->id}}">{{$size->size}}</option>
-        @endforeach
-    </select>
-</div>

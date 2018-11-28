@@ -41,13 +41,12 @@ Route::prefix('adm')->middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/product', 'Admin\ProductController@store')->name('product.store');
     Route::get('/product/{product}/edit', 'Admin\ProductController@edit')->name('product.edit');
     Route::put('/product/{product}', 'Admin\ProductController@update')->name('product.update');
+    Route::delete('/product/{product}', 'Admin\ProductController@destroy')->name('product.destroy');
 
-    Route::get('/product/prices', 'Admin\ProductController@getprices')->name('product.prices');
-    Route::post('/product/price', 'Admin\ProductController@saveprice');
-    Route::post('/product/price/delete', 'Admin\ProductController@deleteprice');
-    Route::post('/product/price/color', 'Admin\ProductController@addcolor');
-    Route::post('/product/price/color/remove', 'Admin\ProductController@removecolor');
-    Route::delete('/product/{product}', 'Admin\ProductController@destroy');
+    Route::post('/product/price', 'Admin\ProductController@saveprice')->name('price.store');
+    Route::post('/product/price/delete', 'Admin\ProductController@deleteprice')->name("price.destroy");
+    Route::post('/product/price/color', 'Admin\ProductController@addcolor')->name('color.store');
+    Route::post('/product/price/color/remove', 'Admin\ProductController@removecolor')->name('color.destroy');
 
     Route::post('/image/upload', 'Admin\UploadController@upload')->name('image.upload');
     Route::post('/image/savecaption', 'Admin\UploadController@savecaption')->name('image.savecaption');

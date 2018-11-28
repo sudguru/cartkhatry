@@ -58,7 +58,7 @@
 </script>
 <script>
     $(document).ready(function () {
-        // Delivery Enable Disable
+
         function disable_enable(val) {
             val = val == 0 ? true : false;
             $('#delivery_day_from').prop('disabled', val);
@@ -73,39 +73,6 @@
         $('#delivery_available').on('change', function() {
             disable_enable($(this).val());
         })
-        // Delivery Enable Disable End
-
-        $('#description').summernote({
-            height: 150,
-            toolbar: [
-                // [groupName, [list of button]]
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']]
-            ]
-        });
-
-        $('#specification').summernote({
-            height: 150,
-            toolbar: [
-                // [groupName, [list of button]]
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link', 'picture', 'video', 'table', 'hr']],
-                ['height', ['height']],
-                ['fullscreen']
-            ]
-        });
-
-        $('.selectsizeclass').on('change', function() {
-
-            var selected = $(this).find('option:selected');
-            var size = selected.data('size');
-            $('#sizename').val(size);
-            console.log(size);
-        });
-
 
         $('.copycolor').on('click', function () {
             var colorbox = $('#txtcopycolor');
@@ -126,11 +93,10 @@
             var data = {
                 price_id: $('#currentPriceId').val(),
                 _token: '<?php echo csrf_token() ?>',
-                newcolor: $('#selectedColor').val(),
-                sku : $('#sku').val()
+                newcolor: $('#selectedColor').val()
             }
             $.ajax({
-                url: '{{route('color.store') }}',
+                url: '/account/product/price/color',
                 data: data,
                 type: 'POST',
                 success: function (response) {
@@ -157,7 +123,7 @@
                 }
                 var that = this;
                 $.ajax({
-                    url: '{{route('color.destroy') }}',
+                    url: '/account/product/price/color/remove',
                     data: data,
                     type: 'POST',
                     success: function (response) {
@@ -175,7 +141,7 @@
                     _token: '<?php echo csrf_token() ?>'
                 }
                 $.ajax({
-                    url: '{{route('price.destroy') }}',
+                    url: '/account/product/price/delete',
                     data: data,
                     type: 'POST',
                     success: function (response) {
@@ -207,7 +173,28 @@
             }, 3000);
         }
 
-        
+        $('#description').summernote({
+            height: 150,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']]
+            ]
+        });
+
+        $('#specification').summernote({
+            height: 150,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture', 'video', 'table', 'hr']],
+                ['height', ['height']],
+                ['fullscreen']
+            ]
+        });
 
         $('#form-add-price').on("submit", function (event) {
 
@@ -218,7 +205,7 @@
             }
             var form = new FormData(this);
             $.ajax({
-                url: '{{route('price.store') }}',
+                url: '/account/product/price',
                 data: form,
                 cache: false,
                 contentType: false,
@@ -228,7 +215,7 @@
 
                     $('#currentPriceId').val(response);
                     var newprice = '<tr id="row-' + response + '">' +
-                        '<td>' + $('#sizename').val() + '</td>' +
+                        '<td>' + $('#pricename').val() + '</td>' +
                         '<td class="d-flex justify-content-start">' +
                         '<div class="d-flex flex-wrap justify-content-start" id="color-' +
                         response + '">' +
@@ -238,8 +225,7 @@
                         '<i class="fas fa-plus"></i></a>' +
                         '</div>' +
                         '</td>' +
-                        '<td>' + $('#toqty').val() + '</td>' +
-                        '<td>' + $('#fromqty').val() + '</td>' +
+                        '<td>' + $('#fromqty').val() + ' - ' + $('#toqty').val() + '</td>' +
                         '<td style="text-align: right">' + $('#regular').val() + '</td>' +
                         '<td style="text-align: right">' + $('#discounted').val() + '</td>' +
                         '<td>' + $('#discount_valid_until').val() + '</td>' +
