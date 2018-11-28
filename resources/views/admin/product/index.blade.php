@@ -20,15 +20,16 @@ Products
         <h2>Products</h2>
         <a class="btn btn-sm btn-primary" style="height:36px; padding: .6rem 1.5rem" href="{{route('product.create')}}">New</a>
     </div>
-    <div class="table-responsive mt-2">
+    <div class="table-responsive mt-2 mb-4">
         <table class="table table-striped" id="myTable">
             <thead>
                 <tr>
                     <td>SN</td>
                     <td>Name</td>
-                    <td>SKU</td>
-                    <td>Stock</td>
-                    <td>Level</td>
+                    <td>Brand</td>
+                    <td>Category</td>
+                    <td>Delivery</td>
+                    <td>Del Charge</td>
                     <td>Del</td>
                 </tr>
             </thead>
@@ -37,9 +38,14 @@ Products
                 <tr>
                     <td>{{ ++$key }}</td>
                     <td><a href="{{ route('product.edit', $product->slug) }}">{{$product->name}}</a></td>
-                    <td>{{$product->SKU}}</td>
-                    <td class="{{ $product->stock <= $product->min_stock_level ? 'required' : '' }}">{{$product->stock}}</td>
-                    <td>{{$product->min_stock_level}}</td>
+                    <td>{{$product->brand['brand']}}</td>
+                    <td>{{$product->category['category']}}</td>
+                    <td>{{ $product->delivery_available == 0 ? 'N/A' : $product->delivery_day_from . ' - ' . $product->delivery_day_to . ' days' }}</td>
+                    <td>
+                        {{$product->delivery_charge_local}} / 
+                        {{$product->delivery_charge_intercity}} / 
+                        {{$product->delivery_charge_intl}}
+                    </td>
                     <td>
                         <a href="/account/product/{{ $product->id }}" onclick="event.preventDefault();
                                 if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$product->id}}').submit();}return false;">

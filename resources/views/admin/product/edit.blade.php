@@ -1,4 +1,4 @@
-@extends('layouts.site')
+@extends('layouts.admin')
 @section('pagetitle')
 Add Images of Product
 @endsection
@@ -88,15 +88,6 @@ Add Images of Product
 @endsection
 
 @section('content')
-<nav aria-label="breadcrumb" class="breadcrumb-nav">
-    <div class="container">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit {{$product->name}}</li>
-
-        </ol>
-    </div><!-- End .container -->
-</nav>
 
 @if ($message = Session::get('success'))
 <div id="snackbar">{{ $message }}</div>
@@ -106,7 +97,7 @@ Add Images of Product
 
     <div class="d-flex justify-content-between">
         <h2><span class="text-muted">Edit</span> {{$product->name}}</h2>
-        <a class="btn btn-sm btn-info" style="height:36px; padding: .6rem 1.5rem" href="/account/products">Done</a>
+        <a class="btn btn-sm btn-info" style="height:36px; padding: .6rem 1.5rem" href="/adm/products">Done</a>
     </div>
     <div class="card">
         <div class="card-header">

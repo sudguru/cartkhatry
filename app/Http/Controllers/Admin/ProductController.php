@@ -36,7 +36,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
             'name' => $request->name,
-            'slug' => $product->id . '-' . str_slug($request->name, '-'),
+            'slug' => 'temp',
             'description' => $request->description,
             'specification' => $request->specification,
             'user_id' => auth()->user()->id,
@@ -51,7 +51,7 @@ class ProductController extends Controller
         $product->update([
             'slug' => $product->id . '-' . str_slug($request->name, '-')
         ]);
-        return redirect()->route('admin.product.edit', $product->slug)->with('success','Product Added Successfully, Now Add Product Image(s)');
+        return redirect()->route('product.edit', $product->slug)->with('success','Product Added Successfully, Now Add Product Image(s)');
     }
 
     public function edit(Product $product) {

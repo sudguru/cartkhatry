@@ -28,6 +28,10 @@ class Product extends Model
         return $this->hasMany('App\ProductPrice');
     }
 
+    public function brand() {
+        return $this->belongsTo('App\Brand');
+    }
+
     public static function product_not_in_the_list_yet($listname) {
         return static::whereNotIn('id', function($query) use($listname) {
             $query->select('product_id')

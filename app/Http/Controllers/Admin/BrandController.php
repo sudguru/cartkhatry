@@ -58,7 +58,7 @@ class BrandController extends Controller
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/brands', $filename);
         } else {
-            $filename = $school->photo;
+            $filename = $brand->pic_path;
         }
 
         $brand->update([

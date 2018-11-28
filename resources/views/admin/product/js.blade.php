@@ -18,7 +18,7 @@
                 };
                 $.ajax({
                     type: 'POST',
-                    url: '/image/delete',
+                    url: '/adm/image/delete',
                     data: data,
                     success: function (data) {
                         console.log(data);
