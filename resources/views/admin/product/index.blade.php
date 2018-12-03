@@ -29,7 +29,7 @@ Products
                     <td>Brand</td>
                     <td>Category</td>
                     <td>Delivery</td>
-                    <td>Del Charge</td>
+                    <td>Delivery Charge</td>
                     <td>Del</td>
                 </tr>
             </thead>
