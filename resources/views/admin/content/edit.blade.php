@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('pagetitle')
-Edit Content Type - admin
+Edit Content - admin
 @endsection
 
 @section('extracss')
@@ -11,7 +11,7 @@ Edit Content Type - admin
 
 @section('content')
 <div class="d-flex align-items-center">
-    <h2 class="pt-2 mb-0">Content Type - Edit</h2>
+    <h2 class="pt-2 mb-0">Content - Edit</h2>
 
 </div>
 <div class="row justify-content-center mt-3">

@@ -239,7 +239,7 @@ Settings- Admin
 
 
             <div class="form-footer" style="margin-top: 0; padding-top:0">
-                <button type="submit" class="btn btn-primary btn-md">Save Outlet</button>
+                <button type="submit" class="btn btn-primary btn-md">Save Setting</button>
                 <a class="btn btn-light btn-md" href="{{ route('setting.index') }}">Cancel</a>
             </div><!-- End .form-footer -->
 

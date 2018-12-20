@@ -46,7 +46,7 @@
         <div class="container">
             <div class="header-left">
                 <a href="/" class="logo">
-                    <img src="/assets/images/logo.png" alt="">
+                    <img src="d11/assets/images/logo.png" alt="">
                 </a>
             </div><!-- End .header-left -->
 

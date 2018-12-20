@@ -117,8 +117,6 @@ class ProductController extends Controller
         $productprice = Productprice::create([
             'product_id' => $request->product_id,
             'size_id' => $request->size_id,
-            'fromqty' => $request->fromqty,
-            'toqty' => $request->toqty,
             'regular' => $request->regular,
             'discounted' => $request->discounted,
             'discount_valid_until' => $request->discount_valid_until
