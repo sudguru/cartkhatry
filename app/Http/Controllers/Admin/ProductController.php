@@ -96,8 +96,9 @@ class ProductController extends Controller
         return redirect()->route('product.edit', $product->slug)->with('success', 'Product Updated Successfully');
     }
 
-    public function destroy(Product $product) {
-
+    
+    public function destroy($p) {
+        $product = Product::find($p);
         $product->prices()->delete();
         $product->pics()->detach();
         $product->delete();

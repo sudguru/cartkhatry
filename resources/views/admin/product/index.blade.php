@@ -47,14 +47,14 @@ Products
                         {{$product->delivery_charge_intl}}
                     </td>
                     <td>
-                        <a href="/account/product/{{ $product->id }}" onclick="event.preventDefault();
+                        <a href="{{ route('product.destroy', $product->id) }}" onclick="event.preventDefault();
                                 if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$product->id}}').submit();}return false;">
                             <i class="fas fa-trash"></i>
                         </a>
-                        <form id="delete-form-{{$product->id}}" action="/account/product/{{ $product->id }}" method="POST"
+                        <form id="delete-form-{{$product->id}}" action="{{ route('product.destroy', $product->id) }}" method="POST"
                             style="display: none;">
                             @csrf
-                            {{ method_field('delete') }}
+                            {{ method_field('DELETE') }}
                             <input type="hidden" name="id" value="{{ $product->id }}" />
                         </form>
                     </td>
