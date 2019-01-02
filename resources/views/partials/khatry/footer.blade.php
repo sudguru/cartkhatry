@@ -21,19 +21,20 @@
 
                         <div class="col-md-5">
                             <div class="widget">
+                                    <h4 class="widget-title">Contact</h4>
                                 <ul class="contact-info">
                                     <li>
-                                        <span class="contact-info-label">Address:</span>123 Street Name, City, England
+                                        <span class="contact-info-label">Address:</span>{{$setting->address}}
                                     </li>
                                     <li>
-                                        <span class="contact-info-label">Phone:</span>Toll Free <a href="tel:">(123) 456-7890</a>
+                                        <span class="contact-info-label">Phone:</span><a href="tel:{{$setting->phone1}}">{{$setting->phone1}}</a>
                                     </li>
                                     <li>
-                                        <span class="contact-info-label">Email:</span> <a href="mailto:mail@example.com">mail@example.com</a>
+                                        <span class="contact-info-label">Email:</span> <a href="mailto:{{$setting->email}}">{{$setting->email}}</a>
                                     </li>
                                     <li>
                                         <span class="contact-info-label">Working Days/Hours:</span>
-                                        Mon - Sun / 9:00AM - 8:00PM
+                                        Sun - Fri / 9:00AM - 8:00PM
                                     </li>
                                 </ul>
                             </div><!-- End .widget -->
