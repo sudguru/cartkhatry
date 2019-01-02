@@ -25,7 +25,7 @@ class Product extends Model
     }
 
     public function prices() {
-        return $this->hasMany('App\ProductPrice');
+        return $this->hasMany('App\Productprice');
     }
 
     public function brand() {
