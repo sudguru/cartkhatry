@@ -1,10 +1,14 @@
-<a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-    data-display="static">
+<a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
     <span class="cart-count">2</span>
 </a>
 
-<div class="dropdown-menu">
+<div class="dropdown-menu" >
     <div class="dropdownmenu-wrapper">
+        <div class="dropdown-cart-header">
+            <span>2 Items</span>
+
+            <a href="cart.html">View Cart</a>
+        </div><!-- End .dropdown-cart-header -->
         <div class="dropdown-cart-products">
             <div class="product">
                 <div class="product-details">
@@ -20,7 +24,7 @@
 
                 <figure class="product-image-container">
                     <a href="product.html" class="product-image">
-                        <img src="/assets/images/products/cart/product-1.jpg" alt="product">
+                        <img src="d11/assets/images/products/cart/product-1.jpg" alt="product">
                     </a>
                     <a href="#" class="btn-remove" title="Remove Product"><i class="icon-cancel"></i></a>
                 </figure>
@@ -40,7 +44,7 @@
 
                 <figure class="product-image-container">
                     <a href="product.html" class="product-image">
-                        <img src="/assets/images/products/cart/product-2.jpg" alt="product">
+                        <img src="d11/assets/images/products/cart/product-2.jpg" alt="product">
                     </a>
                     <a href="#" class="btn-remove" title="Remove Product"><i class="icon-cancel"></i></a>
                 </figure>
@@ -54,8 +58,7 @@
         </div><!-- End .dropdown-cart-total -->
 
         <div class="dropdown-cart-action">
-            <a href="cart.html" class="btn">View Cart</a>
-            <a href="checkout-shipping.html" class="btn">Checkout</a>
+            <a href="checkout-shipping.html" class="btn btn-block">Checkout</a>
         </div><!-- End .dropdown-cart-total -->
     </div><!-- End .dropdownmenu-wrapper -->
 </div><!-- End .dropdown-menu -->

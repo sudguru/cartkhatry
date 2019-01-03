@@ -119,7 +119,7 @@ Add Banner - admin
                 // $('#title').val('');
                 $("#title").prop('disabled', true);
             }
-            if (needsTitle) {
+            if (needsSubtitle) {
                 $("#subtitle").prop('disabled', false);
             } else {
                 // $('#subtitle').val('');

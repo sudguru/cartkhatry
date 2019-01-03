@@ -5,12 +5,12 @@
 @endsection
 
 @section('content')
-    @include('partials.khatry.home-slider')
-    @include('partials.khatry.horizontal-banners')
+    @include('partials.home-slider')
+    @include('partials.horizontal-banners')
     <div class="mb-3"></div><!-- margin -->
-    @include('partials.khatry.home-featured')
+    @include('partials.home-featured')
     <div class="mb-5"></div><!-- margin -->
-    @include('partials.khatry.home-top')
+    @include('partials.home-top')
     <div class="mb-5"></div><!-- margin -->
     {{-- 
     @include('partials.home-infoboxes')

@@ -7,7 +7,7 @@
                     <li><span class="badge badge-warning">Ad</span>&nbsp; <a href="{{$promo->link}}" class="text-promo">{{$promo->title}}</a></li>
                     @endforeach
                 </ul>
-            </div>
+            </div><!-- End .header-left -->
 
             <div class="header-right">
                 <div class="header-dropdown dropdown-expanded">
@@ -45,15 +45,12 @@
     <div class="header-middle">
         <div class="container">
             <div class="header-left">
-                <a href="/" class="logo">
-                    <img src="d11/assets/images/logo.png" alt="">
-                </a>
-            </div><!-- End .header-left -->
-
-            <div class="header-center">
+                <button class="mobile-menu-toggler" type="button">
+                    <i class="icon-menu"></i>
+                </button>
                 <div class="header-search">
                     <a href="#" class="search-toggle" role="button"><i class="icon-magnifier"></i></a>
-                    <form action="/search" method="POST">
+                    <form action="#" method="get">
                         <div class="header-search-wrapper">
                             <input type="search" class="form-control" name="q" id="q" placeholder="Search..." required>
                             <div class="select-custom">
@@ -78,12 +75,15 @@
                         </div><!-- End .header-search-wrapper -->
                     </form>
                 </div><!-- End .header-search -->
+            </div><!-- End .header-left -->
+
+            <div class="header-center">
+                <a href="/" class="logo">
+                    <img src="/assets/images/logo.png" alt="{{ $setting->site_name }}">
+                </a>
             </div><!-- End .headeer-center -->
 
             <div class="header-right">
-                <button class="mobile-menu-toggler" type="button">
-                    <i class="icon-menu"></i>
-                </button>
                 <div class="header-contact">
                     <span>Call us now</span>
                     <a href="tel:#"><strong>{{$setting->phone1}}</strong></a>
@@ -194,6 +194,7 @@
                 <li class="float-right"><a href="/daily-deals">Daily Deals</a></li>
                 <li class="float-right"><a href="/sales">Sales !</a></li>
                 </ul>
+                    
             </nav>
         </div><!-- End .header-bottom -->
     </div><!-- End .header-bottom -->

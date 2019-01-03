@@ -6,7 +6,7 @@
                             <i class="icon-menu"></i>
                         </button>
                 <a href="/" class="logo">
-                    <img src="d11/assets/images/logo.png" alt="">
+                    <img src="/assets/images/logo.png" alt="">
                 </a>
             </div><!-- End .header-left -->
 

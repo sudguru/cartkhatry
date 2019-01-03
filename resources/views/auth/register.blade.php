@@ -1,4 +1,4 @@
-@extends('layouts.site')
+@extends('layouts.d11')
 
 @section('content')
 <div class="container mt-3 mb-3">

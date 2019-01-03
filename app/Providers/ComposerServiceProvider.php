@@ -14,7 +14,7 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer([
                 'account.product.add',
                 'account.product.edit',
-                'layouts.site',
+                'layouts.d11',
                 'home',
                 'singleproduct'
             ], 

@@ -13,7 +13,7 @@
 
     <meta name="keywords" content="local market - should be dynamic" />
     <meta name="description" content="shold be dynamic">
-    <link rel="icon" type="image/x-icon" href="{{ asset('d11/assets/images/icons/favicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/icons/favicon.ico') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/solid.css" integrity="sha384-osqezT+30O6N/vsMqwW8Ch6wKlMofqueuia2H7fePy42uC05rm1G+BUPSd2iBSJL" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/fontawesome.css" integrity="sha384-BzCy2fixOYd0HObpx3GMefNqdbA7Qjcc91RgYeDjrHTIEXqiF00jKvgQG0+zY/7I" crossorigin="anonymous">
 
@@ -21,9 +21,9 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="{{ asset('d11/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('d11/assets/css/style.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('d11/assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
 
     @yield('extracss')
@@ -32,25 +32,25 @@
 
 <div class="page-wrapper">
         
-        @include('partials.khatry.header')
+        @include('partials.header')
         
         <main class="main">
             @yield('content')
         </main>
 
-        @include('partials.khatry.footer')
+        @include('partials.footer')
         
     </div>
 
-    @include('partials.khatry.mobile-menu')
+    @include('partials.mobile-menu')
     <!-- Scripts -->
-    <script src="{{ asset('d11/assets/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('d11/assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('d11/assets/js/plugins.min.js') }}"></script>
-    <script src="{{ asset('d11/assets/js/main.min.js') }}"></script>
-    <script src="{{ asset('d11/assets/js/nouislider.min.js') }}"></script>
-    <script src="{{ asset('d11/assets/js/ticker.js') }}"></script>
-    <script src="{{ asset('d11/assets/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins.min.js') }}"></script>
+    <script src="{{ asset('assets/js/main.min.js') }}"></script>
+    <script src="{{ asset('assets/js/nouislider.min.js') }}"></script>
+    <script src="{{ asset('assets/js/ticker.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
     @yield('extrajs')
 </body>
 </html>
