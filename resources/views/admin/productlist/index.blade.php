@@ -40,7 +40,7 @@ Product LIst - Admin
 <div class="row justify-content-center mt-3">
     
     
-    <div class="col-md-7">
+    <div class="col-md-4">
         <h4>Products in the List</h4>
         <ul class="list-group mt-2" id="my-ui-list">
             @foreach ($productlists as $productlist)
@@ -67,13 +67,13 @@ Product LIst - Admin
         </ul>
     </div>
     <div class="col-md-1">&nbsp;</div>
-    <div class="col-md-4">
+    <div class="col-md-7">
         <h4>Available Products</h4>
         <ul class="list-group mt-3">
             @foreach($products as $product)
             <li class="list-group-item d-flex align-items-center justify-content-between" id="p-{{$product->id}}">
                 <span style="width: 70%">
-                    {{$product->name}}
+                    {{$product->name}} / <small>{{$product->user->name}}</small>
                 </span>
                 <span class="ml-auto">
                     <a href='javascript:void(0)' class="addProduct"><i class="fas fa-plus"></i> Add</a>

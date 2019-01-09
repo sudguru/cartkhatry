@@ -28,3 +28,5 @@ Delivery
     Kathmandu
     Pokhara
     Duraction From - To
+
+Product List (Featured, New, etc) add fields to manage From date to todate

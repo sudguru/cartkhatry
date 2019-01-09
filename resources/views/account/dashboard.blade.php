@@ -1,4 +1,4 @@
-@extends('layouts.site')
+@extends('layouts.d11')
 @section('pagetitle')
     Dashboard
 @endsection

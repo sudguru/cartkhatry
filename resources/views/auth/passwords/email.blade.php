@@ -9,7 +9,7 @@
 <div class="container mt-3 mb-3">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <h2 class="title mb-2">Forgot Password</h2>
+            <h2 class="title mb-2">Forgot / Change Password</h2>
 
             @if (session('status'))
             <div class="alert alert-success" role="alert">

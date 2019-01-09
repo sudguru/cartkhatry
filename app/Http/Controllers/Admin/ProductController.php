@@ -39,7 +39,7 @@ class ProductController extends Controller
         $product = Product::create([
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
-            'model' => $request->model,
+            'paymentmanagedby' => $request->paymentmanagedby,
             'name' => $request->name,
             'slug' => 'temp',
             'description' => $request->description,
@@ -81,7 +81,7 @@ class ProductController extends Controller
         $product->update([
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
-            'model' => $request->model,
+            'paymentmanagedby' => $request->paymentmanagedby,
             'name' => $request->name,
             'slug' => $product->id . '-' . str_slug($request->name, '-'),
             'description' => $request->description,

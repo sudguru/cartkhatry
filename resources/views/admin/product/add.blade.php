@@ -34,17 +34,11 @@ Add New Product
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <label for="model">Model</label>
-                    <input type="text" class="form-control{{ $errors->has('model') ? ' is-invalid' : '' }}" id="model"
-                        name="model" value="{{ old('model') }}" autofocus>
-
-                    @if ($errors->has('model'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('model') }}</strong>
-                    </span>
-                    @endif
-                </div>
+                <label for="paymentmanagedby">Payment Managed By</label>
+                <select name="paymentmanagedby" id="paymentmanagedby" class="form-control">
+                    <option value="KhatryOnline.com" selected>KhatryOnline.com</option>
+                    <option value="Self">Self</option>
+                </select>
             </div>
 
         </div>
