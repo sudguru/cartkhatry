@@ -10,8 +10,11 @@
     <div class="mb-3"></div><!-- margin -->
     @include('partials.home-featured')
     <div class="mb-5"></div><!-- margin -->
+    @include('partials.horizontal-banners')
+    <div class="mb-3"></div><!-- margin -->
     @include('partials.home-top')
     <div class="mb-5"></div><!-- margin -->
+    
     {{-- 
     @include('partials.home-infoboxes')
 

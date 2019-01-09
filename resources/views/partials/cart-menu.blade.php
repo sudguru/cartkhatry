@@ -2,7 +2,7 @@
     <span class="cart-count">2</span>
 </a>
 
-<div class="dropdown-menu" >
+{{-- <div class="dropdown-menu" >
     <div class="dropdownmenu-wrapper">
         <div class="dropdown-cart-header">
             <span>2 Items</span>
@@ -61,4 +61,4 @@
             <a href="checkout-shipping.html" class="btn btn-block">Checkout</a>
         </div><!-- End .dropdown-cart-total -->
     </div><!-- End .dropdownmenu-wrapper -->
-</div><!-- End .dropdown-menu -->
+</div><!-- End .dropdown-menu --> --}}

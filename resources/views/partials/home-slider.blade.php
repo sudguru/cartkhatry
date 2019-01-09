@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="home-slider-container">
+    {{-- <div class="home-slider-container">
         <div class="home-slider owl-carousel owl-theme owl-theme-light">
             <div class="home-slide">
                 <div class="slide-bg owl-lazy" data-src="d11/assets/images/slider/slide-1.jpg"></div><!-- End .slide-bg -->
@@ -27,5 +27,15 @@
                 </div><!-- End .home-slide-content -->
             </div><!-- End .home-slide -->
         </div><!-- End .home-slider -->
-    </div><!-- End .home-slider-container -->
+    </div><!-- End .home-slider-container --> --}}
+    <div class="home-slider-container">
+        <div class="home-slider owl-carousel owl-theme owl-theme-light">
+            
+            @foreach($hpSliders->banners as $banner)
+            <div class="home-slide">
+                <div class="slide-bg owl-lazy"  data-src="storage/banners/{{$banner->banner}}"></div><!-- End .slide-bg -->
+            </div>
+            @endforeach
+        </div>
+    </div>
 </div><!-- End .container -->

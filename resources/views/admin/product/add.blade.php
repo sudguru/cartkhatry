@@ -35,7 +35,7 @@ Add New Product
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="model">Model <span class="required">*</span></label>
+                    <label for="model">Model</label>
                     <input type="text" class="form-control{{ $errors->has('model') ? ' is-invalid' : '' }}" id="model"
                         name="model" value="{{ old('model') }}" autofocus>
 

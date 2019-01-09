@@ -100,7 +100,12 @@ Add Images of Product
 
     <div class="d-flex justify-content-between">
         <h2><span class="text-muted">Edit</span> {{$product->name}}</h2>
-        <a class="btn btn-sm btn-info" style="height:36px; padding: .6rem 1.5rem" href="/adm/products">Done</a>
+        <div>
+                <a class="btn btn-sm btn-success" style="height:36px; padding: .6rem 1.5rem" href="{{ route('product.create') }}">Add New</a>
+                <a class="btn btn-sm btn-info" style="height:36px; padding: .6rem 1.5rem" href="/adm/products">Done</a>
+        </div>
+        
+
     </div>
     <div class="card">
         <div class="card-header">
@@ -123,9 +128,7 @@ Add Images of Product
 
     <div class="card">
         <div class="card-header">
-            Size / Price / Color
-            <a href="#" class="card-edit" id="btn-add-price"><i class="fas fa-plus"></i>
-                &nbsp;Add New</a>
+            Size / Price
         </div>
 
         <div class="card-body table-responsive" style="padding-bottom: 0; min-height: 50px">
@@ -135,9 +138,6 @@ Add Images of Product
                     <thead>
                         <tr>
                             <th style="width: 10%">Size</th>
-                            <th style="width: 30%">Colors</th>
-                            <th>Qty From</th>
-                            <th>To</th>
                             <th style="text-align: right">Regular</th>
                             <th style="text-align: right">Discounted</th>
                             <th>Valid Until</th>
@@ -148,29 +148,6 @@ Add Images of Product
                         @foreach($product->prices as $price)
                         <tr id="row-{{$price->id}}">
                             <td>{{$price->size->size}}</td>
-                            <td class="d-flex justify-content-start">
-                                <div class="d-flex flex-wrap justify-content-start" id="color-{{$price->id}}">
-
-                                    @foreach($price->colors as $color)
-
-                                    <div class="color" style="background-color: {{$color->color}}; text-align: center">
-                                        <i class="colorRemove" style="cursor:pointer" data-color="{{$color->color}}">✖</i>
-                                        <span style="font-size: 9px" class="copycolor" data-color="{{$color->color}}">Copy</span>
-                                    </div>
-
-                                    @endforeach
-
-                                </div>
-                                <div class="color" style="background-color: #ddd; text-align: center">
-                                    <a href="javascript:void(0)" class="addpriceid" data-toggle="modal" data-target="#colorPickerModal">
-                                        <i class="fas fa-plus" style="margin-top: 8px"></i>
-                                    </a>
-                                </div>
-                                <input type="text" id="txtcopycolor" />
-
-                            </td>
-                            <td>{{$price->fromqty}}</td>
-                            <td>{{$price->toqty}}</td>
                             <td style="text-align: right">{{$price->regular}}</td>
                             <td style="text-align: right">{{$price->discounted}}</td>
                             <td>{{$price->discount_valid_until}}</td>
@@ -188,13 +165,6 @@ Add Images of Product
                                     @endforeach
                                 </select>
                                 <input type="text" id="sizename" value="{{$sizes[0]->size}}" />
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>
-                                <input type="number" name="fromqty" id="fromqty" class="form-control">
-                            </td>
-                            <td>
-                                <input type="number" name="toqty" id="toqty" class="form-control">
                             </td>
                             <td>
                                 <input id="regular" type="number" name="regular" required class="form-control">
@@ -218,30 +188,7 @@ Add Images of Product
         </div>
     </div>
 
-    {{-- Color Picker Modal --}}
-    <input type="text" id="currentPriceId" value="999" />
-    <div class="modal fade" id="colorPickerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Product Color & SKU</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body d-flex flex-column">
-                    <div id="cp7" class="input-group colorpicker-component">
-                        <input type="text" id="selectedColor" value="" class="form-control" />
-                        <span class="input-group-addon"><i></i></span>
-                    </div>
-                    <input type="text" id="sku" class="form-control my-3" placeholder="SKU" />
-                    <button class="btn btn-primary button-sm ml-auto" id="btnColor">Done</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- Color Picker Modal End --}}
+
 
     <form action="{{ route('product.update', $product->slug) }}" method="POST" autocomplete="off" novalidate class="mb-1">
         @csrf
@@ -263,7 +210,7 @@ Add Images of Product
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="model">Model <span class="required">*</span></label>
+                    <label for="model">Model</label>
                     <input type="text" class="form-control{{ $errors->has('model') ? ' is-invalid' : '' }}" id="model"
                         name="model" value="{{ old('model') ?? $product->model  }}" autofocus>
 

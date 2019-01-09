@@ -116,7 +116,7 @@ Product LIst - Admin
 
                 $.ajax({
                     type: 'POST',
-                    url: '/productlist/sortit',
+                    url: '/adm/productlist/sortit',
                     data: data,
                     success: function (data) {
                         console.log(data);
@@ -164,7 +164,7 @@ Product LIst - Admin
                             '</span>' +
                         '</li>';
                         console.log(item);
-                        $('#my-ui-list').append(item);
+                        $('#my-ui-list').prepend(item);
                     }
                 }
             });

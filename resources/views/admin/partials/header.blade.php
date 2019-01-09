@@ -51,7 +51,8 @@
 
                     <li class="{{ $active == 'Products' ? 'active' : '' }}"><a href="#" class="sf-with-ul">SHOP</a>
                         <ul>
-                            <li><a href="{{ route('product.index') }}">Products</a></li>
+                            <li><a href="{{ route('product.create') }}">Add New Products</a></li>
+                            <li><a href="{{ route('product.index') }}">All Products</a></li>
                             <li><a href="{{ route('order.index') }}">Manage Orders</a></li>
                             <li class="dropdown-divider"></li>
                             <li><a href="{{ route('category.index') }}">Product Categories</a></li>

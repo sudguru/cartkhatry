@@ -21,7 +21,7 @@ class Product extends Model
     }
 
     public function pics() {
-        return $this->belongsToMany('App\Pic')->withPivot('display_order', 'caption');
+        return $this->belongsToMany('App\Pic')->withPivot('display_order', 'caption')->orderBy('display_order');
     }
 
     public function prices() {

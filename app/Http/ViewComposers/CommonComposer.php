@@ -37,11 +37,11 @@ class CommonComposer
       }));
 
       $view->with('featureds', Cache::remember('featureds', 1, function() {
-        return Productlist::where('listname', 'featured')->take(10)->get();
+        return Productlist::where('listname', 'featured')->orderBy('display_order')->take(10)->get();
       }));
 
       $view->with('newarrivals', Cache::remember('newarrivals', 1, function() {
-        return Productlist::where('listname', 'new')->take(10)->get();
+        return Productlist::where('listname', 'new')->orderBy('display_order')->take(10)->get();
       }));
 
     }

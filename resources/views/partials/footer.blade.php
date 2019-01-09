@@ -9,12 +9,12 @@
                                 <h4 class="widget-title">My Account</h4>
 
                                 <ul class="links">
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
-                                    <li><a href="#">Orders History</a></li>
-                                    <li><a href="#">Advanced Search</a></li>
-                                    <li><a href="#" class="login-link">Login</a></li>
+                                    <li><a href="javascript:void(0)">About Us</a></li>
+                                    <li><a href="javascript:void(0)">Contact Us</a></li>
+                                    <li><a href="javascript:void(0)">My Account</a></li>
+                                    <li><a href="javascript:void(0)">Orders History</a></li>
+                                    <li><a href="javascript:void(0)">Advanced Search</a></li>
+                                    <li><a href="javascript:void(0)" class="login-link">Login</a></li>
                                 </ul>
                             </div><!-- End .widget -->
                         </div><!-- End .col-md-3 -->

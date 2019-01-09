@@ -122,51 +122,7 @@
         });
 
 
-        $('#btnColor').on('click', function() {
-            var data = {
-                price_id: $('#currentPriceId').val(),
-                _token: '<?php echo csrf_token() ?>',
-                newcolor: $('#selectedColor').val(),
-                sku : $('#sku').val()
-            }
-            $.ajax({
-                url: '{{route('color.store') }}',
-                data: data,
-                type: 'POST',
-                success: function (response) {
-                    var newcolor = '<div class="color" style="background-color: '+ $('#selectedColor').val()+'">' +
-                        '<i class="colorRemove" style="cursor:pointer" data-color="'+ $('#selectedColor').val()+'">✖</i>' +
-                        '</div>';
-                    var colorDiv = "#color-" + $('#currentPriceId').val(); 
-                    $(colorDiv).append(newcolor);
-                    $('#colorPickerModal').modal('hide');
-                }
-            });
-            
-        });
 
-        $('body').on('click', '.colorRemove' , function(){
-            if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) {
-                var colortoremove = $(this).data('color');
-                // alert(colortoremove);
-                $('#currentPriceId').val($(this).parent().parent().attr('id').split('-')[1]);
-                var data = {
-                    price_id: $('#currentPriceId').val(),
-                    _token: '<?php echo csrf_token() ?>',
-                    colortoremove: "~" + colortoremove
-                }
-                var that = this;
-                $.ajax({
-                    url: '{{route('color.destroy') }}',
-                    data: data,
-                    type: 'POST',
-                    success: function (response) {
-
-                        $(that).parent().remove();
-                    }
-                });
-            }
-        });
 
         $('#productPrices').on('click', '.deletePrice' , function(){
             if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) {
@@ -229,17 +185,6 @@
                     $('#currentPriceId').val(response);
                     var newprice = '<tr id="row-' + response + '">' +
                         '<td>' + $('#sizename').val() + '</td>' +
-                        '<td class="d-flex justify-content-start">' +
-                        '<div class="d-flex flex-wrap justify-content-start" id="color-' +
-                        response + '">' +
-                        '</div>' +
-                        '<div class="color" style="background-color: #ddd; text-align: center">' +
-                        '<a href="javascript:void(0)" class="addpriceid" data-toggle="modal" data-target="#colorPickerModal">' +
-                        '<i class="fas fa-plus"></i></a>' +
-                        '</div>' +
-                        '</td>' +
-                        '<td>' + $('#toqty').val() + '</td>' +
-                        '<td>' + $('#fromqty').val() + '</td>' +
                         '<td style="text-align: right">' + $('#regular').val() + '</td>' +
                         '<td style="text-align: right">' + $('#discounted').val() + '</td>' +
                         '<td>' + $('#discount_valid_until').val() + '</td>' +

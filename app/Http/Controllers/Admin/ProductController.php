@@ -11,13 +11,14 @@ use App\Brand;
 use App\Setting;
 use App\Size;
 use App\Productcolor;
+use App\Userdetail;
 
 class ProductController extends Controller
 {
     protected $active = "Products";
 
     public function index() {
-        $products = Product::orderBy('updated_at', 'desc')->get();
+        $products = Product::whereIn('user_id', Userdetail::select('id')->where('is_admin', 1))->orderBy('updated_at', 'desc')->get();
         return view('admin.product.index')->withProducts($products)->with(['active' => $this->active]);
     }
 
@@ -147,28 +148,5 @@ class ProductController extends Controller
         return request('price_id');
     }
 
-    public function addcolor() {
-        // $pid = request('price_id');
-        // $newcolor = request('newcolor');
-        // $pp = Productprice::find($pid);
-        // $colors = $pp->colors;
-        // $pp->colors = $colors . "~" . $newcolor;
-        // $pp->save();
-        // return request('price_id');
-        $productprice_id = request('price_id');
-        $newcolor = request('newcolor');
-        $sku = request('sku');
-        $productcolor = Productcolor::create([
-            'productprice_id' => $productprice_id,
-            'color' => $newcolor,
-            'sku' => $sku
-        ]);
-
-    }
-
-    public function removecolor() {
-        Productcolor::destroy(request('price_id'));
-        return request('price_id');
-    }
     
 }
