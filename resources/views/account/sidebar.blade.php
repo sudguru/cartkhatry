@@ -4,7 +4,7 @@
 <li><a href="/password/change">Change Password</a></li>
 {{-- <li class="{{ $currentPage == 'addressbook' ? 'active' : '' }}"><a href="/account/addresses">Address Book</a></li> --}}
 {{-- <li class="dropdown-divider"></li> --}}
-<li class="{{ $currentPage == 'clientorders' ? 'active' : '' }}"><a href="/account/customer/orders">My Orders</a></li>
+<li class="{{ $currentPage == 'clientorders' ? 'active' : '' }}"><a href="#">My Orders</a></li>
 {{-- <li class="{{ $currentPage == 'clientmessages' ? 'active' : '' }}"><a href="#">My Messages</a></li> --}}
 <li><h5 style="margin: 0; margin-top: 20px; color: #c00">For Merchant</h5></li>
 <li class="{{ $currentPage == 'merchantnewproduct' ? 'active' : '' }}"><a href="{{ route('account.product.create') }}">Add New Product</a></li>

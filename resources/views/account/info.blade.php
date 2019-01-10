@@ -80,14 +80,25 @@
                                     <input type="text" class="form-control" id="phone" name="phone" value="{{$userdetail->phone}}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="fax">Fax</label>
-                                    <input type="text" class="form-control" id="fax" name="fax" value="{{$userdetail->fax}}">
+                                    <label for="mobile">Mobile</label>
+                                    <input type="text" class="form-control" id="mobile" name="mobile" value="{{$userdetail->mobile}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="website">Web Site</label>
                                     <input type="text" class="form-control" id="website" name="website" value="{{$userdetail->website}}">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>Payment Link</strong>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="paymentlink" name="paymentlink" value="{{$userdetail->paymentlink}}">
+                                    <small>If you are an independent vendor, then enter the payment link or the link to your website. Users will be redirected to this link to complete their order.</small>
+                                </div>
+                                
+                            </div>
+
                         </div>
 
                     <div class="form-footer">

@@ -44,8 +44,9 @@ class AccountController extends Controller
             'postal_code' => $request->postal_code,
             'city' => $request->city,
             'country' => $request->country,
-            'fax' => $request->fax,
-            'website' => $request->website
+            'mobile' => $request->mobile,
+            'website' => $request->website,
+            'paymentlink' => $request->paymentlink
         ]);
 
 
