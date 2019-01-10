@@ -18,7 +18,7 @@
                 };
                 $.ajax({
                     type: 'POST',
-                    url: '/adm/image/delete',
+                    url: '/account/image/delete',
                     data: data,
                     success: function (data) {
                         console.log(data);
@@ -42,7 +42,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '/adm/image/sort',
+                    url: '/account/image/sort',
                     data: data,
                     success: function (data) {
                         console.log(data);
@@ -131,7 +131,7 @@
                     _token: '<?php echo csrf_token() ?>'
                 }
                 $.ajax({
-                    url: '{{route('price.destroy') }}',
+                    url: '{{route('account.price.destroy') }}',
                     data: data,
                     type: 'POST',
                     success: function (response) {
@@ -174,14 +174,14 @@
             }
             var form = new FormData(this);
             $.ajax({
-                url: '{{route('price.store') }}',
+                url: '{{route('account.price.store') }}',
                 data: form,
                 cache: false,
                 contentType: false,
                 processData: false,
                 type: 'POST',
                 success: function (response) {
-
+                    console.log(response);
                     $('#currentPriceId').val(response);
                     var newprice = '<tr id="row-' + response + '">' +
                         '<td>' + $('#sizename').val() + '</td>' +

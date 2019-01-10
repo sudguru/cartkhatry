@@ -106,8 +106,8 @@
                     <div class="d-flex justify-content-between">
                             <h2><span class="text-muted">Edit</span> {{$product->name}}</h2>
                             <div>
-                                    <a class="btn btn-sm btn-success" style="height:36px; padding: .6rem 1.5rem" href="{{ route('product.create') }}">Add New</a>
-                                    <a class="btn btn-sm btn-info" style="height:36px; padding: .6rem 1.5rem" href="/adm/products">Done</a>
+                                    <a class="btn btn-sm btn-success" style="height:36px; padding: .6rem 1.5rem" href="{{ route('account.product.create') }}">Add New</a>
+                                    <a class="btn btn-sm btn-info" style="height:36px; padding: .6rem 1.5rem" href="/account/products">Done</a>
                             </div>
                             
                     
@@ -137,7 +137,7 @@
                             </div>
                     
                             <div class="card-body table-responsive" style="padding-bottom: 0; min-height: 50px">
-                                <form action="route('price.store') }}" method="POST" id="form-add-price">
+                                <form action="route('account.price.store') }}" method="POST" id="form-add-price">
                                     @csrf
                                     <table class="table table-striped">
                                         <thead>
@@ -169,7 +169,7 @@
                                                         <option value="{{$size->id}}" data-size="{{$size->size}}">{{$size->size}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <input type="text" id="sizename" value="{{$sizes[0]->size}}" />
+                                                    <input type="hidden" id="sizename" value="{{$sizes[0]->size}}" />
                                                 </td>
                                                 <td>
                                                     <input id="regular" type="number" name="regular" required class="form-control">
@@ -338,9 +338,10 @@
     </div><!-- End .container -->
     
     <div class="mb-5"></div><!-- margin -->
+    @include('account.uploadimagesimple.imagemanager')
 @endsection
 
 @section('extrajs')
-@include('admin.uploadimagesimple.js')
+@include('account.uploadimagesimple.js')
 @include('account.productjs')
 @endsection

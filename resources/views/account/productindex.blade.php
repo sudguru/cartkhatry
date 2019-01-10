@@ -46,7 +46,7 @@
                             @foreach ($products as $key=>$product)
                             <tr>
                                 <td>{{ ++$key }}</td>
-                                <td><a href="{{ route('product.edit', $product->slug) }}">{{$product->name}}</a></td>
+                                <td><a href="{{ route('account.product.edit', $product->slug) }}">{{$product->name}}</a></td>
                                 <td>{{$product->brand['brand']}}</td>
                                 <td>{{$product->category['category']}}</td>
                                 <td>{{ $product->delivery_available == 0 ? 'N/A' : $product->delivery_day_from . ' - ' . $product->delivery_day_to . ' days' }}</td>
@@ -60,7 +60,7 @@
                                             if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$product->id}}').submit();}return false;">
                                         <i class="fas fa-trash"></i>
                                     </a>
-                                    <form id="delete-form-{{$product->id}}" action="{{ route('product.destroy', $product->id) }}" method="POST"
+                                    <form id="delete-form-{{$product->id}}" action="{{ route('account.product.destroy', $product->id) }}" method="POST"
                                         style="display: none;">
                                         @csrf
                                         {{ method_field('DELETE') }}

@@ -41,7 +41,7 @@
                         <table class="table">
                             <tr>
                                 <th>Account Email</th>
-                                <td>{{Auth::user()->email}}</td>
+                                <td>{{Auth::user()->email}} {!! Auth::user()->email_verified_at ? '<span style="color: green">Verified</span>' : '<span style="color: red">Not Verified</span>' !!}</td>
                             </tr>
                             <tr>
                                 <th>Account Name</th>
