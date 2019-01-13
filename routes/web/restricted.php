@@ -5,12 +5,12 @@ Route::get('/password/change', 'DashboardController@change')->name('account.chan
 Route::get('/account/info', 'AccountController@index')->name('account.info');
 Route::post('/account/info', 'AccountController@update');
 
-Route::get('/account/product/create', 'DashboardController@productcreate')->name('account.product.create');
-Route::get('/account/products', 'DashboardController@productindex')->name('account.product.index');
-Route::post('/account/product', 'DashboardController@productstore')->name('account.product.store');
-Route::get('/account/product/{product}/edit', 'DashboardController@productedit')->name('account.product.edit');
-Route::put('/account/product/{product}', 'DashboardController@productupdate')->name('account.product.update');
-Route::delete('/account/product/{product}', 'DashboardController@productdestroy')->name('account.product.destroy');
+Route::get('/account/product/create', 'MerchantController@productcreate')->name('account.product.create');
+Route::get('/account/products', 'MerchantController@productindex')->name('account.product.index');
+Route::post('/account/product', 'MerchantController@productstore')->name('account.product.store');
+Route::get('/account/product/{product}/edit', 'MerchantController@productedit')->name('account.product.edit');
+Route::put('/account/product/{product}', 'MerchantController@productupdate')->name('account.product.update');
+Route::delete('/account/product/{product}', 'MerchantController@productdestroy')->name('account.product.destroy');
 
 Route::post('/account/product/price', 'DashboardController@saveprice')->name('account.price.store');
 Route::post('/account/product/price/delete', 'DashboardController@deleteprice')->name("account.price.destroy");
