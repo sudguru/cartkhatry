@@ -76,3 +76,7 @@ ul#ticker li {
     background-clip: padding-box;
     border: none;
 }
+
+.home-slider-container, .home-slide {
+    height: 400px;
+}

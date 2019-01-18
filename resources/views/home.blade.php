@@ -5,12 +5,21 @@
 @endsection
 
 @section('content')
-    @include('partials.home-slider')
-    @include('partials.horizontal-banners')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                @include('partials.home-slider')
+            </div>
+            <div class="col-md-4">
+                @include('partials.vertical-banners')
+            </div>
+        </div>
+    </div><!-- End .container -->
+    @include('partials.horizontal-banners1')
     <div class="mb-3"></div><!-- margin -->
     @include('partials.home-featured')
     <div class="mb-5"></div><!-- margin -->
-    @include('partials.horizontal-banners')
+    @include('partials.horizontal-banners2')
     <div class="mb-3"></div><!-- margin -->
     @include('partials.home-top')
     <div class="mb-5"></div><!-- margin -->

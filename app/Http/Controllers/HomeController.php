@@ -18,13 +18,19 @@ class HomeController extends Controller
     public function index()
     {
         
-        $hpSliders = Bannertype::where('bannertype', 'Home Page Sliders')->first();
-        $banners = Bannertype::where('bannertype', 'Home Page Banners')->first();
+        $hpSliders = Bannertype::where('bannertype', 'HP Sliders')->first();
+        $bannersH1 = Bannertype::where('bannertype', 'HP Banners R1')->first();
+        $bannersH2 = Bannertype::where('bannertype', 'HP Banners R2')->first();
+        $bannersH3 = Bannertype::where('bannertype', 'HP Banners R3')->first();
+        $bannersV = Bannertype::where('bannertype', 'HP Banners Vert')->first();
         $infoboxes = Info::orderBy('display_order')->limit(3)->get();
         return view('home', [
                 'hpSliders' => $hpSliders,
                 'infoboxes' => $infoboxes,
-                'banners' => $banners
+                'bannersH1' => $bannersH1,
+                'bannersH2' => $bannersH2,
+                'bannersH3' => $bannersH3,
+                'bannersV' => $bannersV,
             ]
         );
     }
