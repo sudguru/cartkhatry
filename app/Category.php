@@ -25,5 +25,9 @@ class Category extends Model
             }
             ))->whereNull('parent_id')
             ->orderBy('display_order')->get();
-	  }
+    }
+    
+    public function getRouteKeyName() {
+      return 'slug';
+  }
 }

@@ -15,13 +15,13 @@
                     <div class="header-menu">
                         <ul>
                             @guest
-                            <li><a href="{{ route('login') }}">LOG IN</a></li>
-                            <li><a href="{{ route('register') }}">SIGN UP</a></li>
+                            <li><a href="{{ route('login') }}" style="color: #cc0000">LOG IN</a></li>
+                            <li><a href="{{ route('register') }}" style="color: #cc0000">SIGN UP</a></li>
                             @else
-                            <li><a href="{{ route('account.dashboard') }}">MY ACCOUNT </a></li>
+                            <li><a href="{{ route('account.dashboard') }}" style="color: #cc0000">MY ACCOUNT </a></li>
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
+                                        document.getElementById('logout-form').submit();" style="color: #cc0000">
                                     SIGN OUT
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -31,7 +31,7 @@
                             @endguest
 
 
-                            <li><a href="/wishlist">MY WISHLIST </a></li>
+                            <li><a href="/wishlist" style="color: #cc0000">MY WISHLIST </a></li>
                             <li><a href="/blog">BLOG</a></li>
                             <li><a href="/contact">Contact</a></li>
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Bannertype;
 use App\Info;
 use App\Product;
+use App\Category;
 
 class HomeController extends Controller
 {
@@ -41,5 +42,9 @@ class HomeController extends Controller
 
     public function singleproduct(Product $product) {
         return view('singleproduct', compact('product'));
+    }
+
+    public function category(Category $category) {
+        return view('category');
     }
 }
