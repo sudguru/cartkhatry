@@ -80,3 +80,7 @@ ul#ticker li {
 .home-slider-container, .home-slide {
     height: 400px;
 }
+
+.home-slider-container {
+    margin-bottom: 2.8rem;
+}
