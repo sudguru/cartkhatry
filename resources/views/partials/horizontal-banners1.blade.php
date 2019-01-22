@@ -6,7 +6,7 @@
         <div class="col-md-4">
             {{-- <h3 class="subtitle">ABOUT US</h3> --}}
             <div class="banner banner-image">
-                <a href="#">
+                <a href="{{$banner->link}}" target="_blank">
                     <img src="/storage/banners/{{$banner->banner}}"  alt="{{$banner->title}}">
                 </a>
 

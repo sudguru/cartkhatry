@@ -33,7 +33,7 @@
             
             @foreach($hpSliders->banners as $banner)
             <div class="home-slide">
-                <div class="slide-bg owl-lazy"  data-src="storage/banners/{{$banner->banner}}"></div><!-- End .slide-bg -->
+            <a href="{{$banner->link}}" target="_blank"><div class="slide-bg owl-lazy"  data-src="storage/banners/{{$banner->banner}}"></div></a><!-- End .slide-bg -->
             </div>
             @endforeach
         </div>
