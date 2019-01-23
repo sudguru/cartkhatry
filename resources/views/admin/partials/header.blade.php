@@ -59,6 +59,7 @@
                             <li><a href="{{ route('paymentmethod.index') }}">Payment Methods</a></li>
                             <li><a href="{{ route('size.index') }}">Product Sizes</a></li>
                             <li><a href="{{ route('brand.index') }}">Brands</a></li>
+                            <li><a href="{{ route('currency.index') }}">Currencies</a></li>
                         </ul>
                     </li>
                     <li class="{{ $active == 'Lists' ? 'active' : '' }}"><a href="#" class="sf-with-ul">Lists</a>
