@@ -84,3 +84,21 @@ ul#ticker li {
 .home-slider-container {
     margin-bottom: 2.8rem;
 }
+
+.main-nav {
+
+    border-top: 1px solid #efefef;
+}
+.menu>li>a {
+    padding: 1.5rem;
+}
+
+.header {
+    border-bottom: none;
+}
+
+.product {
+    padding-bottom: 10px;
+    border: 1px solid #efefef;
+}
+

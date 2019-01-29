@@ -16,13 +16,11 @@
         </div>
     </div><!-- End .container -->
     @include('partials.horizontal-banners1')
-    <div class="mb-3"></div><!-- margin -->
     @include('partials.home-featured')
-    <div class="mb-5"></div><!-- margin -->
-    @include('partials.horizontal-banners2')
     <div class="mb-3"></div><!-- margin -->
+    @include('partials.horizontal-banners2')
     @include('partials.home-top')
-    <div class="mb-5"></div><!-- margin -->
+    <div class="mb-3"></div><!-- margin -->
     
     {{-- 
     @include('partials.home-infoboxes')
