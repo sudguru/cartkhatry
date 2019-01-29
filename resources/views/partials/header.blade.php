@@ -1,7 +1,17 @@
 <header class="header">
     <div class="header-top">
         <div class="container">
-            <div class="header-left">
+            <div class="header-left header-dropdowns">
+                <div class="header-dropdown">
+                    <a href="#" style="color:red">USD</a>
+                    <div class="header-menu">
+                        <ul>
+                            <li><a href="#">EUR</a></li>
+                            <li><a href="#">USD</a></li>
+                        </ul>
+                    </div><!-- End .header-menu -->
+                </div><!-- End .header-dropown -->
+                &nbsp;&nbsp;&nbsp;
                 <ul id="message_ticker" class="welcome-msg">
                     @foreach($promos as $promo)
                     <li><span class="badge badge-warning">Ad</span>&nbsp; <a href="{{$promo->link}}" class="text-promo">{{$promo->title}}</a></li>
