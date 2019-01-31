@@ -2,15 +2,7 @@
     <div class="header-top">
         <div class="container">
             <div class="header-left header-dropdowns">
-                <div class="header-dropdown">
-                    <a href="#" style="color:red">USD</a>
-                    <div class="header-menu">
-                        <ul>
-                            <li><a href="#">EUR</a></li>
-                            <li><a href="#">USD</a></li>
-                        </ul>
-                    </div><!-- End .header-menu -->
-                </div><!-- End .header-dropown -->
+                
                 &nbsp;&nbsp;&nbsp;
                 <ul id="message_ticker" class="welcome-msg">
                     @foreach($promos as $promo)
@@ -45,6 +37,15 @@
                             <li><a href="/blog">BLOG</a></li>
                             <li><a href="/contact">Contact</a></li>
 
+                        </ul>
+                    </div><!-- End .header-menu -->
+                </div><!-- End .header-dropown -->
+                <div class="header-dropdown" style="margin-left: 30px">
+                    <a href="#" style="color:red; font-weight: bold">USD</a>
+                    <div class="header-menu">
+                        <ul>
+                            <li><a href="#">EUR</a></li>
+                            <li><a href="#">USD</a></li>
                         </ul>
                     </div><!-- End .header-menu -->
                 </div><!-- End .header-dropown -->
