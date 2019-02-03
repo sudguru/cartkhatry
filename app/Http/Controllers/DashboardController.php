@@ -21,7 +21,7 @@ class DashboardController extends Controller
                 'is_super' => 0
             ]
         );
-
+        //check if record exist for the day 
         return view('account.dashboard', [
             'currentPage' => 'dashboard',
             'userdetail' => $userdetail

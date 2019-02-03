@@ -15,6 +15,7 @@
             </div>
         </div>
     </div><!-- End .container -->
+
     @include('partials.horizontal-banners1')
     @include('partials.home-featured')
     <div class="mb-3"></div><!-- margin -->
