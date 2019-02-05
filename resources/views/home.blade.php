@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+    @php
+    $cur = $_GET['cur'] ?? 'NPR';
+    @endphp
     <div class="container">
         <div class="row">
             <div class="col-md-8" style="padding:0">
@@ -15,7 +18,7 @@
             </div>
         </div>
     </div><!-- End .container -->
-
+    {{ $cur }}
     @include('partials.horizontal-banners1')
     @include('partials.home-featured')
     <div class="mb-3"></div><!-- margin -->

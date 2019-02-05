@@ -217,7 +217,6 @@
 
                 <li><a href="/account/dashboard">Customer Care</a></li>
 
-                <li class="float-right"><a href="/daily-deals">Daily Deals</a></li>
                 <li class="float-right"><a href="/sales">Sales !</a></li>
                 </ul>
                     

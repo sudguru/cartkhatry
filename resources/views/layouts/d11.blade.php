@@ -27,6 +27,7 @@
 
 
     @yield('extracss')
+    
 </head>
 <body>
 

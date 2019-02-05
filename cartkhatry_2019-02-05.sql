@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.7.17)
 # Database: cartkhatry
-# Generation Time: 2019-02-03 13:05:16 +0000
+# Generation Time: 2019-02-05 11:40:00 +0000
 # ************************************************************
 
 
@@ -247,48 +247,289 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table currencies
+# Dump of table countries
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `currencies`;
+DROP TABLE IF EXISTS `countries`;
 
-CREATE TABLE `currencies` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `symbol` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `countries` (
+  `name` varchar(50) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `countries` WRITE;
+/*!40000 ALTER TABLE `countries` DISABLE KEYS */;
+
+INSERT INTO `countries` (`name`)
+VALUES
+	('Afghanistan '),
+	('Albania '),
+	('Algeria '),
+	('American Samoa '),
+	('Andorra '),
+	('Angola '),
+	('Anguilla '),
+	('Antigua & Barbuda '),
+	('Argentina '),
+	('Armenia '),
+	('Aruba '),
+	('Australia '),
+	('Austria '),
+	('Azerbaijan '),
+	('Bahamas'),
+	('Bahrain '),
+	('Bangladesh '),
+	('Barbados '),
+	('Belarus '),
+	('Belgium '),
+	('Belize '),
+	('Benin '),
+	('Bermuda '),
+	('Bhutan '),
+	('Bolivia '),
+	('Bosnia & Herzegovina '),
+	('Botswana '),
+	('Brazil '),
+	('British Virgin Is. '),
+	('Brunei '),
+	('Bulgaria '),
+	('Burkina Faso '),
+	('Burma '),
+	('Burundi '),
+	('Cambodia '),
+	('Cameroon '),
+	('Canada '),
+	('Cape Verde '),
+	('Cayman Islands '),
+	('Central African Rep. '),
+	('Chad '),
+	('Chile '),
+	('China '),
+	('Colombia '),
+	('Comoros '),
+	('Congo'),
+	('Congo'),
+	('Cook Islands '),
+	('Costa Rica '),
+	('Cote d\'Ivoire '),
+	('Croatia '),
+	('Cuba '),
+	('Cyprus '),
+	('Czech Republic '),
+	('Denmark '),
+	('Djibouti '),
+	('Dominica '),
+	('Dominican Republic '),
+	('East Timor '),
+	('Ecuador '),
+	('Egypt '),
+	('El Salvador '),
+	('Equatorial Guinea '),
+	('Eritrea '),
+	('Estonia '),
+	('Ethiopia '),
+	('Faroe Islands '),
+	('Fiji '),
+	('Finland '),
+	('France '),
+	('French Guiana '),
+	('French Polynesia '),
+	('Gabon '),
+	('Gambia'),
+	('Gaza Strip '),
+	('Georgia '),
+	('Germany '),
+	('Ghana '),
+	('Gibraltar '),
+	('Greece '),
+	('Greenland '),
+	('Grenada '),
+	('Guadeloupe '),
+	('Guam '),
+	('Guatemala '),
+	('Guernsey '),
+	('Guinea '),
+	('Guinea-Bissau '),
+	('Guyana '),
+	('Haiti '),
+	('Honduras '),
+	('Hong Kong '),
+	('Hungary '),
+	('Iceland '),
+	('India '),
+	('Indonesia '),
+	('Iran '),
+	('Iraq '),
+	('Ireland '),
+	('Isle of Man '),
+	('Israel '),
+	('Italy '),
+	('Jamaica '),
+	('Japan '),
+	('Jersey '),
+	('Jordan '),
+	('Kazakhstan '),
+	('Kenya '),
+	('Kiribati '),
+	('Korea'),
+	('Korea'),
+	('Kuwait '),
+	('Kyrgyzstan '),
+	('Laos '),
+	('Latvia '),
+	('Lebanon '),
+	('Lesotho '),
+	('Liberia '),
+	('Libya '),
+	('Liechtenstein '),
+	('Lithuania '),
+	('Luxembourg '),
+	('Macau '),
+	('Macedonia '),
+	('Madagascar '),
+	('Malawi '),
+	('Malaysia '),
+	('Maldives '),
+	('Mali '),
+	('Malta '),
+	('Marshall Islands '),
+	('Martinique '),
+	('Mauritania '),
+	('Mauritius '),
+	('Mayotte '),
+	('Mexico '),
+	('Micronesia'),
+	('Moldova '),
+	('Monaco '),
+	('Mongolia '),
+	('Montserrat '),
+	('Morocco '),
+	('Mozambique '),
+	('Namibia '),
+	('Nauru '),
+	('Nepal '),
+	('Netherlands '),
+	('Netherlands Antilles '),
+	('New Caledonia '),
+	('New Zealand '),
+	('Nicaragua '),
+	('Niger '),
+	('Nigeria '),
+	('N. Mariana Islands '),
+	('Norway '),
+	('Oman '),
+	('Pakistan '),
+	('Palau '),
+	('Panama '),
+	('Papua New Guinea '),
+	('Paraguay '),
+	('Peru '),
+	('Philippines '),
+	('Poland '),
+	('Portugal '),
+	('Puerto Rico '),
+	('Qatar '),
+	('Reunion '),
+	('Romania '),
+	('Russia '),
+	('Rwanda '),
+	('Saint Helena '),
+	('Saint Kitts & Nevis '),
+	('Saint Lucia '),
+	('St Pierre & Miquelon '),
+	('Saint Vincent and the Grenadines '),
+	('Samoa '),
+	('San Marino '),
+	('Sao Tome & Principe '),
+	('Saudi Arabia '),
+	('Senegal '),
+	('Serbia '),
+	('Seychelles '),
+	('Sierra Leone '),
+	('Singapore '),
+	('Slovakia '),
+	('Slovenia '),
+	('Solomon Islands '),
+	('Somalia '),
+	('South Africa '),
+	('Spain '),
+	('Sri Lanka '),
+	('Sudan '),
+	('Suriname '),
+	('Swaziland '),
+	('Sweden '),
+	('Switzerland '),
+	('Syria '),
+	('Taiwan '),
+	('Tajikistan '),
+	('Tanzania '),
+	('Thailand '),
+	('Togo '),
+	('Tonga '),
+	('Trinidad & Tobago '),
+	('Tunisia '),
+	('Turkey '),
+	('Turkmenistan '),
+	('Turks & Caicos Is '),
+	('Tuvalu '),
+	('Uganda '),
+	('Ukraine '),
+	('United Arab Emirates '),
+	('United Kingdom '),
+	('United States '),
+	('Uruguay '),
+	('Uzbekistan '),
+	('Vanuatu '),
+	('Venezuela '),
+	('Vietnam '),
+	('Virgin Islands '),
+	('Wallis and Futuna '),
+	('West Bank '),
+	('Western Sahara '),
+	('Yemen '),
+	('Zambia '),
+	('Zimbabwe ');
+
+/*!40000 ALTER TABLE `countries` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
-# Dump of table exchangerate
+# Dump of table exchangerates
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `exchangerate`;
+DROP TABLE IF EXISTS `exchangerates`;
 
-CREATE TABLE `exchangerate` (
+CREATE TABLE `exchangerates` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
-  `EUR` double(15,10) DEFAULT NULL,
-  `NPR` double(15,10) NOT NULL,
-  `INR` double(15,10) DEFAULT NULL,
-  `USD` double(15,10) DEFAULT NULL,
-  `CAD` double(15,10) DEFAULT NULL,
-  `JPY` double(15,10) DEFAULT NULL,
-  `CNY` double(15,10) DEFAULT NULL,
-  `HKD` double(15,10) DEFAULT NULL,
-  `KRW` double(15,10) DEFAULT NULL,
-  `SGD` double(15,10) DEFAULT NULL,
-  `CHF` double(15,10) DEFAULT NULL,
-  `SEK` double(15,10) DEFAULT NULL,
-  `DKK` double(15,10) DEFAULT NULL,
-  `GBP` double(15,10) NOT NULL,
+  `EUR` double(12,5) DEFAULT NULL,
+  `NPR` double(12,5) NOT NULL,
+  `INR` double(12,5) DEFAULT NULL,
+  `USD` double(12,5) DEFAULT NULL,
+  `CAD` double(12,5) DEFAULT NULL,
+  `AUD` double(12,5) DEFAULT NULL,
+  `JPY` double(12,5) DEFAULT NULL,
+  `CNY` double(12,5) DEFAULT NULL,
+  `HKD` double(12,5) DEFAULT NULL,
+  `KRW` double(12,5) DEFAULT NULL,
+  `SGD` double(12,5) DEFAULT NULL,
+  `CHF` double(12,5) DEFAULT NULL,
+  `SEK` double(12,5) DEFAULT NULL,
+  `DKK` double(12,5) DEFAULT NULL,
+  `GBP` double(12,5) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `exchangerates` WRITE;
+/*!40000 ALTER TABLE `exchangerates` DISABLE KEYS */;
+
+INSERT INTO `exchangerates` (`id`, `date`, `EUR`, `NPR`, `INR`, `USD`, `CAD`, `AUD`, `JPY`, `CNY`, `HKD`, `KRW`, `SGD`, `CHF`, `SEK`, `DKK`, `GBP`, `created_at`, `updated_at`)
+VALUES
+	(1,'2019-02-05',1.00000,131.20300,81.86358,1.14191,1.49656,1.57653,125.62791,7.70195,8.95812,1277.92365,1.54455,1.14302,10.41171,7.46508,0.87723,'2019-02-05 16:18:38','2019-02-05 10:45:05');
+
+/*!40000 ALTER TABLE `exchangerates` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table infos
@@ -620,6 +861,8 @@ CREATE TABLE `products` (
   `delivery_charge_local` int(11) DEFAULT NULL,
   `delivery_charge_intercity` int(11) DEFAULT NULL,
   `delivery_charge_intl` int(11) DEFAULT NULL,
+  `manufactured_at` int(11) unsigned NOT NULL,
+  `currency` varchar(3) NOT NULL DEFAULT '',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `paymentmanagedby` varchar(20) NOT NULL,
@@ -629,22 +872,22 @@ CREATE TABLE `products` (
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 
-INSERT INTO `products` (`id`, `category_id`, `brand_id`, `name`, `model`, `slug`, `description`, `specification`, `user_id`, `last_modified_user_id`, `category_order`, `viewed_rank`, `approved`, `delivery_available`, `delivery_day_from`, `delivery_day_to`, `delivery_charge_local`, `delivery_charge_intercity`, `delivery_charge_intl`, `created_at`, `updated_at`, `paymentmanagedby`)
+INSERT INTO `products` (`id`, `category_id`, `brand_id`, `name`, `model`, `slug`, `description`, `specification`, `user_id`, `last_modified_user_id`, `category_order`, `viewed_rank`, `approved`, `delivery_available`, `delivery_day_from`, `delivery_day_to`, `delivery_charge_local`, `delivery_charge_intercity`, `delivery_charge_intl`, `manufactured_at`, `currency`, `created_at`, `updated_at`, `paymentmanagedby`)
 VALUES
-	(12,37,1,'Car Back Seat Organizer','1','12-car-back-seat-organizer','<p>Multifunctional Seat Bag Automobile Storage Box Hanging Bag Leather Chair Storage Bag Car Accessories Car-styling<br></p>','Multifunctional Seat Bag Automobile Storage Box Hanging Bag Leather Chair Storage Bag Car Accessories Car-styling',1,1,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-04 09:57:01','2019-01-04 09:57:01','KhatryOnline.com'),
-	(13,33,1,'5 Tier shoe Rack','1','13-5-tier-shoe-rack','<p>5 Tier X Shaped Shoe Rack Organizer is portable and easy to assemble, it can store up to 15 Pairs of shoes.<br></p>','It Helps Maintain Shoe Shape. This Product Is Loved and used by Millions Of People As Soon As It Appeared On Television.',1,1,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-04 14:11:47','2019-01-04 14:11:47','KhatryOnline.com'),
-	(14,34,1,'6 Tier Covered Shoes Rack DIY Storage Shelf','1','14-6-tier-covered-shoes-rack-diy-storage-shelf','<div>6 Tier Covered Shoes Rack DIY Storage Shelf is portable and easy to assemble, it can store up to 15 Pairs of shoes.</div><div>It Helps Maintain Shoe Shape. This Product Is Loved and used by Millions Of People As Soon As It Appeared On Television.</div>','<div><br></div>',1,1,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-06 06:41:15','2019-01-06 06:41:15','KhatryOnline.com'),
-	(15,33,1,'Coffee Mixer','1','15-coffee-mixer','<p>Best Quality,&nbsp;<span style=\"font-size: 1.4rem;\">Easy to use,&nbsp;</span><span style=\"font-size: 1.4rem;\">Best Result</span></p>',NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-06 09:07:19','2019-01-06 09:07:19','KhatryOnline.com'),
-	(16,33,1,'Shoe Organizer','1','16-shoe-organizer','<p><span style=\"font-size: 1.4rem;\">100% Cotton,&nbsp;</span><span style=\"font-size: 1.4rem;\">Imported,&nbsp;</span><span style=\"font-size: 1.4rem;\">Ventil Air breathable</span></p>',NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-06 09:10:20','2019-01-06 09:10:20','KhatryOnline.com'),
-	(17,34,1,'Shoe Organizer','2','17-shoe-organizer','<p>100% SATISFACTION GUARANTEED,&nbsp;<span style=\"font-size: 1.4rem;\">1 Set ñ 6 Piece,&nbsp;</span><span style=\"font-size: 1.4rem;\">Space Saver</span></p>',NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-06 09:14:49','2019-01-06 09:14:49','KhatryOnline.com'),
-	(18,30,1,'Refrigerator Box',NULL,'18-refrigerator-box','<p><span style=\"font-size: 1.4rem;\">Made of ABS, non-toxic and wear resistant.&nbsp;</span><span style=\"font-size: 1.4rem;\">his is a convenient storage organizer for your refrigerator or in the kitchen.&nbsp;</span><span style=\"font-size: 1.4rem;\">Cab to be used in refrigerator, kitchen pantry or for storing fruits, eggs, snacks etc.</span></p>','<p>Size: 20.3cm * 14.7cm * 6.7cm</p><p>Heart-shaped hollow out design for ventilation and drainage of water.</p><div><br></div>',1,1,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-06 09:17:25','2019-01-06 09:17:25','KhatryOnline.com'),
-	(19,35,1,'Dolphin Massager',NULL,'19-dolphin-massager','<p><span style=\"font-size: 1.4rem;\">Burn fat and partly lose weight (messager)</span><br></p><p><br></p>',NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-06 09:19:49','2019-01-06 09:19:49','KhatryOnline.com'),
-	(20,30,1,'Wireless Massager',NULL,'20-wireless-massager',NULL,NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-06 09:28:47','2019-01-06 09:28:47','KhatryOnline.com'),
-	(21,30,1,'Double Egg Boiler',NULL,'21-double-egg-boiler','<div><span style=\"font-size: 1.4rem;\">14 egg slots,&nbsp;</span><span style=\"font-size: 1.4rem;\">easy and convenient</span></div>','<div><br></div>',1,1,NULL,NULL,NULL,1,NULL,5,200,500,2000,'2019-01-06 09:31:01','2019-01-06 12:52:22','KhatryOnline.com'),
-	(22,30,1,'Electric Egg Boiler',NULL,'22-electric-egg-boiler',NULL,NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-06 09:32:03','2019-01-06 09:32:03','KhatryOnline.com'),
-	(23,28,1,'Nail Polish Pink',NULL,'23-nail-polish-pink','Very Nice Product','More specifications',7,7,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-13 09:35:23','2019-01-13 09:35:23','KhatryOnline.com'),
-	(24,38,1,'abc',NULL,'24-abc',NULL,NULL,8,8,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-13 10:21:09','2019-01-13 10:21:09','Self'),
-	(25,30,1,'coke',NULL,'25-coke',NULL,NULL,8,8,NULL,NULL,NULL,1,2,5,200,500,2000,'2019-01-13 10:32:09','2019-01-13 10:32:09','Self');
+	(12,37,1,'Car Back Seat Organizer','1','12-car-back-seat-organizer','<p>Multifunctional Seat Bag Automobile Storage Box Hanging Bag Leather Chair Storage Bag Car Accessories Car-styling<br></p>','Multifunctional Seat Bag Automobile Storage Box Hanging Bag Leather Chair Storage Bag Car Accessories Car-styling',1,1,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-04 09:57:01','2019-01-04 09:57:01','KhatryOnline.com'),
+	(13,33,1,'5 Tier shoe Rack','1','13-5-tier-shoe-rack','<p>5 Tier X Shaped Shoe Rack Organizer is portable and easy to assemble, it can store up to 15 Pairs of shoes.<br></p>','It Helps Maintain Shoe Shape. This Product Is Loved and used by Millions Of People As Soon As It Appeared On Television.',1,1,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-04 14:11:47','2019-01-04 14:11:47','KhatryOnline.com'),
+	(14,34,1,'6 Tier Covered Shoes Rack DIY Storage Shelf','1','14-6-tier-covered-shoes-rack-diy-storage-shelf','<div>6 Tier Covered Shoes Rack DIY Storage Shelf is portable and easy to assemble, it can store up to 15 Pairs of shoes.</div><div>It Helps Maintain Shoe Shape. This Product Is Loved and used by Millions Of People As Soon As It Appeared On Television.</div>','<div><br></div>',1,1,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-06 06:41:15','2019-01-06 06:41:15','KhatryOnline.com'),
+	(15,33,1,'Coffee Mixer','1','15-coffee-mixer','<p>Best Quality,&nbsp;<span style=\"font-size: 1.4rem;\">Easy to use,&nbsp;</span><span style=\"font-size: 1.4rem;\">Best Result</span></p>',NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-06 09:07:19','2019-01-06 09:07:19','KhatryOnline.com'),
+	(16,33,1,'Shoe Organizer','1','16-shoe-organizer','<p><span style=\"font-size: 1.4rem;\">100% Cotton,&nbsp;</span><span style=\"font-size: 1.4rem;\">Imported,&nbsp;</span><span style=\"font-size: 1.4rem;\">Ventil Air breathable</span></p>',NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-06 09:10:20','2019-01-06 09:10:20','KhatryOnline.com'),
+	(17,34,1,'Shoe Organizer','2','17-shoe-organizer','<p>100% SATISFACTION GUARANTEED,&nbsp;<span style=\"font-size: 1.4rem;\">1 Set ñ 6 Piece,&nbsp;</span><span style=\"font-size: 1.4rem;\">Space Saver</span></p>',NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-06 09:14:49','2019-01-06 09:14:49','KhatryOnline.com'),
+	(18,30,1,'Refrigerator Box',NULL,'18-refrigerator-box','<p><span style=\"font-size: 1.4rem;\">Made of ABS, non-toxic and wear resistant.&nbsp;</span><span style=\"font-size: 1.4rem;\">his is a convenient storage organizer for your refrigerator or in the kitchen.&nbsp;</span><span style=\"font-size: 1.4rem;\">Cab to be used in refrigerator, kitchen pantry or for storing fruits, eggs, snacks etc.</span></p>','<p>Size: 20.3cm * 14.7cm * 6.7cm</p><p>Heart-shaped hollow out design for ventilation and drainage of water.</p><div><br></div>',1,1,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-06 09:17:25','2019-01-06 09:17:25','KhatryOnline.com'),
+	(19,35,1,'Dolphin Massager',NULL,'19-dolphin-massager','<p><span style=\"font-size: 1.4rem;\">Burn fat and partly lose weight (messager)</span><br></p><p><br></p>',NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-06 09:19:49','2019-01-06 09:19:49','KhatryOnline.com'),
+	(20,30,1,'Wireless Massager',NULL,'20-wireless-massager',NULL,NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-06 09:28:47','2019-01-06 09:28:47','KhatryOnline.com'),
+	(21,30,1,'Double Egg Boiler',NULL,'21-double-egg-boiler','<div><span style=\"font-size: 1.4rem;\">14 egg slots,&nbsp;</span><span style=\"font-size: 1.4rem;\">easy and convenient</span></div>','<div><br></div>',1,1,NULL,NULL,NULL,1,NULL,5,200,500,2000,0,'NPR','2019-01-06 09:31:01','2019-01-06 12:52:22','KhatryOnline.com'),
+	(22,30,1,'Electric Egg Boiler',NULL,'22-electric-egg-boiler',NULL,NULL,1,1,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-06 09:32:03','2019-01-06 09:32:03','KhatryOnline.com'),
+	(23,28,1,'Nail Polish Pink',NULL,'23-nail-polish-pink','Very Nice Product','More specifications',7,7,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-13 09:35:23','2019-01-13 09:35:23','KhatryOnline.com'),
+	(24,38,1,'abc',NULL,'24-abc',NULL,NULL,8,8,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-13 10:21:09','2019-01-13 10:21:09','Self'),
+	(25,30,1,'coke',NULL,'25-coke',NULL,NULL,8,8,NULL,NULL,NULL,1,2,5,200,500,2000,0,'NPR','2019-01-13 10:32:09','2019-01-13 10:32:09','Self');
 
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;

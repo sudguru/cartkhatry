@@ -35,7 +35,11 @@
                     <a href="/product/{{$featured->product['slug']}}">{{$featured->product['name']}}</a>
                 </h2>
                 <div class="price-box">
-                    <span class="old-price">{{$regular}}</span>
+                    <span class="old-price">
+                        
+                            {{ $regular/$exchangerates->$cur}}
+                    </span>
+
                     <span class="product-price">Rs. {{$discounted}}</span>
                 </div><!-- End .price-box -->
             </div><!-- End .product-details -->
