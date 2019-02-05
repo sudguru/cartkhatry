@@ -36,11 +36,15 @@
                 </h2>
                 <div class="price-box">
                     <span class="old-price">
-                        
-                            {{ $regular/$exchangerates->$cur}}
+                            @php ($productCurrency = $featured->product['currency'])
+                            {{-- {{ ceil(round(($regular/$exchangerates->$productCurrency) *$exchangerates->$cur)*100) / 100 }} --}}
+                            {{ number_format(round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, 2),2) }}
                     </span>
 
-                    <span class="product-price">Rs. {{$discounted}}</span>
+                    <span class="product-price">
+                        {{ $cur }} 
+                        {{ number_format(round(($discounted/$exchangerates->$productCurrency) * $exchangerates->$cur, 2),2) }}
+                    </span>
                 </div><!-- End .price-box -->
             </div><!-- End .product-details -->
         </div><!-- End .product -->
