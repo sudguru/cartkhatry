@@ -102,3 +102,35 @@ ul#ticker li {
     border: 1px solid #efefef;
 }
 
+.product-details.product-price-inner {
+    padding-right: 11px;
+}
+
+.product-price-inner .product-title {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.product-price-inner .price-box {
+    position: relative;
+    width: 100%;
+    right: 0;
+    text-align: center;
+}
+
+.product-price-inner .old-price {
+    display: inline-block;
+    
+    margin-top: -.1rem;
+    margin-bottom: .4rem;
+}
+
+.ratings-container {
+    margin-bottom: 0.8rem;
+    line-height: 1;
+    text-align: center;
+}
+
+.product-image-container {
+    margin-bottom: 1.0rem;
+}

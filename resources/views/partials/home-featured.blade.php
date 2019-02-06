@@ -36,14 +36,20 @@
                 </h2>
                 <div class="price-box">
                     <span class="old-price">
-                            @php ($productCurrency = $featured->product['currency'])
+                            @php 
+                                $productCurrency = $featured->product['currency'];
+                                $decimals = 2;
+                                if ($regular > 999) {
+                                    $decimals = 0;
+                                }
+                            @endphp
                             {{-- {{ ceil(round(($regular/$exchangerates->$productCurrency) *$exchangerates->$cur)*100) / 100 }} --}}
-                            {{ number_format(round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, 2),2) }}
+                            {{ number_format(round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals), $decimals) }}
                     </span>
 
                     <span class="product-price">
                         {{ $cur }} 
-                        {{ number_format(round(($discounted/$exchangerates->$productCurrency) * $exchangerates->$cur, 2),2) }}
+                        {{ number_format(round(($discounted/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals), $decimals) }}
                     </span>
                 </div><!-- End .price-box -->
             </div><!-- End .product-details -->

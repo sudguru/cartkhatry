@@ -41,7 +41,10 @@
                     </div><!-- End .header-menu -->
                 </div><!-- End .header-dropown -->
                 <div class="header-dropdown" style="margin-left: 30px">
-                    <a href="#" style="color:red; font-weight: bold"><img src="{{ asset('assets/images/flags/USD.jpg') }}"> USD</a>
+                    @php
+                    $cur = $_GET['cur'] ?? 'NPR';
+                    @endphp
+                    <a href="#" style="color:red; font-weight: bold"><img src="{{ asset('assets/images/flags/'.$cur.'.jpg') }}"> {{$cur}}</a>
                     <div class="header-menu">
                         <ul>
                             <li><a href="?cur=AUD"><img src="{{ asset('assets/images/flags/AUD.jpg') }}"> Australian Dollar (A$)</a></li>	
