@@ -28,7 +28,7 @@ Outlet - Admin
             <li class="list-group-item d-flex" data-id="{{ $outlet->id }}"  style="cursor: move">
                 <a href='{{ route('outlet.edit', $outlet->id) }}'>{{ $outlet->outlet }}</a>
                 <span class="ml-auto">
-                    <a href="/adm/outlet/{{ $outlet->id }}" onclick="event.preventDefault();
+                    <a id="posted" href="/adm/outlet/{{ $outlet->id }}" onclick="event.preventDefault();
                     if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$outlet->id}}').submit();}return false;">
                         <i class="fas fa-trash text-danger"></i>
                     </a>

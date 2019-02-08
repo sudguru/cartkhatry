@@ -318,7 +318,28 @@
                                 <label for="specification">Detailed Specification</label>
                                 <textarea class="form-control editor" name="specification" id="specification">{{ old('specification') ?? $product->specification }}</textarea>
                             </div>
-                    
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select name="primarycurrency" class="form-control">
+                                        <option value="AUD" {{ $product->primarycurrency == "AUD" ? 'selected' : '' }}>AUD - Australian Dollar</option>
+                                        <option value="CAD" {{ $product->primarycurrency == "CAD" ? 'selected' : '' }}>CAD - Canadian Dollar</option>
+                                        <option value="CNY" {{ $product->primarycurrency == "CNY" ? 'selected' : '' }}>CNY - Chinese Yuan</option>
+                                        <option value="DKK" {{ $product->primarycurrency == "DKK" ? 'selected' : '' }}>DKK - Danish Kroner</option>
+                                        <option value="EUR" {{ $product->primarycurrency == "EUR" ? 'selected' : '' }}>EUR - European Euro</option>
+                                        <option value="HKD" {{ $product->primarycurrency == "HKD" ? 'selected' : '' }}>HKD - Hongkong Dollar</option>
+                                        <option value="INR" {{ $product->primarycurrency == "INR" ? 'selected' : '' }}>INR - Indian Rupee</option>
+                                        <option value="JPY" {{ $product->primarycurrency == "JPY" ? 'selected' : '' }}>JPY - Japanese Yen</option>
+                                        <option value="NPR" {{ $product->primarycurrency == "NPR" ? 'selected' : '' }}>NPR - Nepalese Rupee</option>
+                                        <option value="SGD" {{ $product->primarycurrency == "SGD" ? 'selected' : '' }}>SGD - Singapore Dollar</option>
+                                        <option value="KRW" {{ $product->primarycurrency == "KRW" ? 'selected' : '' }}>KRW - South Korean Won</option>
+                                        <option value="SEK" {{ $product->primarycurrency == "SEK" ? 'selected' : '' }}>SEK - Swedish Kroner</option>
+                                        <option value="CHF" {{ $product->primarycurrency == "CHF" ? 'selected' : '' }}>CHF - Swiss Franc</option>
+                                        <option value="USD" {{ $product->primarycurrency == "USD" ? 'selected' : '' }}>USD - US Dollar</option>
+                                        <option value="GBP" {{ $product->primarycurrency == "GBP" ? 'selected' : '' }}>GBP - UK Pound Sterling</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-footer" style="margin-top: 0; padding-top:0">
                                 <button type="submit" class="btn btn-primary btn-md">Update Product</button>
                             </div><!-- End .form-footer -->

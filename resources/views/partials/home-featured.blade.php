@@ -37,7 +37,7 @@
                 <div class="price-box">
                     <span class="old-price">
                             @php 
-                                $productCurrency = $featured->product['currency'];
+                                $productCurrency = $featured->product['primarycurrency'];
                                 $decimals = 2;
                                 if ($regular > 999) {
                                     $decimals = 0;

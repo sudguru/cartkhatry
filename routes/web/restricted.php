@@ -4,6 +4,9 @@ Route::get('/password/change', 'DashboardController@change')->name('account.chan
 
 Route::get('/account/info', 'AccountController@index')->name('account.info');
 Route::post('/account/info', 'AccountController@update');
+Route::get('/account/logocover', 'AccountController@logocover')->name('account.logocover');
+Route::post('/account/logo', 'AccountController@logo')->name('account.logo');
+Route::post('/account/cover', 'AccountController@cover')->name('account.cover');
 
 Route::get('/account/product/create', 'MerchantController@productcreate')->name('account.product.create');
 Route::get('/account/products', 'MerchantController@productindex')->name('account.product.index');

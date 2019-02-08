@@ -32,7 +32,7 @@ Info Boxes - Admin
                 <br/>{{ $info->subtitle }}
                 </span>
                 <span class="ml-auto">
-                    <a href="/adm/info/{{ $info->id }}" onclick="event.preventDefault();
+                    <a id="posted" href="/adm/info/{{ $info->id }}" onclick="event.preventDefault();
                     if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$info->id}}').submit();}return false;">
                         <i class="fas fa-trash text-danger"></i>
                     </a>

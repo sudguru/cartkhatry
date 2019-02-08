@@ -17,7 +17,8 @@ class ComposerServiceProvider extends ServiceProvider
                 'layouts.d11',
                 'home',
                 'singleproduct',
-                'category'
+                'category',
+                'partials.home-top'
             ], 
             '\App\Http\ViewComposers\CommonComposer'
         );

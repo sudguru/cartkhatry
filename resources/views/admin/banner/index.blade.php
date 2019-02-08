@@ -48,7 +48,7 @@ Banner - Admin
                 <a href='{{ route('banner.edit',$banner->id) }}'><img src="/storage/banners/{{ $banner->banner }}" /></a>
                 </span>
                 <span class="ml-auto">
-                    <a href="/adm/banner/{{ $banner->id }}" onclick="event.preventDefault();
+                    <a id="posted" href="/adm/banner/{{ $banner->id }}" onclick="event.preventDefault();
                     if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$banner->id}}').submit();}return false;">
                         <i class="fas fa-trash text-danger"></i>
                     </a>

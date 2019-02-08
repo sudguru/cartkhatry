@@ -28,7 +28,7 @@ Banner Types - Admin
             <li class="list-group-item d-flex" data-id="{{ $bannertype->id }}" style="cursor: move">
                 <a href='{{ route('bannertype.edit',$bannertype->id) }}'>{{ $bannertype->bannertype }}</a>
                 <span class="ml-auto">
-                    <a href="/adm/bannertype/{{ $bannertype->id }}" onclick="event.preventDefault();
+                    <a id="posted" href="/adm/bannertype/{{ $bannertype->id }}" onclick="event.preventDefault();
                     if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$bannertype->id}}').submit();}return false;">
                         <i class="fas fa-trash text-danger"></i>
                     </a>

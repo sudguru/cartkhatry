@@ -28,7 +28,7 @@ Promo Links - Admin
             <li class="list-group-item d-flex" data-id="{{ $promo->id }}" style="cursor: move">
                 <a href='{{ route('promo.edit',$promo->id) }}'>{{ $promo->title }}</a>
                 <span class="ml-auto">
-                    <a href="/adm/promo/{{ $promo->id }}" onclick="event.preventDefault();
+                    <a id="posted" href="/adm/promo/{{ $promo->id }}" onclick="event.preventDefault();
                     if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$promo->id}}').submit();}return false;">
                         <i class="fas fa-trash text-danger"></i>
                     </a>

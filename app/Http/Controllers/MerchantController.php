@@ -54,7 +54,8 @@ class MerchantController extends Controller
             'delivery_charge_local' => $request->delivery_charge_local,
             'delivery_charge_intercity' => $request->delivery_charge_intercity,
             'delivery_charge_intl' => $request->delivery_charge_intl,
-            'manufactured_in' => $request->manufactured_in
+            'manufactured_in' => $request->manufactured_in,
+            'primarycurrency' => $request->primarycurrency
         ]);
         $product->update([
             'slug' => $product->id . '-' . str_slug($request->name, '-')
@@ -98,7 +99,8 @@ class MerchantController extends Controller
             'delivery_charge_local' => $request->delivery_charge_local,
             'delivery_charge_intercity' => $request->delivery_charge_intercity,
             'delivery_charge_intl' => $request->delivery_charge_intl,
-            'manufactured_in' => $request->manufactured_in
+            'manufactured_in' => $request->manufactured_in,
+            'primarycurrency' => $request->primarycurrency
         ]);
         return redirect()->route('account.product.edit', $product->slug)->with('success', 'Product Updated Successfully');
     }

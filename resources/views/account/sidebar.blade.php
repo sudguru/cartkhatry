@@ -1,6 +1,7 @@
 
 <li class="{{ $currentPage == 'dashboard' ? 'active' : '' }}"><a href="{{ route('account.dashboard') }}">Account Dashboard</a></li>
 <li class="{{ $currentPage == 'accountinfo' ? 'active' : '' }}"><a href="{{route('account.info')}}">Account Information</a></li>
+<li class="{{ $currentPage == 'logocover' ? 'active' : '' }}"><a href="{{route('account.logocover')}}">Logo & Cover Image</a></li>
 <li><a href="/password/change">Change Password</a></li>
 {{-- <li class="{{ $currentPage == 'addressbook' ? 'active' : '' }}"><a href="/account/addresses">Address Book</a></li> --}}
 {{-- <li class="dropdown-divider"></li> --}}

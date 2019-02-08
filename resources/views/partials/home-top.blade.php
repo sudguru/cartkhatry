@@ -37,19 +37,20 @@
                 <div class="price-box">
                     <span class="old-price">
                         @php 
-                            $productCurrency = $newarrival->product['currency'];
+                            $productCurrency = $newarrival->product['primarycurrency'];
                             $decimals = 2;
                             if ($regular > 9999) {
                                 $decimals = 0;
                             }
                         @endphp
+                        {{$exchangerates->$productCurrency}} asdf
                         {{-- {{ ceil(round(($regular/$exchangerates->$productCurrency) *$exchangerates->$cur)*100) / 100 }} --}}
-                        {{ number_format(round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals),$decimals) }}
+                        {{-- {{ number_format(round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals),$decimals) }} --}}
                 </span>
 
                 <span class="product-price">
                     {{ $cur }} 
-                    {{ number_format(round(($discounted/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals),$decimals) }}
+                    {{-- {{ number_format(round(($discounted/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals),$decimals) }} --}}
                 </span>
                 </div><!-- End .price-box -->
             </div><!-- End .product-details -->

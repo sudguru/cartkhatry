@@ -45,7 +45,7 @@ Contents - Admin
                 <i class="{{ $content->contenttype->icon }} mr-4" style="font-size: 200%; min-width: 30px; text-align: center"></i>
                 <a href='{{ route('content.edit', $content->id) }}'>{{ $content->title }}</a>
                 <span class="ml-auto">
-                    <a href="/adm/content/{{ $content->id }}" onclick="event.preventDefault();
+                    <a id="posted" href="/adm/content/{{ $content->id }}" onclick="event.preventDefault();
                     if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$content->id}}').submit();}return false;">
                         <i class="fas fa-trash text-danger"></i>
                     </a>

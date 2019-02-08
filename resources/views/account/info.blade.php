@@ -89,6 +89,40 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Other info</strong>
+                                <div class="form-group">
+                                    <label for="skype">Skype</label>
+                                    <input type="text" class="form-control" id="skype" name="skype" value="{{$userdetail->skype}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="viber">Viber</label>
+                                    <input type="text" class="form-control" id="viber" name="viber" value="{{$userdetail->viber}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="whatsapp">WhatsApp</label>
+                                    <input type="text" class="form-control" id="whatsapp" name="whatsapp" value="{{$userdetail->whatsapp}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <br />
+                                <div class="form-group">
+                                    <label for="facebook">Facebook</label>
+                                    <input type="text" class="form-control" id="facebook" name="facebook" value="{{$userdetail->facebook}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="twitter">Twitter</label>
+                                    <input type="text" class="form-control" id="twitter" name="twitter" value="{{$userdetail->twitter}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="youtube">You Tube</label>
+                                    <input type="text" class="form-control" id="youtube" name="youtube" value="{{$userdetail->youtube}}">
+                                </div>
+
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <strong>Payment Link</strong>

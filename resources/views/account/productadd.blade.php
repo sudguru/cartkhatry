@@ -144,6 +144,28 @@
                             {{ old('specification') }}
                         </textarea>
                     </div>
+
+                    <div class="row">
+                            <div class="col-md-4">
+                                <select name="primarycurrency" class="form-control">
+                                    <option value="AUD">AUD - Australian Dollar</option>
+                                    <option value="CAD">CAD - Canadian Dollar</option>
+                                    <option value="CNY">CNY - Chinese Yuan</option>
+                                    <option value="DKK">DKK - Danish Kroner</option>
+                                    <option value="EUR">EUR - European Euro</option>
+                                    <option value="HKD">HKD - Hongkong Dollar</option>
+                                    <option value="IND">IND - Indian Rupee</option>
+                                    <option value="JPY">JPY - Japanese Yen</option>
+                                    <option value="NPR">NPR - Nepalese Rupee</option>
+                                    <option value="SGD">SGD - Singapore Dollar</option>
+                                    <option value="KRW">KRW - South Korean Won</option>
+                                    <option value="SEK">SEK - Swedish Kroner</option>
+                                    <option value="CHF">CHF - Swiss Franc</option>
+                                    <option value="USD">USD - US Dollar</option>
+                                    <option value="GBP">GBP - UK Pound Sterling</option>
+                                </select>
+                            </div>
+                        </div>
             
                     <div class="form-footer" style="margin-top: 0; padding-top:0">
                         <button type="submit" class="btn btn-primary btn-md">Save Product</button>

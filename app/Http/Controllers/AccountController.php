@@ -46,7 +46,14 @@ class AccountController extends Controller
             'country' => $request->country,
             'mobile' => $request->mobile,
             'website' => $request->website,
-            'paymentlink' => $request->paymentlink
+            'paymentlink' => $request->paymentlink,
+            'facebook' => $request->facebook,
+            'twitter' => $request->twitter,
+            'viber' => $request->viber,
+            'youtube' => $request->youtube,
+            'whatsapp' => $request->whatsapp,
+            'skype' => $request->skype,
+
         ]);
 
 
@@ -54,9 +61,26 @@ class AccountController extends Controller
             ->with('success','Account Information updated successfully');
     }
 
+    public function logocover() {
+        $userdetail = Userdetail::firstOrCreate(
+            ['id' => auth()->user()->id],
+            [
+                'is_admin' => 0,
+                'is_super' => 0
+            ]
+        );
+
+        return view('account.logocover', [
+            'currentPage' => 'logocover',
+            'userdetail' => $userdetail
+        ]);
+    }
+
     private function validateRequest(Request $request) {
         return $request->validate([
             'name' => 'required'
         ]);
     }
+
+
 }

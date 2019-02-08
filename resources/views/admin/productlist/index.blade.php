@@ -50,7 +50,7 @@ Product LIst - Admin
                     <a href='{{ route('productlist.edit',$productlist->id) }}'>{{ $productlist->product['name']}}</a>
                 </span>
                 <span class="ml-auto">
-                    <a href="/adm/productlist/{{ $productlist->id }}" onclick="event.preventDefault();
+                    <a id="posted" href="/adm/productlist/{{ $productlist->id }}" onclick="event.preventDefault();
                     if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$productlist->id}}').submit();}return false;">
                         <i class="fas fa-trash text-danger"></i>
                     </a>
