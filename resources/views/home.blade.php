@@ -7,6 +7,7 @@
 @section('content')
     @php
     $cur = $_GET['cur'] ?? 'NPR';
+    $cur = filter_var($cur, FILTER_SANITIZE_STRING);
     @endphp
     <div class="container">
         <div class="row">
@@ -18,7 +19,6 @@
             </div>
         </div>
     </div><!-- End .container -->
-    {{ $cur }}
     @include('partials.horizontal-banners1')
     @include('partials.home-featured')
     <div class="mb-3"></div><!-- margin -->

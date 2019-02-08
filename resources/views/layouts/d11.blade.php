@@ -30,7 +30,7 @@
     
 </head>
 <body>
-
+    
 <div class="page-wrapper">
         
         @include('partials.header')
@@ -51,8 +51,12 @@
     <script src="{{ asset('assets/js/nouislider.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/ticker.js') }}"></script>
+    @php
+    $cur = $_GET['cur'] ?? 'NPR';
+    $cur = filter_var($cur, FILTER_SANITIZE_STRING);
+    @endphp
     <script>
-        var extra = "{{ $cur }}";
+        var cur = "{{ $cur }}";
     </script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @yield('extrajs')

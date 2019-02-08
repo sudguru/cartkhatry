@@ -89,6 +89,13 @@
     <script src="{{ asset('assets/js/plugins.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/ticker.js') }}"></script>
+    @php
+    $cur = $_GET['cur'] ?? 'NPR';
+    $cur = filter_var($cur, FILTER_SANITIZE_STRING);
+    @endphp
+    <script>
+        var cur = "{{ $cur }}";
+    </script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @yield('extrajs')
 </body>

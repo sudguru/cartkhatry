@@ -43,7 +43,7 @@ Add New Product
 
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="category_id">Category</label>
 
@@ -64,11 +64,19 @@ Add New Product
                     </select>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="brand_id">Brand</label>
                 <select name="brand_id" id="brand_id" class="form-control">
                     @foreach($brands as $brand)
                     <option value="{{$brand->id}}">{{$brand->brand}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="manufactured_in">Manufactured In</label>
+                <select name="manufactured_in" id="manufactured_in" class="form-control">
+                    @foreach($countries as $country)
+                    <option value="{{$country->name}}" {{ trim($country->name) == 'China' ? 'selected' : ''}}>{{$country->name}}</option>
                     @endforeach
                 </select>
             </div>

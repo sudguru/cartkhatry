@@ -9,6 +9,7 @@ use App\Category;
 use App\Brand;
 use App\Setting;
 use App\Size;
+use App\Country;
 
 class MerchantController extends Controller
 {
@@ -20,12 +21,13 @@ class MerchantController extends Controller
         $category = new Category;
         $brands = Brand::orderBy('display_order')->get();
         $setting = Setting::first();
-
+        $countries = Country::all();
         return view('account.productadd', [
             'currentPage' => 'merchantnewproduct',
             'categories' => $category->allCategories(),
             'brands' => $brands,
-            'setting' => $setting
+            'setting' => $setting,
+            'countries' => $countries
         ]);
     }
 
@@ -51,7 +53,8 @@ class MerchantController extends Controller
             'delivery_day_to' => $request->delivery_day_to,
             'delivery_charge_local' => $request->delivery_charge_local,
             'delivery_charge_intercity' => $request->delivery_charge_intercity,
-            'delivery_charge_intl' => $request->delivery_charge_intl
+            'delivery_charge_intl' => $request->delivery_charge_intl,
+            'manufactured_in' => $request->manufactured_in
         ]);
         $product->update([
             'slug' => $product->id . '-' . str_slug($request->name, '-')
@@ -65,6 +68,7 @@ class MerchantController extends Controller
         $brands = Brand::orderBy('display_order')->get();
         $setting = Setting::first();
         $sizes = Size::orderBy('display_order')->get();
+        $countries = Country::all();
         return view('account.productedit', [
             'currentPage' => 'merchantnewproduct',
             'categories' => $category->allCategories(),
@@ -72,7 +76,8 @@ class MerchantController extends Controller
             'setting' => $setting,
             'userpics' => $userpics,
             'product' => $product,
-            'sizes' => $sizes
+            'sizes' => $sizes,
+            'countries' => $countries
         ]);
     }
 
@@ -92,7 +97,8 @@ class MerchantController extends Controller
             'delivery_day_to' => $request->delivery_day_to,
             'delivery_charge_local' => $request->delivery_charge_local,
             'delivery_charge_intercity' => $request->delivery_charge_intercity,
-            'delivery_charge_intl' => $request->delivery_charge_intl
+            'delivery_charge_intl' => $request->delivery_charge_intl,
+            'manufactured_in' => $request->manufactured_in
         ]);
         return redirect()->route('account.product.edit', $product->slug)->with('success', 'Product Updated Successfully');
     }

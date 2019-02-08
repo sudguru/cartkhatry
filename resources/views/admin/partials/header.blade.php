@@ -29,7 +29,7 @@
                     <li class="{{ $active == 'Dashboard' ? 'active' : '' }}"><a href="/adm">DASHBOARD</a></li>
                     <li class="{{ $active == 'Basic' ? 'active' : '' }}"><a href="#" class="sf-with-ul">Basic</a>
                         <ul>
-                            <li><a href="{{ route('promo.index') }}">Top Messages</a></li>
+                            <li><a href="{{ route('promo.index') }}">Promo Links</a></li>
                             <li><a href="{{ route('info.index') }}">Info Boxes</a></li>
                             <li>
                                 <a href="#">Contents</a>
@@ -71,7 +71,7 @@
                     <li class="{{ $active == 'Users' ? 'active' : '' }}"><a href="{{ route('userdetail.index') }}">Manage Users</a></li>
                     <li class="{{ $active == 'Settings' ? 'active' : '' }}"><a href="{{ route('setting.index') }}">Settings</a></li>
                     <li class="float-right">
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                        <a id="posted" href="{{ route('logout') }}" onclick="event.preventDefault();
                             if (! confirm('Are You Sure?')) { return false; } 
                             else { document.getElementById('logout-form').submit(); }">
                             SIGN OUT

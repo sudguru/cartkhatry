@@ -12,6 +12,7 @@ use App\Setting;
 use App\Size;
 use App\Productcolor;
 use App\Userdetail;
+use App\Country;
 
 class ProductController extends Controller
 {
@@ -26,11 +27,13 @@ class ProductController extends Controller
         $category = new Category;
         $brands = Brand::orderBy('display_order')->get();
         $setting = Setting::first();
+        $countries = Country::all();
         return view('admin.product.add', [
             'active' => $this->active,
             'categories' => $category->allCategories(),
             'brands' => $brands,
-            'setting' => $setting
+            'setting' => $setting,
+            'countries' => $countries
         ]);
     }
 
@@ -51,7 +54,8 @@ class ProductController extends Controller
             'delivery_day_to' => $request->delivery_day_to,
             'delivery_charge_local' => $request->delivery_charge_local,
             'delivery_charge_intercity' => $request->delivery_charge_intercity,
-            'delivery_charge_intl' => $request->delivery_charge_intl
+            'delivery_charge_intl' => $request->delivery_charge_intl,
+            'manufactured_in' => $request->manufactured_in
         ]);
         $product->update([
             'slug' => $product->id . '-' . str_slug($request->name, '-')
@@ -65,6 +69,7 @@ class ProductController extends Controller
         $brands = Brand::orderBy('display_order')->get();
         $setting = Setting::first();
         $sizes = Size::orderBy('display_order')->get();
+        $countries = Country::all();
         return view('admin.product.edit', [
             'active' => $this->active,
             'categories' => $category->allCategories(),
@@ -72,7 +77,8 @@ class ProductController extends Controller
             'setting' => $setting,
             'userpics' => $userpics,
             'product' => $product,
-            'sizes' => $sizes
+            'sizes' => $sizes,
+            'countries' => $countries
         ]);
     }
 
@@ -92,7 +98,8 @@ class ProductController extends Controller
             'delivery_day_to' => $request->delivery_day_to,
             'delivery_charge_local' => $request->delivery_charge_local,
             'delivery_charge_intercity' => $request->delivery_charge_intercity,
-            'delivery_charge_intl' => $request->delivery_charge_intl
+            'delivery_charge_intl' => $request->delivery_charge_intl,
+            'manufactured_in' => $request->manufactured_in
         ]);
         return redirect()->route('product.edit', $product->slug)->with('success', 'Product Updated Successfully');
     }

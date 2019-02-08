@@ -134,3 +134,8 @@ ul#ticker li {
 .product-image-container {
     margin-bottom: 1.0rem;
 }
+
+.product-price {
+    color: #d92a2e;
+    font-size: 1.7rem;
+}

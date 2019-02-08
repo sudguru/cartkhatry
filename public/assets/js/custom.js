@@ -5,10 +5,13 @@ $(document).ready(function () {
         effect: 'fade'
     });
 
-    $('a').on('click', function(e) {
-        var link = $(this).attr('href');
-        link = link + '?cur='+ extra;
+    $('a:not(#posted)').on('click', function(e) {
         e.preventDefault();
+        var link = $(this).attr('href');
+        if(link.indexOf("?") == -1) {
+            link = link + '?cur='+ cur;
+        }
+        // alert(link);
         location.href = link;
     });
 });

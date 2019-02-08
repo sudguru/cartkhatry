@@ -38,47 +38,50 @@ class CommonComposer
 
           // Store the data:
           $json = curl_exec($ch);
+            // Decode JSON response:
+          $res = json_decode($json, true);
+          // dd($res['success']);
+          if($res['success'] === true) {
+            $date = $res['date'];
+            $NPR = $res['rates']['NPR'];
+            $EUR = $res['rates']['EUR'];
+            $INR = $res['rates']['INR'];
+            $USD = $res['rates']['USD'];
+            $CAD = $res['rates']['CAD'];
+            $AUD = $res['rates']['AUD'];
+            $JPY = $res['rates']['JPY'];
+            $CNY = $res['rates']['CNY'];
+            $HKD = $res['rates']['HKD'];
+            $KRW = $res['rates']['KRW'];
+            $SGD = $res['rates']['SGD'];
+            $CHF = $res['rates']['CHF'];
+            $SEK = $res['rates']['SEK'];
+            $DKK = $res['rates']['DKK'];
+            $GBP = $res['rates']['GBP'];
+            $er = Exchangerate::first();
+            $er->update([
+                'date' => $date,
+                'NPR' => $NPR,
+                'EUR' => $EUR,
+                'INR' => $INR,
+                'USD' => $USD,
+                'CAD' => $CAD,
+                'AUD' => $AUD,
+                'JPY' => $JPY,
+                'CNY' => $CNY,
+                'HKD' => $HKD,
+                'KRW' => $KRW,
+                'SGD' => $SGD,
+                'CHF' => $CHF,
+                'SEK' => $SEK,
+                'DKK' => $DKK,
+                'GBP' => $GBP
+            ]);
+          }
           curl_close($ch);
-
-          // Decode JSON response:
-          $exchangerates = json_decode($json, true);
-          $date = $exchangerates['date'];
-          $NPR = $exchangerates['rates']['NPR'];
-          $EUR = $exchangerates['rates']['EUR'];
-          $INR = $exchangerates['rates']['INR'];
-          $USD = $exchangerates['rates']['USD'];
-          $CAD = $exchangerates['rates']['CAD'];
-          $AUD = $exchangerates['rates']['AUD'];
-          $JPY = $exchangerates['rates']['JPY'];
-          $CNY = $exchangerates['rates']['CNY'];
-          $HKD = $exchangerates['rates']['HKD'];
-          $KRW = $exchangerates['rates']['KRW'];
-          $SGD = $exchangerates['rates']['SGD'];
-          $CHF = $exchangerates['rates']['CHF'];
-          $SEK = $exchangerates['rates']['SEK'];
-          $DKK = $exchangerates['rates']['DKK'];
-          $GBP = $exchangerates['rates']['GBP'];
-          $er = Exchangerate::first();
-          $er->update([
-              'date' => $date,
-              'NPR' => $NPR,
-              'EUR' => $EUR,
-              'INR' => $INR,
-              'USD' => $USD,
-              'CAD' => $CAD,
-              'AUD' => $AUD,
-              'JPY' => $JPY,
-              'CNY' => $CNY,
-              'HKD' => $HKD,
-              'KRW' => $KRW,
-              'SGD' => $SGD,
-              'CHF' => $CHF,
-              'SEK' => $SEK,
-              'DKK' => $DKK,
-              'GBP' => $GBP
-          ]);
+          $exchangerates = Exchangerate::first();
         }
-        $exchangerates = Exchangerate::first();
+        
         return $exchangerates; 
       }));
 
