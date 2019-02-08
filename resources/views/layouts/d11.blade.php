@@ -51,6 +51,9 @@
     <script src="{{ asset('assets/js/nouislider.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/ticker.js') }}"></script>
+    <script>
+        var extra = "{{ $cur }}";
+    </script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @yield('extrajs')
 </body>
