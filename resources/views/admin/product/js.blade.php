@@ -103,7 +103,7 @@
             var selected = $(this).find('option:selected');
             var size = selected.data('size');
             $('#sizename').val(size);
-            console.log(size);
+            $('#size_id_hidden-'+$('#price_id').val()).val($('#size_id').val());
         });
 
 
@@ -143,9 +143,22 @@
             }
         });
 
-        $('#productPrices').on('click', '.addpriceid' , function(){
-            $('#currentPriceId').val($(this).parent().prev().attr('id').split('-')[1]);
+        $('#productPrices').on('click', '.editPrice' , function(){
+            $price_id_to_edit = $(this).attr('id').split("-")[1];
+            $('#price_id').val($price_id_to_edit);
+            $('#size_id').val($('#size_id_hidden-'+$price_id_to_edit).val());
+            $('#regular').val($('#regular_value-'+$price_id_to_edit).html());
+            $('#discounted').val($('#discounted_value-'+$price_id_to_edit).html());
+            $('#discount_valid_until').val($('#discount_valid_until_value-'+$price_id_to_edit).html());
+            $('#sizename').val($('#sizename_value-'+$price_id_to_edit).html());
+            $('#mytask').val('edit');
+            $('#price_save_btn').html('Update Price');
+
         });
+
+        // $('#productPrices').on('click', '.addpriceid' , function(){
+        //     $('#currentPriceId').val($(this).parent().prev().attr('id').split('-')[1]);
+        // });
 
         $('[data-toggle="datepicker"]').datepicker({
             date: new Date(),
@@ -173,35 +186,64 @@
                 $('#discounted').val($('#regular').val());
             }
             var form = new FormData(this);
-            $.ajax({
-                url: '{{route('price.store') }}',
-                data: form,
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'POST',
-                success: function (response) {
+            $price_id = $('#price_id').val();
+            if($('#mytask').val() == "add") {
+                $.ajax({
+                    url: '{{route('price.store') }}',
+                    data: form,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    type: 'POST',
+                    success: function (response) {
 
-                    $('#currentPriceId').val(response);
-                    var newprice = '<tr id="row-' + response + '">' +
-                        '<td>' + $('#sizename').val() + '</td>' +
-                        '<td style="text-align: right">' + $('#regular').val() + '</td>' +
-                        '<td style="text-align: right">' + $('#discounted').val() + '</td>' +
-                        '<td>' + $('#discount_valid_until').val() + '</td>' +
-                        '<td><i class="fas fa-trash deletePrice" id="' + response +
-                        '"></i></td>' +
-                        '</tr>';
+                        // $('#currentPriceId').val(response);
+                        var newprice = '<tr id="row-' + response + '">' +
+                            '<td id="sizename_value-'+response+ '">' + $('#sizename').val() + '</td>' +
+                            '<td style="text-align: right"><span id="regular_value-'+response+'">' + $('#regular').val() + '</span></td>' +
+                            '<td style="text-align: right"><span id="discounted_value-'+response+'">' + $('#discounted').val() + '</span></td>' +
+                            '<td id="discount_valid_until_value-'+response+ '">' + $('#discount_valid_until').val() + '</td>' +
+                            '<td><input type="text" id="size_id_hidden-'+response+'" value="' + $('#size_id').val() +'">' +
+                            '<i class="fas fa-edit editPrice pointer" id="update-' + response +'"></i>&nbsp;&nbsp;&nbsp;' +
+                            '<i class="fas fa-trash deletePrice pointer" id="' + response +
+                            '"></i></td>' +
+                            '</tr>';
 
-                    $('#productPrices').append(newprice);
-                    $('#form-add-price').trigger("reset");
+                        $('#productPrices').append(newprice);
+                        $('#form-add-price').trigger("reset");
 
-                    $('#priceModalAdd').modal('hide');
 
-                },
-                error: function (a, b, err) {
-                    document.write(a.responseText);
-                }
-            });
+                    },
+                    error: function (a, b, err) {
+                        document.write(a.responseText);
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: '{{route('price.update') }}',
+                    data: form,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    type: 'POST',
+                    success: function (response) {
+                        $newsizeid = $('#size_id').val();
+                        $('#sizename_value-'+response).html($('#sizename').val());
+                        $('#regular_value-'+response).html($('#regular').val());
+                        $('#discounted_value-'+response).html($('#discounted').val());
+                        $('#discount_valid_until_value-'+response).html($('#discount_valid_until').val());
+                        $('#form-add-price').trigger("reset");
+                        $('#size_id_hidden-'+response).val($newsizeid);
+                        $('#sizename').val('Regular');
+                        $('#mytask').val('add');
+                        $('#price_save_btn').html('Add Price');
+
+                    },
+                    error: function (a, b, err) {
+                        document.write(a.responseText);
+                    }
+                });
+            }
 
         });
     })

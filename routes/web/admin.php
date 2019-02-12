@@ -48,6 +48,7 @@ Route::prefix('adm')->middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/product/price/delete', 'Admin\ProductController@deleteprice')->name("price.destroy");
     Route::post('/product/price/color', 'Admin\ProductController@addcolor')->name('color.store');
     Route::post('/product/price/color/remove', 'Admin\ProductController@removecolor')->name('color.destroy');
+    Route::post('/product/updateprice', 'Admin\ProductController@updateprice')->name('price.update');
 
     Route::post('/image/upload', 'Admin\UploadController@upload')->name('image.upload');
     Route::post('/image/savecaption', 'Admin\UploadController@savecaption')->name('image.savecaption');

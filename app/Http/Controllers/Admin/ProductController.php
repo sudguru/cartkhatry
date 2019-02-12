@@ -132,22 +132,17 @@ class ProductController extends Controller
             'discounted' => $request->discounted,
             'discount_valid_until' => $request->discount_valid_until
         ]);
-        // $productprice = Productprice::create([
-        //     'product_id' => $request->product_id,
-        //     'size_id' => 1,
-        //     'regular' => 0,
-        //     'discounted' => 0
-        // ]);
         return $productprice->id;   
     }
 
     public function updateprice(Request $request) {
-        $field = $request->field;
-        $id = $request->id;
-        $value = $request->value;
+        $id = $request->price_id;
         $productprice = Productprice::find($id);
         $productprice->update([
-            $field => $value
+            'size_id' => $request->size_id,
+            'regular' => $request->regular,
+            'discounted' => $request->discounted,
+            'discount_valid_until' => $request->discount_valid_until
         ]);
         return $id;
     }
