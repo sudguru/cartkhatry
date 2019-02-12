@@ -70,7 +70,11 @@ Add Images of Product
   width: 25px;
 }
 
-.deletePrice {
+.pointer {
+    cursor: pointer;
+}
+
+.pointer {
     cursor: pointer;
 }
 
@@ -101,10 +105,11 @@ Add Images of Product
     <div class="d-flex justify-content-between">
         <h2><span class="text-muted">Edit</span> {{$product->name}}</h2>
         <div>
-                <a class="btn btn-sm btn-success" style="height:36px; padding: .6rem 1.5rem" href="{{ route('product.create') }}">Add New</a>
-                <a class="btn btn-sm btn-info" style="height:36px; padding: .6rem 1.5rem" href="/adm/products">Done</a>
+            <a class="btn btn-sm btn-success" style="height:36px; padding: .6rem 1.5rem" href="{{ route('product.create') }}">Add
+                New</a>
+            <a class="btn btn-sm btn-info" style="height:36px; padding: .6rem 1.5rem" href="/adm/products">Done</a>
         </div>
-        
+
 
     </div>
     <div class="card">
@@ -148,10 +153,13 @@ Add Images of Product
                         @foreach($product->prices as $price)
                         <tr id="row-{{$price->id}}">
                             <td>{{$price->size->size}}</td>
-                            <td style="text-align: right">{{$price->regular}}</td>
-                            <td style="text-align: right">{{$price->discounted}}</td>
+                            <td style="text-align: right">{{$product->primarycurrency}} {{$price->regular}}</td>
+                            <td style="text-align: right">{{$product->primarycurrency}} {{$price->discounted}}</td>
                             <td>{{$price->discount_valid_until}}</td>
-                            <td><i class="fas fa-trash deletePrice" id="{{$price->id}}"></i></td>
+                            <td>
+                                <i class="fas fa-edit editPrice pointer" id="update-{{$price->id}}"></i>
+                                <i class="fas fa-trash deletePrice pointer" id="{{$price->id}}"></i>
+                            </td>
                         </tr>
 
                         @endforeach
@@ -164,13 +172,23 @@ Add Images of Product
                                     <option value="{{$size->id}}" data-size="{{$size->size}}">{{$size->size}}</option>
                                     @endforeach
                                 </select>
-                                <input type="text" id="sizename" value="{{$sizes[0]->size}}" />
+                                <input type="hidden" id="sizename" value="{{$sizes[0]->size}}" />
                             </td>
                             <td>
-                                <input id="regular" type="number" name="regular" required class="form-control">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">{{$product->primarycurrency}} </span>
+                                    </div>
+                                    <input  id="regular" type="number" name="regular" required class="form-control" aria-describedby="basic-addon1">
+                                </div>
                             </td>
                             <td>
-                                <input id="discounted" type="number" name="discounted" class="form-control">
+                                    <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon2">{{$product->primarycurrency}} </span>
+                                            </div>
+                                            <input  id="discounted" type="number" name="discounted" required class="form-control" aria-describedby="basic-addon2">
+                                        </div>
                             </td>
                             <td>
                                 <input id="discount_valid_until" type="text" name="discount_valid_until" data-toggle="datepicker"
@@ -211,7 +229,8 @@ Add Images of Product
             <div class="col-md-6">
                 <label for="paymentmanagedby">Payment Managed By</label>
                 <select name="paymentmanagedby" id="paymentmanagedby" class="form-control">
-                    <option value="KhatryOnline.com" {{ $product->paymentmanagedby == 'KhatryOnline.com' ? 'selected' : '' }}>KhatryOnline.com</option>
+                    <option value="KhatryOnline.com"
+                        {{ $product->paymentmanagedby == 'KhatryOnline.com' ? 'selected' : '' }}>KhatryOnline.com</option>
                     <option value="Self" {{ $product->paymentmanagedby == 'Self' ? 'selected' : '' }}>Self</option>
                 </select>
             </div>
@@ -223,7 +242,8 @@ Add Images of Product
 
                     <select class="custom-select" name="category_id" id="category_id">
                         @foreach($categories as $parent)
-                        <option value="{{$parent->id}}" {{$parent->id == $product->category_id ? 'selected': ''}}>{{$parent->category}}</option>
+                        <option value="{{$parent->id}}" {{$parent->id == $product->category_id ? 'selected': ''}}>{{$parent->category}}
+                            {{$parent->id}}</option>
                         @if($parent->children)
                         @foreach($parent->children as $child)
                         <option value="{{$child->id}}" {{$child->id == $product->category_id ? 'selected': ''}}>
@@ -253,7 +273,8 @@ Add Images of Product
                 <label for="manufactured_in">Manufactured In</label>
                 <select name="manufactured_in" id="manufactured_in" class="form-control">
                     @foreach($countries as $country)
-                    <option value="{{$country->name}}" {{ $product->manufactured_in == $country->name ? 'selected' : ''}}>{{$country->name}}</option>
+                    <option value="{{$country->name}}"
+                        {{ $product->manufactured_in == $country->name ? 'selected' : ''}}>{{$country->name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -315,23 +336,23 @@ Add Images of Product
         </div>
         <div class="row">
             <div class="col-md-4">
-                <select name="primarycurrency">
-                    <option value="AUD">AUD - Australian Dollar</option>
-                    <option value="CAD">CAD - Canadian Dollar</option>
-                    <option value="CNY">CNY - Chinese Yuan</option>
-                    <option value="DKK">DKK - Danish Kroner</option>
-                    <option value="EUR">EUR - European Euro</option>
-                    <option value="HKD">HKD - Hongkong Dollar</option>
-                    <option value="IND">IND - Indian Rupee</option>
-                    <option value="JPY">JPY - Japanese Yen</option>
-                    <option value="NPR">NPR - Nepalese Rupee</option>
-                    <option value="SGD">SGD - Singapore Dollar</option>
-                    <option value="KRW">KRW - South Korean Won</option>
-                    <option value="SEK">SEK - Swedish Kroner</option>
-                    <option value="CHF">CHF - Swiss Franc</option>
-                    <option value="USD">USD - US Dollar</option>
-                    <option value="GBP">GBP - UK Pound Sterling</option>
-                </select>
+                    <select name="primarycurrency" class="form-control">
+                            <option value="AUD" {{ $product->primarycurrency == "AUD" ? 'selected' : '' }}>AUD - Australian Dollar</option>
+                            <option value="CAD" {{ $product->primarycurrency == "CAD" ? 'selected' : '' }}>CAD - Canadian Dollar</option>
+                            <option value="CNY" {{ $product->primarycurrency == "CNY" ? 'selected' : '' }}>CNY - Chinese Yuan</option>
+                            <option value="DKK" {{ $product->primarycurrency == "DKK" ? 'selected' : '' }}>DKK - Danish Kroner</option>
+                            <option value="EUR" {{ $product->primarycurrency == "EUR" ? 'selected' : '' }}>EUR - European Euro</option>
+                            <option value="HKD" {{ $product->primarycurrency == "HKD" ? 'selected' : '' }}>HKD - Hongkong Dollar</option>
+                            <option value="INR" {{ $product->primarycurrency == "INR" ? 'selected' : '' }}>INR - Indian Rupee</option>
+                            <option value="JPY" {{ $product->primarycurrency == "JPY" ? 'selected' : '' }}>JPY - Japanese Yen</option>
+                            <option value="NPR" {{ $product->primarycurrency == "NPR" ? 'selected' : '' }}>NPR - Nepalese Rupee</option>
+                            <option value="SGD" {{ $product->primarycurrency == "SGD" ? 'selected' : '' }}>SGD - Singapore Dollar</option>
+                            <option value="KRW" {{ $product->primarycurrency == "KRW" ? 'selected' : '' }}>KRW - South Korean Won</option>
+                            <option value="SEK" {{ $product->primarycurrency == "SEK" ? 'selected' : '' }}>SEK - Swedish Kroner</option>
+                            <option value="CHF" {{ $product->primarycurrency == "CHF" ? 'selected' : '' }}>CHF - Swiss Franc</option>
+                            <option value="USD" {{ $product->primarycurrency == "USD" ? 'selected' : '' }}>USD - US Dollar</option>
+                            <option value="GBP" {{ $product->primarycurrency == "GBP" ? 'selected' : '' }}>GBP - UK Pound Sterling</option>
+                        </select>
             </div>
         </div>
 

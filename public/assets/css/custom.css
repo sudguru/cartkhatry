@@ -139,3 +139,7 @@ ul#ticker li {
     color: #d92a2e;
     font-size: 1.7rem;
 }
+
+#form-add-price {
+    margin-bottom: 0;
+}
