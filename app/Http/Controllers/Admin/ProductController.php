@@ -28,12 +28,14 @@ class ProductController extends Controller
         $brands = Brand::orderBy('display_order')->get();
         $setting = Setting::first();
         $countries = Country::all();
+        $sizes = Size::orderBy('display_order')->get();
         return view('admin.product.add', [
             'active' => $this->active,
             'categories' => $category->allCategories(),
             'brands' => $brands,
             'setting' => $setting,
-            'countries' => $countries
+            'countries' => $countries,
+            'sizes' => $sizes
         ]);
     }
 
@@ -60,6 +62,14 @@ class ProductController extends Controller
         ]);
         $product->update([
             'slug' => $product->id . '-' . str_slug($request->name, '-')
+        ]);
+        //save first product price
+        Productprice::create([
+            'product_id' => $product->id,
+            'size_id' => $request->size_id,
+            'regular' => $request->regular,
+            'discounted' => $request->discounted,
+            'discount_valid_until' => $request->discount_valid_until
         ]);
         return redirect()->route('product.edit', $product->slug)->with('success','Product Added Successfully, Now Add Product Image(s)');
     }
@@ -132,17 +142,22 @@ class ProductController extends Controller
             'discounted' => $request->discounted,
             'discount_valid_until' => $request->discount_valid_until
         ]);
+        // $productprice = Productprice::create([
+        //     'product_id' => $request->product_id,
+        //     'size_id' => 1,
+        //     'regular' => 0,
+        //     'discounted' => 0
+        // ]);
         return $productprice->id;   
     }
 
     public function updateprice(Request $request) {
-        $id = $request->price_id;
+        $field = $request->field;
+        $id = $request->id;
+        $value = $request->value;
         $productprice = Productprice::find($id);
         $productprice->update([
-            'size_id' => $request->size_id,
-            'regular' => $request->regular,
-            'discounted' => $request->discounted,
-            'discount_valid_until' => $request->discount_valid_until
+            $field => $value
         ]);
         return $id;
     }
