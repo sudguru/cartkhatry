@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('pagetitle')
-Add Images of Product
+Images/Size/Price of Product
 @endsection
 
 @section('extracss')
@@ -152,12 +152,13 @@ Add Images of Product
                     <tbody id="productPrices">
                         @foreach($product->prices as $price)
                         <tr id="row-{{$price->id}}">
-                            <td>{{$price->size->size}}</td>
-                            <td style="text-align: right">{{$product->primarycurrency}} {{$price->regular}}</td>
-                            <td style="text-align: right">{{$product->primarycurrency}} {{$price->discounted}}</td>
-                            <td>{{$price->discount_valid_until}}</td>
+                            <td id="sizename_value-{{$price->id}}">{{$price->size->size}}</td>
+                            <td style="text-align: right">{{$product->primarycurrency}} <span id="regular_value-{{$price->id}}">{{$price->regular}}</span></td>
+                            <td style="text-align: right">{{$product->primarycurrency}} <span id="discounted_value-{{$price->id}}">{{$price->discounted}}</span></td>
+                            <td id="discount_valid_until_value-{{$price->id}}">{{$price->discount_valid_until}}</td>
                             <td>
-                                <i class="fas fa-edit editPrice pointer" id="update-{{$price->id}}"></i>
+                                <input type="text" id="size_id_hidden-{{$price->id}}" value="{{$price->size->id}}">
+                                <i class="fas fa-edit editPrice pointer" id="update-{{$price->id}}"></i>&nbsp;&nbsp;&nbsp;
                                 <i class="fas fa-trash deletePrice pointer" id="{{$price->id}}"></i>
                             </td>
                         </tr>
@@ -167,12 +168,12 @@ Add Images of Product
                     <tfoot>
                         <tr>
                             <td>
-                                <select name="size_id" class="form-control selectsizeclass">
+                                <select name="size_id" id="size_id" class="form-control selectsizeclass">
                                     @foreach($sizes as $size)
                                     <option value="{{$size->id}}" data-size="{{$size->size}}">{{$size->size}}</option>
                                     @endforeach
                                 </select>
-                                <input type="hidden" id="sizename" value="{{$sizes[0]->size}}" />
+                                <input type="text" id="sizename" value="{{$sizes[0]->size}}" />
                             </td>
                             <td>
                                 <div class="input-group">
@@ -195,8 +196,10 @@ Add Images of Product
                                     class="form-control" autocomplete="off">
                             </td>
                             <td>
-                                <input type="hidden" name="product_id" value={{$product->id}} />
-                                <button type="submit" class="btn btn-primary btn-sm float-right">Save Price</button>
+                                <input type="text" id="mytask" value="add">
+                                <input type="hidden" name="product_id" value="{{$product->id}}" />
+                                <input type="text" name="price_id" id="price_id" value="0" />
+                                <button type="submit" id="price_save_btn" class="btn btn-primary btn-sm float-right">Add Price</button>
                             </td>
                         </tr>
 

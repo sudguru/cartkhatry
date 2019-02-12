@@ -142,7 +142,7 @@ Add New Product
 
         <div class="row">
                 <div class="col-md-4">
-                    <select name="primarycurrency">
+                    <select name="primarycurrency" class="form-control">
                         <option value="AUD">AUD - Australian Dollar</option>
                         <option value="CAD">CAD - Canadian Dollar</option>
                         <option value="CNY">CNY - Chinese Yuan</option>
@@ -161,7 +161,40 @@ Add New Product
                     </select>
                 </div>
             </div>
-
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <strong><span style="color: #ccc">Product Price</span></strong>
+                <table>
+                    <tr>
+                        <th style="width: 10%">Size</th>
+                        <th style="text-align: right">Regular</th>
+                        <th style="text-align: right">Discounted</th>
+                        <th style="text-align: right">Valid Until</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="size_id" class="form-control selectsizeclass">
+                                @foreach($sizes as $size)
+                                <option value="{{$size->id}}" data-size="{{$size->size}}">{{$size->size}}</option>
+                                @endforeach
+                            </select>
+                            <input type="hidden" id="sizename" value="{{$sizes[0]->size}}" />
+                        </td>
+                        <td>
+                            <input  id="regular" type="number" name="regular" required class="form-control">
+                        </td>
+                        <td>
+                            <input  id="discounted" type="number" name="discounted" required class="form-control">
+                        </td>
+                        <td>
+                            <input id="discount_valid_until" type="text" name="discount_valid_until" data-toggle="datepicker"
+                                class="form-control" autocomplete="off">
+                        </td>
+                    </tr>
+                </table>
+                <small>If your product has more than one sizes/prices you will be able to add/edit in next step.</small>
+            </div>
+        </div>
         <div class="form-footer" style="margin-top: 0; padding-top:0">
             <button type="submit" class="btn btn-primary btn-md">Save Product</button>
             <a href="{{ route('product.index') }}" class="btn btn-light btn-md">Cancel</a>
@@ -184,6 +217,7 @@ Add New Product
 
 @section('extrajs')
 <script src="{{asset('/assets/js/summernote.min.js')}}"></script>
+<script src="{{ asset('assets/js/datepicker.min.js') }}"></script>
 <script>
     $(document).ready(function () {
 
@@ -201,6 +235,14 @@ Add New Product
 
         $('#delivery_available').on('change', function() {
             disable_enable($(this).val());
+        });
+
+        $('[data-toggle="datepicker"]').datepicker({
+            date: new Date(),
+            startDate: new Date(),
+            autoHide: true,
+            format: 'yyyy/mm/dd',
+            zIndex: 2000
         });
 
         $('#description').summernote({

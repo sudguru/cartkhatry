@@ -43,14 +43,14 @@
                                 $decimals = 0;
                             }
                         @endphp
-                        {{$exchangerates->$productCurrency}} asdf
+                        {{-- {{$exchangerates->$productCurrency}} asdf --}}
                         {{-- {{ ceil(round(($regular/$exchangerates->$productCurrency) *$exchangerates->$cur)*100) / 100 }} --}}
-                        {{-- {{ number_format(round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals),$decimals) }} --}}
+                        {{ number_format(round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals),$decimals) }}
                 </span>
 
                 <span class="product-price">
                     {{ $cur }} 
-                    {{-- {{ number_format(round(($discounted/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals),$decimals) }} --}}
+                    {{ number_format(round(($discounted/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals),$decimals) }}
                 </span>
                 </div><!-- End .price-box -->
             </div><!-- End .product-details -->
