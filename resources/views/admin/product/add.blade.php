@@ -6,6 +6,7 @@ Add New Product
 @section('extracss')
 <link rel="stylesheet" href="{{ asset('assets/css/summernote.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/customize_summernote.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/datepicker.css') }}">
 @endsection
 
 @section('content')
@@ -142,6 +143,7 @@ Add New Product
 
         <div class="row">
                 <div class="col-md-4">
+                    <strong><span style="color: #999">Primary Currency</span></strong>
                     <select name="primarycurrency" class="form-control">
                         <option value="AUD">AUD - Australian Dollar</option>
                         <option value="CAD">CAD - Canadian Dollar</option>
@@ -151,7 +153,7 @@ Add New Product
                         <option value="HKD">HKD - Hongkong Dollar</option>
                         <option value="IND">IND - Indian Rupee</option>
                         <option value="JPY">JPY - Japanese Yen</option>
-                        <option value="NPR">NPR - Nepalese Rupee</option>
+                        <option value="NPR" selected>NPR - Nepalese Rupee</option>
                         <option value="SGD">SGD - Singapore Dollar</option>
                         <option value="KRW">KRW - South Korean Won</option>
                         <option value="SEK">SEK - Swedish Kroner</option>
@@ -163,7 +165,7 @@ Add New Product
             </div>
         <div class="row mb-3">
             <div class="col-md-12">
-                <strong><span style="color: #ccc">Product Price</span></strong>
+                <strong><span style="color: #999">Product Price</span></strong>
                 <table>
                     <tr>
                         <th style="width: 10%">Size</th>
@@ -196,7 +198,7 @@ Add New Product
             </div>
         </div>
         <div class="form-footer" style="margin-top: 0; padding-top:0">
-            <button type="submit" class="btn btn-primary btn-md">Save Product</button>
+            <button type="submit" class="btn btn-primary btn-md">Save & Continue</button>
             <a href="{{ route('product.index') }}" class="btn btn-light btn-md">Cancel</a>
         </div><!-- End .form-footer -->
         @csrf
@@ -241,7 +243,7 @@ Add New Product
             date: new Date(),
             startDate: new Date(),
             autoHide: true,
-            format: 'yyyy/mm/dd',
+            format: 'yyyy-mm-dd',
             zIndex: 2000
         });
 

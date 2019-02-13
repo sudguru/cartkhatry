@@ -26,10 +26,11 @@ Products
                 <tr>
                     <td>SN</td>
                     <td>Name</td>
-                    <td>Brand</td>
                     <td>Category</td>
-                    <td>Delivery</td>
-                    <td>Delivery Charge</td>
+                    <td>Brand</td>
+                    <td>Payment</td>
+                    <td>PCur</td>
+                    <td>Owner</td>
                     <td>Del</td>
                 </tr>
             </thead>
@@ -38,14 +39,11 @@ Products
                 <tr>
                     <td>{{ ++$key }}</td>
                     <td><a href="{{ route('product.edit', $product->slug) }}">{{$product->name}}</a></td>
-                    <td>{{$product->brand['brand']}}</td>
                     <td>{{$product->category['category']}}</td>
-                    <td>{{ $product->delivery_available == 0 ? 'N/A' : $product->delivery_day_from . ' - ' . $product->delivery_day_to . ' days' }}</td>
-                    <td>
-                        {{$product->delivery_charge_local}} / 
-                        {{$product->delivery_charge_intercity}} / 
-                        {{$product->delivery_charge_intl}}
-                    </td>
+                    <td>{{$product->brand['brand']}}</td>
+                    <td>{{$product->paymentmanagedby}}</td>
+                    <td>{{$product->primarycurrency}}</td>
+                    <td>{{$product->user['name']}}</td>
                     <td>
                         <a href="{{ route('product.destroy', $product->id) }}" onclick="event.preventDefault();
                                 if ( confirm('You are about to delete this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$product->id}}').submit();}return false;">
@@ -76,6 +74,7 @@ Products
     $(document).ready(function () {
         $('#myTable').DataTable({
             "columns": [
+                null,
                 null,
                 null,
                 null,

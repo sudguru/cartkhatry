@@ -1,6 +1,6 @@
 @extends('layouts.d11')
 @section('pagetitle')
-Logo Cover
+My Orders
 @endsection
 @section('extracss')
 <link rel="stylesheet" href="{{ asset('assets/css/snackbar.css') }}">
@@ -25,7 +25,7 @@ Logo Cover
     <div class="row">
         <div class="col-lg-9 order-lg-last dashboard-content">
 
-            <h2>Logo & Cover Image</h2>
+            <h2>My Orders</h2>
             <form action="{{ route('account.logo') }}" method="POST" enctype="multipart/form-data" id="thisForm"
                 autocomplete="off" novalidate class="mb-1">
 

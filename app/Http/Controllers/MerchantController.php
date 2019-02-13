@@ -22,12 +22,15 @@ class MerchantController extends Controller
         $brands = Brand::orderBy('display_order')->get();
         $setting = Setting::first();
         $countries = Country::all();
+        $sizes = Size::orderBy('display_order')->get();
         return view('account.productadd', [
             'currentPage' => 'merchantnewproduct',
             'categories' => $category->allCategories(),
             'brands' => $brands,
             'setting' => $setting,
-            'countries' => $countries
+            'countries' => $countries,
+            'sizes' => $sizes
+            
         ]);
     }
 
@@ -59,6 +62,17 @@ class MerchantController extends Controller
         ]);
         $product->update([
             'slug' => $product->id . '-' . str_slug($request->name, '-')
+        ]);
+        //save first product price
+        $discounted = $request->discounted;
+        if(is_null($discounted)) $discounted = $request->regular;
+        Productprice::create([
+            'product_id' => $product->id,
+            'size_id' => $request->size_id,
+            'regular' => $request->regular,
+            'discounted' => $discounted,
+            'discount_valid_until' => $request->discount_valid_until,
+            'stock' => 1
         ]);
         return redirect()->route('account.product.edit', $product->slug)->with('success','Product Added Successfully, Now Add Product Image(s)');
     }
@@ -116,7 +130,8 @@ class MerchantController extends Controller
 
     private function validateRequest(Request $request) {
         return $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'regular' => 'required'
         ]);
     }
 
@@ -143,5 +158,9 @@ class MerchantController extends Controller
     public function deleteprice() {
         Productprice::destroy(request('price_id'));
         return request('price_id');
+    }
+
+    public function myorders() {
+        return view('account.orders.index')->with(['currentPage' => 'clientorders']);
     }
 }

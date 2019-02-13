@@ -1,6 +1,5 @@
 <script src="{{ asset('assets/js/sortable.min.js') }}"></script>
 <script src="{{ asset('assets/js/summernote.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
 <script src="{{ asset('assets/js/datepicker.min.js') }}"></script>
 <script>
     var list = document.getElementById("productImages");
@@ -107,19 +106,19 @@
         });
 
 
-        $('.copycolor').on('click', function () {
-            var colorbox = $('#txtcopycolor');
-            var color = $(this).data("color");
-            colorbox.css('display', 'inline-block');
-            colorbox.val(color);
-            colorbox.select();
-            document.execCommand("copy");
-            colorbox.css('display', 'none');
-            alert("Color Copied to Clipboard!")
-        });
-        $('#cp7').colorpicker({
-            color: '#ffaa00'
-        });
+        // $('.copycolor').on('click', function () {
+        //     var colorbox = $('#txtcopycolor');
+        //     var color = $(this).data("color");
+        //     colorbox.css('display', 'inline-block');
+        //     colorbox.val(color);
+        //     colorbox.select();
+        //     document.execCommand("copy");
+        //     colorbox.css('display', 'none');
+        //     alert("Color Copied to Clipboard!")
+        // });
+        // $('#cp7').colorpicker({
+        //     color: '#ffaa00'
+        // });
 
 
 
@@ -164,7 +163,7 @@
             date: new Date(),
             startDate: new Date(),
             autoHide: true,
-            format: 'yyyy/mm/dd',
+            format: 'yyyy-mm-dd',
             zIndex: 2000
         });
 
@@ -176,7 +175,35 @@
             }, 3000);
         }
 
-        
+        $('.stock').on('click', function(event) {
+            event.preventDefault();
+            var status = $(this).data('stock');
+            var id = $(this).attr('id').split("-")[1];
+            if(status == 1) {
+                status = 0;
+            } else {
+                status = 1;
+            }
+            var that = this;
+            var data = {
+                    price_id: id,
+                    status: status,
+                    _token: '<?php echo csrf_token() ?>'
+                }
+            $.ajax({
+                url: '{{route('price.stockupdate') }}',
+                data: data,
+                type: 'POST',
+                success: function (response) {
+                    $(that).data('stock', response);
+                    if(response == 1) {
+                        $('#stock-'+id).html('<span style="color:green">Yes</span>');
+                    } else {
+                        $('#stock-'+id).html('<span style="color:red">No</span>');
+                    }
+                }
+            });
+        });
 
         $('#form-add-price').on("submit", function (event) {
 

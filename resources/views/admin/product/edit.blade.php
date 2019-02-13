@@ -8,7 +8,7 @@ Images/Size/Price of Product
 <link rel="stylesheet" href="{{ asset('assets/css/customize_summernote.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/snackbar.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/datepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/plugins/colorpicker/css/bootstrap-colorpicker.css') }}">
+
 <style>
     ul#productImages li{
     display: inline-block;
@@ -139,6 +139,7 @@ Images/Size/Price of Product
         <div class="card-body table-responsive" style="padding-bottom: 0; min-height: 50px">
             <form action="route('price.store') }}" method="POST" id="form-add-price">
                 @csrf
+                <div class="text-right"><small>To change Stock Status click Yes or No to toggle.</small></div>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -146,6 +147,7 @@ Images/Size/Price of Product
                             <th style="text-align: right">Regular</th>
                             <th style="text-align: right">Discounted</th>
                             <th>Valid Until</th>
+                            <th>Stock</th>
                             <th>Del</th>
                         </tr>
                     </thead>
@@ -156,8 +158,9 @@ Images/Size/Price of Product
                             <td style="text-align: right">{{$product->primarycurrency}} <span id="regular_value-{{$price->id}}">{{$price->regular}}</span></td>
                             <td style="text-align: right">{{$product->primarycurrency}} <span id="discounted_value-{{$price->id}}">{{$price->discounted}}</span></td>
                             <td id="discount_valid_until_value-{{$price->id}}">{{$price->discount_valid_until}}</td>
+                            <td id="stock-{{$price->id}}" class="stock pointer" data-stock="{{$price->stock}}">{!! $price->stock == 1 ? '<span style="color:green">Yes</span>' : '<span style="color:red">No</span>' !!}</td>
                             <td>
-                                <input type="text" id="size_id_hidden-{{$price->id}}" value="{{$price->size->id}}">
+                                <input type="hidden" id="size_id_hidden-{{$price->id}}" value="{{$price->size->id}}">
                                 <i class="fas fa-edit editPrice pointer" id="update-{{$price->id}}"></i>&nbsp;&nbsp;&nbsp;
                                 <i class="fas fa-trash deletePrice pointer" id="{{$price->id}}"></i>
                             </td>
@@ -173,7 +176,7 @@ Images/Size/Price of Product
                                     <option value="{{$size->id}}" data-size="{{$size->size}}">{{$size->size}}</option>
                                     @endforeach
                                 </select>
-                                <input type="text" id="sizename" value="{{$sizes[0]->size}}" />
+                                <input type="hidden" id="sizename" value="{{$sizes[0]->size}}" />
                             </td>
                             <td>
                                 <div class="input-group">
@@ -196,9 +199,9 @@ Images/Size/Price of Product
                                     class="form-control" autocomplete="off">
                             </td>
                             <td>
-                                <input type="text" id="mytask" value="add">
+                                <input type="hidden" id="mytask" value="add">
                                 <input type="hidden" name="product_id" value="{{$product->id}}" />
-                                <input type="text" name="price_id" id="price_id" value="0" />
+                                <input type="hidden" name="price_id" id="price_id" value="0" />
                                 <button type="submit" id="price_save_btn" class="btn btn-primary btn-sm float-right">Add Price</button>
                             </td>
                         </tr>

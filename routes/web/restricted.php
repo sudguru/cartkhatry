@@ -15,6 +15,8 @@ Route::get('/account/product/{product}/edit', 'MerchantController@productedit')-
 Route::put('/account/product/{product}', 'MerchantController@productupdate')->name('account.product.update');
 Route::delete('/account/product/{product}', 'MerchantController@productdestroy')->name('account.product.destroy');
 
+Route::get('/account/orders', 'MerchantController@myorders')->name('account.orders.index');
+
 Route::post('/account/product/price', 'DashboardController@saveprice')->name('account.price.store');
 Route::post('/account/product/price/delete', 'DashboardController@deleteprice')->name("account.price.destroy");
 

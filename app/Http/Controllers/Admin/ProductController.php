@@ -19,7 +19,7 @@ class ProductController extends Controller
     protected $active = "Products";
 
     public function index() {
-        $products = Product::whereIn('user_id', Userdetail::select('id')->where('is_admin', 1))->orderBy('updated_at', 'desc')->get();
+        $products = Product::orderBy('created_at', 'desc')->get();
         return view('admin.product.index')->withProducts($products)->with(['active' => $this->active]);
     }
 
@@ -64,12 +64,15 @@ class ProductController extends Controller
             'slug' => $product->id . '-' . str_slug($request->name, '-')
         ]);
         //save first product price
+        $discounted = $request->discounted;
+        if(is_null($discounted)) $discounted = $request->regular;
         Productprice::create([
             'product_id' => $product->id,
             'size_id' => $request->size_id,
             'regular' => $request->regular,
-            'discounted' => $request->discounted,
-            'discount_valid_until' => $request->discount_valid_until
+            'discounted' => $discounted,
+            'discount_valid_until' => $request->discount_valid_until,
+            'stock' => 1
         ]);
         return redirect()->route('product.edit', $product->slug)->with('success','Product Added Successfully, Now Add Product Image(s)');
     }
@@ -127,7 +130,8 @@ class ProductController extends Controller
 
     private function validateRequest(Request $request) {
         return $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'regular' => 'required'
         ]);
     }
 
@@ -135,12 +139,13 @@ class ProductController extends Controller
 
     public function saveprice(Request $request) {
  
-        Productprice::create([
+        $productprice = Productprice::create([
             'product_id' => $request->product_id,
             'size_id' => $request->size_id,
             'regular' => $request->regular,
             'discounted' => $request->discounted,
-            'discount_valid_until' => $request->discount_valid_until
+            'discount_valid_until' => $request->discount_valid_until,
+            'stock' => 1
         ]);
         // $productprice = Productprice::create([
         //     'product_id' => $request->product_id,
@@ -162,6 +167,15 @@ class ProductController extends Controller
             'discount_valid_until' => $request->discount_valid_until
         ]);
         return $id;
+    }
+
+    public function updatestock(Request $request) {
+        $price_id = $request->price_id;
+        $productprice = Productprice::find($price_id);
+        $productprice->update([
+            'stock' => $request->status,
+        ]);
+        return $request->status;
     }
 
     public function deleteprice() {

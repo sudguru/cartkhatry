@@ -6,6 +6,7 @@
 @section('extracss')
 <link rel="stylesheet" href="{{ asset('assets/css/summernote.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/customize_summernote.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/datepicker.css') }}">
 @endsection
 
 @section('content')
@@ -156,7 +157,7 @@
                                     <option value="HKD">HKD - Hongkong Dollar</option>
                                     <option value="IND">IND - Indian Rupee</option>
                                     <option value="JPY">JPY - Japanese Yen</option>
-                                    <option value="NPR">NPR - Nepalese Rupee</option>
+                                    <option value="NPR" selected>NPR - Nepalese Rupee</option>
                                     <option value="SGD">SGD - Singapore Dollar</option>
                                     <option value="KRW">KRW - South Korean Won</option>
                                     <option value="SEK">SEK - Swedish Kroner</option>
@@ -166,9 +167,47 @@
                                 </select>
                             </div>
                         </div>
-            
+                        <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <strong><span style="color: #999">Product Price</span></strong>
+                                    <table>
+                                        <tr>
+                                            <th style="width: 10%">Size</th>
+                                            <th style="text-align: right">Regular</th>
+                                            <th style="text-align: right">Discounted</th>
+                                            <th style="text-align: right">Valid Until</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <select name="size_id" class="form-control selectsizeclass">
+                                                    @foreach($sizes as $size)
+                                                    <option value="{{$size->id}}" data-size="{{$size->size}}">{{$size->size}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <input type="hidden" id="sizename" value="{{$sizes[0]->size}}" />
+                                            </td>
+                                            <td>
+                                                <input  id="regular" type="number" name="regular" required class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}">
+                                                @if ($errors->has('regular'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('regular') }}</strong>
+                                                </span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <input  id="discounted" type="number" name="discounted" required class="form-control">
+                                            </td>
+                                            <td>
+                                                <input id="discount_valid_until" type="text" name="discount_valid_until" data-toggle="datepicker"
+                                                    class="form-control" autocomplete="off">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <small>If your product has more than one sizes/prices you will be able to add/edit in next step.</small>
+                                </div>
+                            </div>
                     <div class="form-footer" style="margin-top: 0; padding-top:0">
-                        <button type="submit" class="btn btn-primary btn-md">Save Product</button>
+                        <button type="submit" class="btn btn-primary btn-md">Save & Conntinue</button>
                         <a href="{{ route('product.index') }}" class="btn btn-light btn-md">Cancel</a>
                     </div><!-- End .form-footer -->
                     @csrf
@@ -195,6 +234,7 @@
 
 @section('extrajs')
 <script src="{{asset('/assets/js/summernote.min.js')}}"></script>
+<script src="{{ asset('assets/js/datepicker.min.js') }}"></script>
 <script>
     $(document).ready(function () {
 
@@ -221,6 +261,14 @@
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough', 'superscript', 'subscript']]
             ]
+        });
+
+        $('[data-toggle="datepicker"]').datepicker({
+            date: new Date(),
+            startDate: new Date(),
+            autoHide: true,
+            format: 'yyyy-mm-dd',
+            zIndex: 2000
         });
 
         $('#specification').summernote({
