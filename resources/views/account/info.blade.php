@@ -124,16 +124,23 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-12" style="color: #cc0000">For Merchants Only (Those who wants to sell)</div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-12">
-                                <strong>Payment Link</strong>
+                                <strong>Payment Instruction</strong>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="paymentlink" name="paymentlink" value="{{$userdetail->paymentlink}}">
-                                    <small>If you are an independent vendor, then enter the payment link or the link to your website. Users will be redirected to this link to complete their order.</small>
+                                    <small>If you are an independent vendor, then enter the payment instructions or a link.</small> <br>
+                                    <small><span style="font-weight: bold">Example 1:</span> Complete the Order now and then you can transfer money to my Nabil Bank Account. Account Name: YourName YourCast, A/C# 123456789123, Durbarmarg Branch</small>
+                                    <br/>
+                                    <small><span style="font-weight: bold">Example 2:</span> Complete the Order now and then go to www.esewa.com.np and transfer the Amount to my ESewa Account: 94717777777 (your esewa id). </small>
+                                    <br/>
+                                    <small><span style="font-weight: bold">Example 3:</span> Complete the Order now and we will contact you as soon as possible. You will make the payment on delivery. </small>
                                 </div>
-                                
                             </div>
-
                         </div>
+  
 
                     <div class="form-footer">
 
