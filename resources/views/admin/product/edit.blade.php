@@ -123,7 +123,7 @@ Images/Size/Price of Product
             <ul id="productImages">
                 @foreach($product->pics()->orderBy('display_order')->get() as $pic)
                 <li data-id="{{ $pic->id }}">
-                    <img src="/storage/images/{{auth()->user()->id}}/thumb_240/{{$pic->pic_path}}" style="width: 100%; cursor: move" />
+                    <img src="/storage/images/{{$product->user_id}}/thumb_240/{{$pic->pic_path}}" style="width: 100%; cursor: move" />
                     <i class="js-remove" style="cursor: pointer; color: #000000">✖</i>
                 </li>
                 @endforeach
@@ -148,7 +148,7 @@ Images/Size/Price of Product
                             <th style="text-align: right">Discounted</th>
                             <th>Valid Until</th>
                             <th>Stock</th>
-                            <th>Del</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="productPrices">
@@ -183,7 +183,7 @@ Images/Size/Price of Product
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">{{$product->primarycurrency}} </span>
                                     </div>
-                                    <input  id="regular" type="number" name="regular" required class="form-control" aria-describedby="basic-addon1">
+                                    <input  id="regular" type="number" name="regular" required class="form-control"> 
                                 </div>
                             </td>
                             <td>

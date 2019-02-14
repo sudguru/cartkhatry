@@ -130,8 +130,7 @@ class MerchantController extends Controller
 
     private function validateRequest(Request $request) {
         return $request->validate([
-            'name' => 'required',
-            'regular' => 'required'
+            'name' => 'required'
         ]);
     }
 
@@ -142,15 +141,32 @@ class MerchantController extends Controller
             'size_id' => $request->size_id,
             'regular' => $request->regular,
             'discounted' => $request->discounted,
+            'discount_valid_until' => $request->discount_valid_until,
+            'stock' => 1
+        ]);
+        return $productprice->id;   
+    }
+
+    public function updateprice(Request $request) {
+
+        $id = $request->price_id;
+        $productprice = Productprice::find($id);
+        $productprice->update([
+            'size_id' => $request->size_id,
+            'regular' => $request->regular,
+            'discounted' => $request->discounted,
             'discount_valid_until' => $request->discount_valid_until
         ]);
-        // $productprice = Productprice::create([
-        //     'product_id' => $request->product_id,
-        //     'size_id' => 1,
-        //     'regular' => 0,
-        //     'discounted' => 0
-        // ]);
-        return $productprice->id;   
+        return $id;
+    }
+
+    public function updatestock(Request $request) {
+        $price_id = $request->price_id;
+        $productprice = Productprice::find($price_id);
+        $productprice->update([
+            'stock' => $request->status,
+        ]);
+        return $request->status;
     }
 
 

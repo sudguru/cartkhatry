@@ -8,6 +8,10 @@
 @endsection
 
 @section('content')
+@php
+    $cur = $_GET['cur'] ?? 'NPR';
+    $cur = filter_var($cur, FILTER_SANITIZE_STRING);
+    @endphp
 <nav aria-label="breadcrumb" class="breadcrumb-nav">
     <div class="container">
         <ol class="breadcrumb">
@@ -60,23 +64,39 @@
                             </div>
 
                             <div style="margin-bottom: 2rem" class="product-filters-container">
-                                <small>Prices</small>
-
+                                <ul class="config-size-list">
+                                    @foreach($product->prices as $key=>$price)
+                                        @php
+                                            $r = $price->regular;
+                                            $d = $price->discounted;
+                                            $productCurrency = $product->primarycurrency;
+                                            $rt = number_format(round(($r/$exchangerates->$productCurrency) * $exchangerates->$cur, 2), 2);
+                                            $dt = number_format(round(($d/$exchangerates->$productCurrency) * $exchangerates->$cur, 2), 2);
+                                        @endphp
+                                    <li class="{{ $key == 0 ? 'active' : '' }}">
+                                        <a class="pricelink" href="javascript:voide(0)" data-regular="{{$rt}}" data-discounted="{{$dt}}">{{$price->size->size}}</a>
+                                    </li>
+                                    @endforeach
                                 <div id="product-price-detail" style="padding-top:2rem">
                                     <div class="price-box">
-                                        @php
-                                            $first_product_price  = $product->prices->first();
-                                            $regular = $first_product_price->regular;
-                                            $discounted = $first_product_price->discounted;
-
-                                        @endphp
-
-                                        @if( $regular == $discounted)
-                                        <span class="product-price">Rs. {{$regular}}</span>
-                                        @else
-                                        <span class="old-price">Rs. {{$regular}}</span>
-                                        <span class="product-price">Rs. {{$discounted}}</span>
-                                        @endif
+                                        @foreach($product->prices as $key=>$price)
+                                            @if($key == 0)
+                                                @php
+                                                    $r = $price->regular;
+                                                    $d = $price->discounted;
+                                                    $productCurrency = $product->primarycurrency;
+                                                    $rt = number_format(round(($r/$exchangerates->$productCurrency) * $exchangerates->$cur, 2), 2);
+                                                    $dt = number_format(round(($d/$exchangerates->$productCurrency) * $exchangerates->$cur, 2), 2);
+                                                @endphp
+                                                @if( $r == $d)
+                                                <span class="product-price">{{$cur}} {{$rt}}</span>
+                                                @else
+                                                <span class="old-price">{{$cur}} {{$rt}}</span>
+                                                <span class="product-price">{{$cur}} {{$dt}}</span>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                       
                                         
                                     </div>    
                                 </div>
@@ -92,12 +112,12 @@
                                             <h2 class="product-title">{{$product->name}}</h2>
                                             <div class="price-box">
 
-                                                @if( $regular == $discounted)
+                                                {{-- @if( $regular == $discounted)
                                                 <span class="product-price" id="sticky-product-price">Rs. {{$regular}}</span> 
                                                 @else
                                                 <span class="old-price" id="sticky-old-price">Rs. {{$regular}}</span>
                                                 <span class="product-price" id="sticky-product-price">Rs. {{$discounted}}</span>
-                                                @endif
+                                                @endif --}}
                                             </div>
                                         </div>
 

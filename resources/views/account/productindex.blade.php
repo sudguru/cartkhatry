@@ -47,7 +47,7 @@ My Products
                         @foreach ($products as $key=>$product)
                         <tr>
                                 <td>{{ ++$key }}</td>
-                                <td><a href="{{ route('product.edit', $product->slug) }}">{{$product->name}}</a></td>
+                                <td><a href="{{ route('account.product.edit', $product->slug) }}">{{$product->name}}</a></td>
                                 <td>{{$product->category['category']}}</td>
                                 <td>{{$product->brand['brand']}}</td>
                                 <td>{{$product->paymentmanagedby}}</td>

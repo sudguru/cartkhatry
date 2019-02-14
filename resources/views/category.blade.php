@@ -17,7 +17,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
             <li class="breadcrumb-item"><a href="#">Home & Decor</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Chairs</li>
+            <li class="breadcrumb-item active" aria-current="page">Chairs (This page is currently under construction)</li>
         </ol>
     </div><!-- End .container -->
 </nav>

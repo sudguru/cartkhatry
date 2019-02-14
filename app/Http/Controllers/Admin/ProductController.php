@@ -130,8 +130,7 @@ class ProductController extends Controller
 
     private function validateRequest(Request $request) {
         return $request->validate([
-            'name' => 'required',
-            'regular' => 'required'
+            'name' => 'required'
         ]);
     }
 
@@ -147,12 +146,6 @@ class ProductController extends Controller
             'discount_valid_until' => $request->discount_valid_until,
             'stock' => 1
         ]);
-        // $productprice = Productprice::create([
-        //     'product_id' => $request->product_id,
-        //     'size_id' => 1,
-        //     'regular' => 0,
-        //     'discounted' => 0
-        // ]);
         return $productprice->id;   
     }
 

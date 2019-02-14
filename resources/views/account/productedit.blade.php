@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="{{ asset('assets/css/customize_summernote.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/snackbar.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/datepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/plugins/colorpicker/css/bootstrap-colorpicker.css') }}">
 <style>
     ul#productImages li{
     display: inline-block;
@@ -70,7 +69,11 @@
   width: 25px;
 }
 
-.deletePrice {
+.pointer {
+    cursor: pointer;
+}
+
+.pointer {
     cursor: pointer;
 }
 
@@ -139,6 +142,7 @@
                             <div class="card-body table-responsive" style="padding-bottom: 0; min-height: 50px">
                                 <form action="route('account.price.store') }}" method="POST" id="form-add-price">
                                     @csrf
+                                    <div class="text-right"><small>To change Stock Status click Yes or No to toggle.</small></div>
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -146,17 +150,23 @@
                                                 <th style="text-align: right">Regular</th>
                                                 <th style="text-align: right">Discounted</th>
                                                 <th>Valid Until</th>
-                                                <th>Del</th>
+                                                <th>Stock</th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody id="productPrices">
                                             @foreach($product->prices as $price)
                                             <tr id="row-{{$price->id}}">
-                                                <td>{{$price->size->size}}</td>
-                                                <td style="text-align: right">{{$price->regular}}</td>
-                                                <td style="text-align: right">{{$price->discounted}}</td>
-                                                <td>{{$price->discount_valid_until}}</td>
-                                                <td><i class="fas fa-trash deletePrice" id="{{$price->id}}"></i></td>
+                                                <td id="sizename_value-{{$price->id}}">{{$price->size->size}}</td>
+                                                <td style="text-align: right">{{$product->primarycurrency}} <span id="regular_value-{{$price->id}}">{{$price->regular}}</span></td>
+                                                <td style="text-align: right">{{$product->primarycurrency}} <span id="discounted_value-{{$price->id}}">{{$price->discounted}}</span></td>
+                                                <td id="discount_valid_until_value-{{$price->id}}">{{$price->discount_valid_until}}</td>
+                                                <td id="stock-{{$price->id}}" class="stock pointer" data-stock="{{$price->stock}}">{!! $price->stock == 1 ? '<span style="color:green">Yes</span>' : '<span style="color:red">No</span>' !!}</td>
+                                                <td>
+                                                    <input type="hidden" id="size_id_hidden-{{$price->id}}" value="{{$price->size->id}}" />
+                                                    <i class="fas fa-edit editPrice pointer" id="update-{{$price->id}}"></i>&nbsp;&nbsp;&nbsp;
+                                                    <i class="fas fa-trash deletePrice pointer" id="{{$price->id}}"></i>
+                                                </td>
                                             </tr>
                     
                                             @endforeach
@@ -164,7 +174,7 @@
                                         <tfoot>
                                             <tr>
                                                 <td>
-                                                    <select name="size_id" class="form-control selectsizeclass">
+                                                    <select name="size_id" id="size_id" class="form-control selectsizeclass">
                                                         @foreach($sizes as $size)
                                                         <option value="{{$size->id}}" data-size="{{$size->size}}">{{$size->size}}</option>
                                                         @endforeach
@@ -172,18 +182,30 @@
                                                     <input type="hidden" id="sizename" value="{{$sizes[0]->size}}" />
                                                 </td>
                                                 <td>
-                                                    <input id="regular" type="number" name="regular" required class="form-control">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">{{$product->primarycurrency}} </span>
+                                                        </div>
+                                                        <input  id="regular" type="number" step="0.01" name="regular" required class="form-control" aria-describedby="basic-addon1">
+                                                    </div>
                                                 </td>
                                                 <td>
-                                                    <input id="discounted" type="number" name="discounted" class="form-control">
+                                                        <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text" id="basic-addon2">{{$product->primarycurrency}} </span>
+                                                                </div>
+                                                                <input  id="discounted" type="number" step="0.01" name="discounted"  class="form-control" aria-describedby="basic-addon2">
+                                                            </div>
                                                 </td>
                                                 <td>
                                                     <input id="discount_valid_until" type="text" name="discount_valid_until" data-toggle="datepicker"
                                                         class="form-control" autocomplete="off">
                                                 </td>
                                                 <td>
-                                                    <input type="hidden" name="product_id" value={{$product->id}} />
-                                                    <button type="submit" class="btn btn-primary btn-sm float-right">Save Price</button>
+                                                    <input type="hidden" id="mytask" value="add">
+                                                    <input type="hidden" name="product_id" value="{{$product->id}}" />
+                                                    <input type="hidden" name="price_id" id="price_id" value="0" />
+                                                    <button type="submit" id="price_save_btn" class="btn btn-primary btn-sm float-right">Add Price</button>
                                                 </td>
                                             </tr>
                     
@@ -192,7 +214,6 @@
                                 </form>
                             </div>
                         </div>
-                    
                     
                     
                         <form action="{{ route('account.product.update', $product->slug) }}" method="POST" autocomplete="off" novalidate class="mb-1">

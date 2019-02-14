@@ -136,7 +136,9 @@
                                     <br/>
                                     <small><span style="font-weight: bold">Example 2:</span> Complete the Order now and then go to www.esewa.com.np and transfer the Amount to my ESewa Account: 94717777777 (your esewa id). </small>
                                     <br/>
-                                    <small><span style="font-weight: bold">Example 3:</span> Complete the Order now and we will contact you as soon as possible. You will make the payment on delivery. </small>
+                                    <small><span style="font-weight: bold">Example 3:</span> Complete the Order now and then go to www.paypal.com and transfer the Amount to my PayPal Account: your@email.com (PayPal id). </small>
+                                    <br/>
+                                    <small><span style="font-weight: bold">Example 4:</span> Complete the Order now and we will contact you as soon as possible. You will make the payment on delivery. </small>
                                 </div>
                             </div>
                         </div>

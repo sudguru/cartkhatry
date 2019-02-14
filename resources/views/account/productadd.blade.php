@@ -187,14 +187,9 @@
                                                 <input type="hidden" id="sizename" value="{{$sizes[0]->size}}" />
                                             </td>
                                             <td>
-                                                <input  id="regular" type="number" name="regular" required class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}">
-                                                @if ($errors->has('regular'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('regular') }}</strong>
-                                                </span>
-                                                @endif
+                                                <input  id="regular" type="number" name="regular" required class="form-control"> 
                                             </td>
-                                            <td>
+                                            <td> 
                                                 <input  id="discounted" type="number" name="discounted" required class="form-control">
                                             </td>
                                             <td>

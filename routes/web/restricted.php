@@ -17,8 +17,10 @@ Route::delete('/account/product/{product}', 'MerchantController@productdestroy')
 
 Route::get('/account/orders', 'MerchantController@myorders')->name('account.orders.index');
 
-Route::post('/account/product/price', 'DashboardController@saveprice')->name('account.price.store');
-Route::post('/account/product/price/delete', 'DashboardController@deleteprice')->name("account.price.destroy");
+Route::post('/account/product/price', 'MerchantController@saveprice')->name('account.price.store');
+Route::post('/account/product/price/delete', 'MerchantController@deleteprice')->name("account.price.destroy");
+Route::post('/product/updateprice', 'MerchantController@updateprice')->name('account.price.update');
+Route::post('/product/stockupdate', 'MerchantController@updatestock')->name('account.price.stockupdate');
 
 Route::post('/account/image/upload', 'Admin\UploadController@upload')->name('account.image.upload');
 Route::post('/account/image/savecaption', 'Admin\UploadController@savecaption')->name('account.image.savecaption');
