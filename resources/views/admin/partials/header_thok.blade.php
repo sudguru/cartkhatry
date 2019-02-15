@@ -6,7 +6,7 @@
                             <i class="icon-menu"></i>
                         </button>
                 <a href="/" class="logo">
-                    <img src="/assets/images/logo.png" alt="">
+                    <img src="/assets/images/logo2.png" alt="">
                 </a>
             </div><!-- End .header-left -->
 
@@ -16,7 +16,7 @@
                 
                 <div class="header-contact">
                     <span>{{ auth()->user()->name }}</span>
-                    <a href="#"><strong>Admin Section</strong></a>
+                    <a href="tel:#"><strong>Admin Section</strong></a>
                 </div><!-- End .header-contact -->
 
             </div><!-- End .header-right -->

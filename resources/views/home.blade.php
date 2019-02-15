@@ -22,14 +22,14 @@
     @include('partials.horizontal-banners1')
     @include('partials.home-featured')
     <div class="mb-3"></div><!-- margin -->
-    @include('partials.horizontal-banners2')
-    @include('partials.home-top')
-    @foreach($categories as $category)
+    {{-- @include('partials.horizontal-banners2') --}}
+    @include('partials.home-new')
+    {{-- @foreach($categories as $category)
         @if(is_null($category->parent_id))
             @include('partials.home-category')
         @endif
 
-    @endforeach
+    @endforeach --}}
     <div class="mb-3"></div><!-- margin -->
     
     {{-- 

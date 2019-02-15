@@ -1,5 +1,5 @@
 <div class="container">
-    <h2 class="subtitle text-center">Top Selling Items</h2>
+    <h2 class="subtitle text-center">Recently Added Items</h2>
 
     <div class="top-selling-products owl-carousel owl-theme">
             @foreach ($newarrivals as $newarrival)

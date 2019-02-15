@@ -22,8 +22,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style_blue.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom_blue.css') }}">
 
 
     @yield('extracss')
@@ -33,7 +33,7 @@
     
 <div class="page-wrapper">
         
-        @include('partials.header')
+        @include('partials.header_thok')
         
         <main class="main">
             @yield('content')

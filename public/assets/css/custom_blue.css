@@ -1,0 +1,145 @@
+a.text-promo {
+    color: green;
+}
+.welcome-msg::after{
+    content: none;
+}
+.welcome-msg {
+    display: block;
+}
+
+.header-top {
+    line-height: 2.0;
+}
+.info-box i {
+	margin-top: 20px;
+	margin-bottom: 20px;
+    color: #777;
+}
+
+ul#ticker li {
+	list-style:none;
+}
+
+.form-control {
+    max-width: 100% !important;
+}
+
+.custom-select {
+    height: calc(4.6rem + 2px);
+}
+
+
+.custom-control-login-checkbox  {
+    position: relative;
+    padding-left: 3rem;
+    /* margin-top: 3rem; */
+    margin-bottom: 2rem;
+}
+
+
+.add-compare::before{content:'\e80c'}
+
+.product-single-details .product-desc {
+    font-size: 1.5rem;
+    line-height: 1.92;
+    letter-spacing: .005em;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #dae2e6;
+    margin-bottom: 1.8rem;
+}
+
+.custom-dropdown {
+    min-width: 20rem;
+}
+.custom-dropdown-link {
+	background-color: #17a2b8;
+	color: #fff;
+	font-size: 1.6rem;
+}
+
+.custom-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 20rem;
+    padding: 0;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: none;
+}
+
+.home-slider-container, .home-slide {
+    height: 400px;
+}
+
+.home-slider-container {
+    margin-bottom: 2.8rem;
+}
+
+.main-nav {
+
+    border-top: 1px solid #efefef;
+}
+.menu>li>a {
+    padding: 1.5rem;
+}
+
+.header {
+    border-bottom: none;
+}
+
+.product {
+    padding-bottom: 10px;
+    border: 1px solid #efefef;
+}
+
+.product-details.product-price-inner {
+    padding-right: 11px;
+}
+
+.product-price-inner .product-title {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.product-price-inner .price-box {
+    position: relative;
+    width: 100%;
+    right: 0;
+    text-align: center;
+}
+
+.product-price-inner .old-price {
+    display: inline-block;
+    
+    margin-top: -.1rem;
+    margin-bottom: .4rem;
+}
+
+.ratings-container {
+    margin-bottom: 0.8rem;
+    line-height: 1;
+    text-align: center;
+}
+
+.product-image-container {
+    margin-bottom: 1.0rem;
+}
+
+.product-price {
+    color: #0088cc;
+    font-size: 1.7rem;
+}
+
+#form-add-price {
+    margin-bottom: 0;
+}
