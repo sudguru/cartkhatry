@@ -24,6 +24,12 @@
     <div class="mb-3"></div><!-- margin -->
     @include('partials.horizontal-banners2')
     @include('partials.home-top')
+    @foreach($categories as $category)
+        @if(is_null($category->parent_id))
+            @include('partials.home-category')
+        @endif
+
+    @endforeach
     <div class="mb-3"></div><!-- margin -->
     
     {{-- 

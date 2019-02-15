@@ -226,6 +226,7 @@
                             '<td style="text-align: right"><span id="regular_value-'+response+'">' + $('#regular').val() + '</span></td>' +
                             '<td style="text-align: right"><span id="discounted_value-'+response+'">' + $('#discounted').val() + '</span></td>' +
                             '<td id="discount_valid_until_value-'+response+ '">' + $('#discount_valid_until').val() + '</td>' +
+                            '<td id="stock-'+response+'" class="stock pointer" data-stock="1"><span style="color:green">Yes</span></td>' +
                             '<td><input type="hidden" id="size_id_hidden-'+response+'" value="' + $('#size_id').val() +'">' +
                             '<i class="fas fa-edit editPrice pointer" id="update-' + response +'"></i>&nbsp;&nbsp;&nbsp;' +
                             '<i class="fas fa-trash deletePrice pointer" id="' + response +
