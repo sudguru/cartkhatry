@@ -6,8 +6,9 @@
 
 @section('content')
     @php
-    $cur = $_GET['cur'] ?? 'NPR';
-    $cur = filter_var($cur, FILTER_SANITIZE_STRING);
+    $cur = session('currency') ?? 'NPR';
+    $outlet_id = session('outlet_id') ?? 0;
+    $outlet_name = session('outlet_name') ?? 'All Outlets';
     @endphp
     <div class="container">
         <div class="row">

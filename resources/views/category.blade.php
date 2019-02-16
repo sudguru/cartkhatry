@@ -12,6 +12,9 @@
 @endsection
 
 @section('content')
+    @php
+    $cur = session('currency') ?? 'NPR';
+    @endphp
 <nav aria-label="breadcrumb" class="breadcrumb-nav">
     <div class="container">
         <ol class="breadcrumb">

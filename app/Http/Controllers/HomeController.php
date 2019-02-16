@@ -49,4 +49,17 @@ class HomeController extends Controller
     public function category(Category $category) {
         return view('category');
     }
+
+    public function changecurrency(Request $request, $currency) {
+        $cur = filter_var($currency, FILTER_SANITIZE_STRING);
+        session(['currency' => $cur]);
+        return back();
+    }
+
+    public function changeoutlet(Request $request, $outlet_id, $outlet_name) {
+        $outlet_name = filter_var($outlet_name, FILTER_SANITIZE_STRING);
+        $outlet_id = filter_var($outlet_id, FILTER_SANITIZE_INT);
+        session(['outlet_id' => $outlet_id, 'outlet_name' => $outlet_name]);
+        return back();
+    }
 }

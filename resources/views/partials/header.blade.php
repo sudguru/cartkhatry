@@ -44,41 +44,41 @@
                 </div><!-- End .header-dropown -->
                 <div class="header-dropdown" style="margin-left: 30px">
                     @php
-                    $cur = $_GET['cur'] ?? 'NPR';
+                    $cur = session('currency') ?? 'NPR';
                     @endphp
-                    <a href="#" style="color:red; font-weight: bold"><img src="{{ asset('assets/images/flags/'.$cur.'.jpg') }}">
+                    <a href="#" style="color:#0088cc; font-weight: bold"><img src="{{ asset('assets/images/flags/'.$cur.'.jpg') }}">
                         {{$cur}}</a>
                     <div class="header-menu">
                         <ul>
-                            <li><a href="?cur=AUD"><img src="{{ asset('assets/images/flags/AUD.jpg') }}"> Australian
+                            <li><a href="/changecurrency/AUD"><img src="{{ asset('assets/images/flags/AUD.jpg') }}"> Australian
                                     Dollar (A$)</a></li>
-                            <li><a href="?cur=CAD"><img src="{{ asset('assets/images/flags/CAD.jpg') }}"> Canadian
+                            <li><a href="/changecurrency/CAD"><img src="{{ asset('assets/images/flags/CAD.jpg') }}"> Canadian
                                     Dollar (C$)</a></li>
-                            <li><a href="?cur=CNY"><img src="{{ asset('assets/images/flags/CNY.jpg') }}"> Chinese Yuan
+                            <li><a href="/changecurrency/CNY"><img src="{{ asset('assets/images/flags/CNY.jpg') }}"> Chinese Yuan
                                     (&#165;)</a></li>
-                            <li><a href="?cur=DKK"><img src="{{ asset('assets/images/flags/DKK.jpg') }}"> Danish Kroner
+                            <li><a href="/changecurrency/DKK"><img src="{{ asset('assets/images/flags/DKK.jpg') }}"> Danish Kroner
                                     (DKK)</a></li>
-                            <li><a href="?cur=EUR"><img src="{{ asset('assets/images/flags/EUR.jpg') }}"> European Euro
+                            <li><a href="/changecurrency/EUR"><img src="{{ asset('assets/images/flags/EUR.jpg') }}"> European Euro
                                     (&#8364;)</a></li>
-                            <li><a href="?cur=HKD"><img src="{{ asset('assets/images/flags/HKD.jpg') }}"> Hong Kong
+                            <li><a href="/changecurrency/HKD"><img src="{{ asset('assets/images/flags/HKD.jpg') }}"> Hong Kong
                                     Dollar (HK$)</a></li>
-                            <li><a href="?cur=INR"><img src="{{ asset('assets/images/flags/INR.jpg') }}"> Indian Rupees
+                            <li><a href="/changecurrency/INR"><img src="{{ asset('assets/images/flags/INR.jpg') }}"> Indian Rupees
                                     (&#8377;)</a></li>
-                            <li><a href="?cur=JPY"><img src="{{ asset('assets/images/flags/JPY.jpg') }}"> Japanese Yen
+                            <li><a href="/changecurrency/JPY"><img src="{{ asset('assets/images/flags/JPY.jpg') }}"> Japanese Yen
                                     (&#165;)</a></li>
-                            <li><a href="?cur=NPR"><img src="{{ asset('assets/images/flags/NPR.jpg') }}"> Nepalese
+                            <li><a href="/changecurrency/NPR"><img src="{{ asset('assets/images/flags/NPR.jpg') }}"> Nepalese
                                     Rupees (&#8360;)</a></li>
-                            <li><a href="?cur=SGD"><img src="{{ asset('assets/images/flags/SGD.jpg') }}"> Singapore
+                            <li><a href="/changecurrency/SGD"><img src="{{ asset('assets/images/flags/SGD.jpg') }}"> Singapore
                                     Dollar (SG$)</a></li>
-                            <li><a href="?cur=KRW"><img src="{{ asset('assets/images/flags/KRW.jpg') }}"> South Korean
+                            <li><a href="/changecurrency/KRW"><img src="{{ asset('assets/images/flags/KRW.jpg') }}"> South Korean
                                     Won (&#8361;)</a></li>
-                            <li><a href="?cur=SEK"><img src="{{ asset('assets/images/flags/SEK.jpg') }}"> Swedish
+                            <li><a href="/changecurrency/SEK"><img src="{{ asset('assets/images/flags/SEK.jpg') }}"> Swedish
                                     Kroner (SEK)</a></li>
-                            <li><a href="?cur=CHF"><img src="{{ asset('assets/images/flags/CHF.jpg') }}"> Swiss Franc
+                            <li><a href="/changecurrency/CHF"><img src="{{ asset('assets/images/flags/CHF.jpg') }}"> Swiss Franc
                                     (CHF)</a></li>
-                            <li><a href="?cur=GBP"><img src="{{ asset('assets/images/flags/GBP.jpg') }}"> UK Pound
+                            <li><a href="/changecurrency/GBP"><img src="{{ asset('assets/images/flags/GBP.jpg') }}"> UK Pound
                                     Sterling (&#163;)</a></li>
-                            <li><a href="?cur=USD"><img src="{{ asset('assets/images/flags/USD.jpg') }}"> U.S. Dollar
+                            <li><a href="/changecurrency/USD"><img src="{{ asset('assets/images/flags/USD.jpg') }}"> U.S. Dollar
                                     ($)</a></li>
                         </ul>
 

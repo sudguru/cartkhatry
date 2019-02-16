@@ -9,9 +9,9 @@
 
 @section('content')
 @php
-    $cur = $_GET['cur'] ?? 'NPR';
-    $cur = filter_var($cur, FILTER_SANITIZE_STRING);
-    @endphp
+$cur = session('currency') ?? 'NPR';
+echo $cur;
+@endphp
 <nav aria-label="breadcrumb" class="breadcrumb-nav">
     <div class="container">
         <ol class="breadcrumb">
