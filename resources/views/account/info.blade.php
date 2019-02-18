@@ -26,14 +26,14 @@
             <div class="col-lg-9 order-lg-last dashboard-content">
 
                 <h2>Edit Account Information</h2>
-
+                <div class="form-group" style="font-weight: bold">
+                    <label for="email">Email:</label>
+                    {{Auth::user()->email}}
+                </div>
                 <form action="{{ route('account.info') }}" method="POST">
                     <div class="row">
-                        <div class="col-md-9">
-                            <div class="form-group" style="font-weight: bold">
-                                <label for="email">Email:</label>
-                                {{Auth::user()->email}}
-                            </div>
+                        <div class="col-md-6">
+                            
 
                             <label for="name">Full Name <span class="required">*</span></label>
                             <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
@@ -44,6 +44,13 @@
                             </span>
                             @endif
                         </div>
+                        <div class="col-md-6">
+
+    
+                                <label for="company_name">Company Name</label>
+                                <input type="text" class="form-control" id="company_name" name="company_name" value="{{$userdetail->company_name}}">
+
+                            </div>
 
                     </div>
 

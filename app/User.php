@@ -30,7 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
     public function userdetail() {
-        return $this->hasOne('App\Userdetail');
+        return $this->hasOne('App\Userdetail', 'id');
     }
 
     public function products() {

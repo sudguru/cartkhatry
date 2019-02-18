@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Cache;
 // use App\Bannertype;
 use App\Setting;
 use App\Category;
-// use App\Info;
+use App\Info;
 use App\Promo;
 use App\Productlist;
 use App\Outlet;
@@ -22,6 +22,10 @@ class CommonComposer
 
       $view->with('setting', Cache::remember('setting', 1, function() {
         return Setting::first();
+      }));
+
+      $view->with('infoboxes', Cache::remember('infoboxes', 1, function() {
+        $infoboxes = Info::orderBy('display_order')->limit(3)->get();
       }));
 
       $view->with('exchangerates', Cache::remember('exchangerates', 1, function() {
@@ -92,6 +96,10 @@ class CommonComposer
       $view->with('categories', Cache::remember('categories', 1, function() {
         $category = new Category;
         return $category->allCategories();
+      }));
+
+      $view->with('flat_categories', Cache::remember('flat_categories', 1, function() {
+        return Category::orderBy('category')->get();
       }));
 
       $view->with('outlets', Cache::remember('outlets', 1, function() {

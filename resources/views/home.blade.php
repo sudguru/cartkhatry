@@ -23,36 +23,91 @@
     @include('partials.horizontal-banners1')
     @include('partials.home-featured')
     <div class="mb-3"></div><!-- margin -->
-    {{-- @include('partials.horizontal-banners2') --}}
+    @include('partials.horizontal-banners2')
     @include('partials.home-new')
-    {{-- @foreach($categories as $category)
-        @if(is_null($category->parent_id))
-            @include('partials.home-category')
-        @endif
+    <div class="mb-3"></div><!-- margin -->
 
-    @endforeach --}}
+    @php
+        $where = "31";
+        $catname = 'Electronics & Computers';
+    @endphp
+    @include('partials.home-category')
+    <div class="mb-3"></div><!-- margin -->
+
+    @php
+        $where = "32";
+        $catname = 'Toy & Hobbies';
+    @endphp
+    @include('partials.home-category')
+    <div class="mb-3"></div><!-- margin -->
+
+    @php
+        $where = "33";
+        $catname = 'Home & Garden';
+    @endphp
+    @include('partials.home-category')
+    <div class="mb-3"></div><!-- margin -->
+
+    @php
+        $where = "34";
+        $catname = 'Decor & Furniture';
+    @endphp
+    @include('partials.home-category')
+    <div class="mb-3"></div><!-- margin -->
+
+    @php
+        $where = "35";
+        $catname = 'Sports & Fitness';
+    @endphp
+    @include('partials.home-category')
+    <div class="mb-3"></div><!-- margin -->
+
+    @php
+        $where = "36";
+        $catname = 'Gift';
+    @endphp
+    @include('partials.home-category')
+    <div class="mb-3"></div><!-- margin -->
+
+    @php
+        $where = "37";
+        $catname = 'Auto & Accessories';
+    @endphp
+    @include('partials.home-category')
+    <div class="mb-3"></div><!-- margin -->
+
+    @php
+        $where = "38,46,47";
+        $catname = 'Handicrafts';
+    @endphp
+    @include('partials.home-category')
     <div class="mb-3"></div><!-- margin -->
     
-    {{-- 
-    @include('partials.home-infoboxes')
+    @php
+        $where = "51";
+        $catname = 'Industrial Plants, Mechinery & Equipment';
+    @endphp
+    @include('partials.home-category')
+    <div class="mb-3"></div><!-- margin -->
 
-    
+    @php
+        $where = "52,53,54,55";
+        $catname = 'Apparel, Clothing & Garments';
+    @endphp
+    @include('partials.home-category')
+    <div class="mb-3"></div><!-- margin -->
 
-    {{ Auth::id() }}
-    @include('partials.home-featured')
+    @php
+        $where = "56";
+        $catname = 'Food & Beverages';
+    @endphp
+    @include('partials.home-category')
+    <div class="mb-3"></div><!-- margin -->
 
-    <div class="mb-5"></div>
-
-    @include('partials.home-new')}}
-
-    <div class="mb-5">
-    </div>
-
-    @include('partials.info-section')
-
-    @include('partials.horizontal-promo')
-
-    @include('partials.partners')
-
-    @include('partials.home-blog') --}}
+    @php
+        $where = "57";
+        $catname = 'Mechanical Parts & Spares';
+    @endphp
+    @include('partials.home-category')
+    <div class="mb-3"></div><!-- margin -->
 @endsection

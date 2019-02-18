@@ -1,6 +1,6 @@
 @extends('layouts.d11')
 @section('pagetitle')
-{{$product->name}}
+{{$product->name}} | {{$setting->site_name}}
 @endsection
 
 @section('extracss')
@@ -10,14 +10,86 @@
 @section('content')
 @php
 $cur = session('currency') ?? 'NPR';
-echo $cur;
+function getParentCategory($category_id, $flat_categories) {
+    foreach($flat_categories as $category) {
+        if($category->id == $category_id) {
+            return $category->parent_id;
+        }
+    }
+    return false;
+}
+function getCategoryName($category_id, $flat_categories) {
+    foreach($flat_categories as $category) {
+        if($category->id == $category_id) {
+            return $category->category;
+        } 
+    }
+    return false;
+}
+
+function getCategorySlug($category_id, $flat_categories) {
+    foreach($flat_categories as $category) {
+        if($category->id == $category_id) {
+            return $category->slug;
+        } 
+    }
+    return false;
+}
+function xxxgetCategoryName($category_id, $categories) {
+    foreach($categories as $category) {
+        if($category->id == $category_id) {
+            $categoryname = $category->category;
+            return $categoryname;
+        } else {
+            if($category->children) {
+                foreach($category->children as $child) {
+                    if($child->id == $category_id) {
+                        $categoryname = $child->category;
+                        return $categoryname;
+                    } else {
+                        if($child->children) {
+                            foreach($child->children as $grandchild) {
+                                if($grandchild->id == $category_id) {
+                                    $categoryname = $grandchild->category;
+                                    return $categoryname;
+                                }
+                            }
+                        } 
+                    }
+                }
+            } 
+        }
+    }
+    return false;
+}
+
+$addtocarttext = "Add to Cart";
+if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
 @endphp
 <nav aria-label="breadcrumb" class="breadcrumb-nav">
     <div class="container">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb" style="border-top: 1px solid #efefef">
             <li class="breadcrumb-item"><a href="/"><i class="icon-home"></i></a></li>
-            {{-- <li class="breadcrumb-item"><a href="#">Electronics</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Headsets</li> --}}
+            @if($father = getParentCategory($product->category_id, $flat_categories))
+                @if($grandfather = getParentCategory($father, $flat_categories))
+                    <li class="breadcrumb-item">
+                        <a href="/category/{{ getCategorySlug($grandfather, $flat_categories) }}">
+                            {{ getCategoryName($grandfather, $flat_categories) }}
+                        </a>
+                    </li>
+                @endif
+                <li class="breadcrumb-item">
+                    <a href="/category/{{ getCategorySlug($father, $flat_categories) }}">
+                        {{ getCategoryName($father, $flat_categories) }}
+                    </a>
+                </li>
+            @endif
+            <li class="breadcrumb-item">
+                <a href="/category/{{ getCategorySlug($product->category_id, $flat_categories) }}">
+                    {{ getCategoryName($product->category_id, $flat_categories) }} {{$product->category_id}}
+                </a>
+            </li>
+
         </ol>
     </div>
 </nav>
@@ -72,11 +144,13 @@ echo $cur;
                                             $productCurrency = $product->primarycurrency;
                                             $rt = number_format(round(($r/$exchangerates->$productCurrency) * $exchangerates->$cur, 2), 2);
                                             $dt = number_format(round(($d/$exchangerates->$productCurrency) * $exchangerates->$cur, 2), 2);
+                                            $st = $price->stock;
                                         @endphp
                                     <li class="{{ $key == 0 ? 'active' : '' }}">
-                                        <a class="pricelink" href="javascript:voide(0)" data-regular="{{$rt}}" data-discounted="{{$dt}}">{{$price->size->size}}</a>
+                                        <a class="pricelink" href="javascript:void(0)" data-stock="{{$st}}" data-regular="{{$rt}}" data-discounted="{{$dt}}">{{$price->size->size}}</a>
                                     </li>
                                     @endforeach
+                                </ul>
                                 <div id="product-price-detail" style="padding-top:2rem">
                                     <div class="price-box">
                                         @foreach($product->prices as $key=>$price)
@@ -84,6 +158,7 @@ echo $cur;
                                                 @php
                                                     $r = $price->regular;
                                                     $d = $price->discounted;
+                                                    $s = $price->stock;
                                                     $productCurrency = $product->primarycurrency;
                                                     $rt = number_format(round(($r/$exchangerates->$productCurrency) * $exchangerates->$cur, 2), 2);
                                                     $dt = number_format(round(($d/$exchangerates->$productCurrency) * $exchangerates->$cur, 2), 2);
@@ -99,7 +174,13 @@ echo $cur;
                                        
                                         
                                     </div>    
+                                    
                                 </div>
+                                <span id="stock_not_available" style="color: red">
+                                    @if(is_null($s) or $s == 0)
+                                    Out of Stock! Please try another size.
+                                    @endif
+                                </span>
                             </div>
 
                             <div class="sticky-header">
@@ -112,18 +193,18 @@ echo $cur;
                                             <h2 class="product-title">{{$product->name}}</h2>
                                             <div class="price-box">
 
-                                                {{-- @if( $regular == $discounted)
-                                                <span class="product-price" id="sticky-product-price">Rs. {{$regular}}</span> 
+                                                @if( $r == $d)
+                                                <span class="product-price" id="sticky-product-price">Rs. {{$rt}}</span> 
                                                 @else
-                                                <span class="old-price" id="sticky-old-price">Rs. {{$regular}}</span>
-                                                <span class="product-price" id="sticky-product-price">Rs. {{$discounted}}</span>
-                                                @endif --}}
+                                                <span class="old-price" id="sticky-old-price">Rs. {{$rt}}</span>
+                                                <span class="product-price" id="sticky-product-price">Rs. {{$dt}}</span>
+                                                @endif
                                             </div>
                                         </div>
 
                                     </div>
-                                    <a href="javascript:void(0)" class="paction add-cart btn-add-to-cart" title="Add to Cart">
-                                        <span>Add to Cart</span>
+                                    <a style="{{ (is_null($s) or $s == 0) ? 'display: none' : '' }}" href="javascript:void(0)" class="paction add-cart btn-add-to-cart" title="{{$addtocarttext}}">
+                                        <span>{{$addtocarttext}}</span>
                                     </a>
                                 </div>
                             </div><!-- end .sticky-header -->
@@ -133,14 +214,23 @@ echo $cur;
                                     <input class="horizontal-quantity form-control" id="productQty" type="text">
                                 </div><!-- End .product-single-qty -->
 
-                                <a href="javascript:void(0)" class="paction add-cart btn-add-to-cart" title="Add to Cart">
-                                    <span>Add to Cart</span>
+                                <a style="{{ (is_null($s) or $s == 0) ? 'display: none' : '' }}" 
+                             href="javascript:void(0)" class="paction add-cart btn-add-to-cart" title="{{$addtocarttext}}">
+                                    <span>{{$addtocarttext}}</span>
                                 </a>
                                 <a href="javascript:void(0)" class="paction add-wishlist" title="Add to Wishlist">
                                     <span>Add to Wishlist</span>
                                 </a>
 
                             </div><!-- End .product-action -->
+                            @if($product->paymentmanagedby == 'Self')
+                            <div class="alert alert-warning">
+                                    IMPORTANT:<br/>
+                                    <strong>This Product is not handled by {{$setting->site_name}}.</strong><br/> 
+                                    You agree and understand that {{$setting->site_name}} is NOT involved in transaction of this particular product. 
+                                    You are directly deal with the party who has posted the Product, and agree not to hold {{$setting->site_name}} responsible for their act in any circumstances. We strongly encourage you to take necessary precaution.
+                            </div>
+                            @endif
 
                             <div class="product-single-share">
                                 <label>Share:</label>
@@ -195,6 +285,8 @@ echo $cur;
                         <li>
                             <i class="icon-shipping"></i>
                             <h4>SHIPPING<br>AVAILABLE</h4>
+                            {{$product->user->name}}
+                            {{$product->user->userdetail->address}}
                         </li>
                         <li>
                             <i class="icon-us-dollar"></i>
@@ -456,5 +548,26 @@ echo $cur;
 @endsection
 
 @section('extrajs')
+    <script>
+        $(document).ready(function(){
 
+
+            $('.pricelink').on('click', function(){
+                var d = $(this).data('discounted');
+                var r = $(this).data('regular');
+                var s = $(this).data('stock');
+                $('.product-price').html("{{$cur}}"+ " " + d);
+                $('.old-price').html(r);
+                $(this).parent().siblings().removeClass('active');
+                $(this).parent().addClass('active');
+                if(s !== 1) {
+                    $('#stock_not_available').text('Out of Stock! Please try another size.')
+                    $('.btn-add-to-cart').hide();
+                } else {
+                    $('#stock_not_available').text('');
+                    $('.btn-add-to-cart').show();    
+                }
+            });
+        });
+    </script>
 @endsection

@@ -24,16 +24,15 @@ class HomeController extends Controller
         $bannersH2 = Bannertype::where('bannertype', 'HP Banners R2')->first();
         $bannersH3 = Bannertype::where('bannertype', 'HP Banners R3')->first();
         $bannersV = Bannertype::where('bannertype', 'HP Banners Vert')->first();
-        $infoboxes = Info::orderBy('display_order')->limit(3)->get();
-        $products = Product::orderBy('created_at', 'desc')->get();
+        
+        $allproducts = Product::orderBy('created_at', 'desc')->get();
         return view('home', [
                 'hpSliders' => $hpSliders,
-                'infoboxes' => $infoboxes,
                 'bannersH1' => $bannersH1,
                 'bannersH2' => $bannersH2,
                 'bannersH3' => $bannersH3,
                 'bannersV' => $bannersV,
-                'products' => $products
+                'allproducts' => $allproducts
             ]
         );
     }

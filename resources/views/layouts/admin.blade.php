@@ -22,8 +22,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style_blue.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom_blue.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <style>
         .header-contact {
             padding-right: 0;
@@ -68,7 +68,7 @@
 
 <div class="page-wrapper">
         
-        @include('admin.partials.header_thok')
+        @include('admin.partials.header')
         
         <main class="main">
                 <div class="container">

@@ -22,8 +22,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style_blue.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom_blue.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
 
     @yield('extracss')
@@ -33,7 +33,7 @@
     
 <div class="page-wrapper">
         
-        @include('partials.header_thok')
+        @include('partials.header')
         
         <main class="main">
             @yield('content')
@@ -51,13 +51,6 @@
     <script src="{{ asset('assets/js/nouislider.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/ticker.js') }}"></script>
-    @php
-    $cur = $_GET['cur'] ?? 'NPR';
-    $cur = filter_var($cur, FILTER_SANITIZE_STRING);
-    @endphp
-    <script>
-        var cur = "{{ $cur }}";
-    </script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @yield('extrajs')
 </body>
