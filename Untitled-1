@@ -1,0 +1,12 @@
+(A) If Already Logged in then Display filled Checkout form
+(B) If Not Logged in then
+    (B1) display login form
+    and empty form
+
+    if login then
+        log in and redirect back to checkout (A)
+    
+    if filled empty form then
+        1. Register
+        2. Add User Detail
+        3. Log in and redirect back to checkout (A)

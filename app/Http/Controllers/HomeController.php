@@ -46,7 +46,11 @@ class HomeController extends Controller
     }
 
     public function category(Category $category) {
-        return view('category');
+        $products = Product::where('category_id', $category->id)->limit(12)->get();
+        return view('category', [
+            'products' => $products,
+            'category' => $category
+        ]);
     }
 
     public function changecurrency(Request $request, $currency) {

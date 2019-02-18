@@ -11,3 +11,5 @@ Route::get('/changecurrency/{currency}', 'HomeController@changecurrency');
 Route::get('/changeoutlet/{outlet_id/{outlet_name}', 'HomeController@changecurrency');
 
 Route::get('/category/{category}', 'HomeController@category');
+
+Route::get('/checkout/{product}/{qty}', 'CheckoutController@directcheckout');

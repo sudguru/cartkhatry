@@ -1,6 +1,6 @@
 @extends('layouts.d11')
 @section('pagetitle')
-
+{{$category->category}} | {{$setting->site_name}}
 @endsection
 {{-- 
     current_category
@@ -12,23 +12,66 @@
 @endsection
 
 @section('content')
-    @php
-    $cur = session('currency') ?? 'NPR';
-    @endphp
+@php
+$cur = session('currency') ?? 'NPR';
+function getParentCategory($category_id, $flat_categories) {
+    foreach($flat_categories as $category) {
+        if($category->id == $category_id) {
+            return $category->parent_id;
+        }
+    }
+    return false;
+}
+function getCategoryName($category_id, $flat_categories) {
+    foreach($flat_categories as $category) {
+        if($category->id == $category_id) {
+            return $category->category;
+        } 
+    }
+    return false;
+}
+
+function getCategorySlug($category_id, $flat_categories) {
+    foreach($flat_categories as $category) {
+        if($category->id == $category_id) {
+            return $category->slug;
+        } 
+    }
+    return false;
+}
+@endphp
 <nav aria-label="breadcrumb" class="breadcrumb-nav">
     <div class="container">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Home & Decor</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Chairs (This page is currently under construction)</li>
-        </ol>
+            <ol class="breadcrumb" style="border-top: 1px solid #efefef">
+                    <li class="breadcrumb-item"><a href="/"><i class="icon-home"></i></a></li>
+                    @if($father = getParentCategory($category->id, $flat_categories))
+                        @if($grandfather = getParentCategory($father, $flat_categories))
+                            <li class="breadcrumb-item">
+                                <a href="/category/{{ getCategorySlug($grandfather, $flat_categories) }}">
+                                    {{ getCategoryName($grandfather, $flat_categories) }}
+                                </a>
+                            </li>
+                        @endif
+                        <li class="breadcrumb-item">
+                            <a href="/category/{{ getCategorySlug($father, $flat_categories) }}">
+                                {{ getCategoryName($father, $flat_categories) }}
+                            </a>
+                        </li>
+                    @endif
+                    <li class="breadcrumb-item">
+                        <a href="/category/{{ getCategorySlug($category->id, $flat_categories) }}">
+                            {{ getCategoryName($category->id, $flat_categories) }}
+                        </a>
+                    </li>
+        
+                </ol>
     </div><!-- End .container -->
 </nav>
 
 <div class="container">
     <div class="row">
         <div class="col-lg-9">
-            {{-- @include('partials.category-slider') --}}
+            @include('partials.category-slider')
 
             <nav class="toolbox">
                 <div class="toolbox-left">
@@ -49,32 +92,44 @@
                 </div><!-- End .toolbox-left -->
 
                 <div class="toolbox-item toolbox-show">
-                    <label>Showing 1–9 of 60 results</label>
+                    <label>Showing 1–12 of 60 results</label>
                 </div><!-- End .toolbox-item -->
 
                 <div class="layout-modes">
-                    <a href="category.html" class="layout-btn btn-grid active" title="Grid">
+                    <a href="#" class="layout-btn btn-grid active" title="Grid">
                         <i class="icon-mode-grid"></i>
                     </a>
-                    <a href="category-list.html" class="layout-btn btn-list" title="List">
+                    <a href="#" class="layout-btn btn-list" title="List">
                         <i class="icon-mode-list"></i>
                     </a>
                 </div><!-- End .layout-modes -->
             </nav>
 
             <div class="row row-sm">
+                @foreach ($products as $prod)
+                @php
+                    if(count($prod->pics) > 0) {
+                        $image_path = '<img src="/storage/images/'.$prod['user_id'].'/thumb_400'.'/' . $prod->pics->first()->pic_path .'" />';
+                    } else {
+                        $image_path = "&nbsp;";
+                    }
+                    $regular = $prod->prices->min('regular');
+                    $discounted = $prod->prices->min('discounted');
+                    $off = (($regular -$discounted)/$regular)*100;
+                    $off = ceil($off);
+                @endphp
                 <div class="col-6 col-md-4 col-xl-3">
                     <div class="product">
-                        <figure class="product-image-container">
-                            <a href="product.html" class="product-image">
-                                <img src="assets/images/products/product-1.jpg" alt="product">
-                            </a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview">Quick view</a>
-                            <a href="product.html" class="paction add-cart" title="Add to Cart">
-                                <span>Add to Cart</span>
-                            </a>
-                            <span class="product-label label-sale">-20%</span>
-                        </figure>
+                            <figure class="product-image-container">
+                                    <a href="/product/{{$prod['slug']}}" class="product-image">
+                                        {!!$image_path!!}
+                                    </a>
+                                    <a href="ajax/product-quick-view/{{$prod['slug']}}" class="btn-quickview">Quick view</a>
+                                    <a href="#" class="paction add-cart" title="Add to Cart">
+                                        <span>Add to Cart</span>
+                                    </a>
+                                <span class="product-label label-sale">-{{$off}}%</span>
+                                </figure>
                         <div class="product-details product-price-inner">
                             <div class="ratings-container">
                                 <div class="product-ratings">
@@ -82,20 +137,35 @@
                                 </div><!-- End .product-ratings -->
                             </div><!-- End .product-container -->
                             <h2 class="product-title">
-                                <a href="product.html">White Chair</a>
+                                    <a href="/product/{{$prod['slug']}}">{{$prod['name']}}</a>
                             </h2>
                             <div class="price-box">
-                                <span class="old-price">$129.00</span>
-                                <span class="product-price">$99.00</span>
+                                    <span class="old-price">
+                                            @php 
+                                                $productCurrency = $prod['primarycurrency'];
+                                                $decimals = 2;
+                                                if ($regular > 999) {
+                                                    $decimals = 0;
+                                                }
+                                            @endphp
+                                            {{-- {{ ceil(round(($regular/$exchangerates->$productCurrency) *$exchangerates->$cur)*100) / 100 }} --}}
+                                            {{ number_format(round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals), $decimals) }}
+                                    </span>
+                
+                                    <span class="product-price">
+                                        {{ $cur }} 
+                                        {{ number_format(round(($discounted/$exchangerates->$productCurrency) * $exchangerates->$cur, $decimals), $decimals) }}
+                                    </span>
                             </div><!-- End .price-box -->
                         </div><!-- End .product-details -->
                     </div><!-- End .product -->
                 </div><!-- End .col-xl-3 -->
+                @endforeach
             </div><!-- End .row -->
 
             <nav class="toolbox toolbox-pagination">
                 <div class="toolbox-item toolbox-show">
-                    <label>Showing 1–9 of 60 results</label>
+                    <label>Showing 1–12 of 60 results</label>
                 </div><!-- End .toolbox-item -->
 
                 <ul class="pagination">

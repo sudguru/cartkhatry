@@ -86,7 +86,7 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
             @endif
             <li class="breadcrumb-item">
                 <a href="/category/{{ getCategorySlug($product->category_id, $flat_categories) }}">
-                    {{ getCategoryName($product->category_id, $flat_categories) }}
+                    {{ getCategoryName($product->category_id, $flat_categories) }} {{$product->category_id}}
                 </a>
             </li>
 
@@ -598,15 +598,6 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                 } else {
                     $('#stock_not_available').text('');
                     $('.btn-add-to-cart').show();    
-                }
-            });
-
-            $('.btn-add-to-cart').on('click', function() {
-                var qty = $('#productQty').val();
-                if($(this).attr('title') == 'Direct Order') {
-                    window.location = "/checkout/{{$product->slug}}/" + qty;
-                } else {
-
                 }
             });
         });
