@@ -308,7 +308,7 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                 @else 
                 <div class="widget widget-info">
                         <small class="text-info">Contact Detail</small><br/>
-                        {{$product->user->name}}<br/>
+                        {{-- {{$product->user->name}}<br/> --}}
                         {{$setting->site_name}}<br/>
                         {{$setting->address}}<br/>
                         {{$setting->phone1}}<br/>
@@ -326,7 +326,7 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                         <small>Yoututbe:</small> <a href="{{$setting->youtube}}" target="_blank" class="text-info">{{$setting->youtube}}</a><br/>
                         <div class="alert alert-info">
                             <small>Bank Info</small><br>
-                            {{$setting->bankinfo}}
+                            {{$setting->bank_info}}
                         </div>
                 </div><!-- End .widget -->
                 @endif

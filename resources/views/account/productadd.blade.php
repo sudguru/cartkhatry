@@ -24,13 +24,13 @@
             <div class="col-lg-9 order-lg-last dashboard-content">
                 <h2>Add New Product</h2>
     
-                <form action="{{ route('account.product.store') }}" method="POST" autocomplete="off" novalidate class="mb-1">
+                <form action="{{ route('account.product.store') }}" method="POST" autocomplete="off" class="mb-1">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name">Product Name <span class="required">*</span></label>
                                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name"
-                                    name="name" value="{{ old('name') }}" autofocus>
+                                    name="name" value="{{ old('name') }}" autofocus required>
             
                                 @if ($errors->has('name'))
                                 <span class="invalid-feedback" role="alert">
@@ -187,10 +187,10 @@
                                                 <input type="hidden" id="sizename" value="{{$sizes[0]->size}}" />
                                             </td>
                                             <td>
-                                                <input  id="regular" type="number" name="regular" required class="form-control"> 
+                                                <input  id="regular" type="number" name="regular" step="0.01" class="form-control" required="required"> 
                                             </td>
                                             <td> 
-                                                <input  id="discounted" type="number" name="discounted" required class="form-control">
+                                                <input  id="discounted" type="number" name="discounted" step="0.01" class="form-control" required="required">
                                             </td>
                                             <td>
                                                 <input id="discount_valid_until" type="text" name="discount_valid_until" data-toggle="datepicker"
