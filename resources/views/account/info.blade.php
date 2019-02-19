@@ -80,7 +80,15 @@
                                 <br />
                                 <div class="form-group">
                                     <label for="country">Country</label>
-                                    <input type="text" class="form-control" id="country" name="country" value="{{$userdetail->country}}">
+                                    {{-- <input type="text" class="form-control" id="country" name="country" value="{{$userdetail->country}}"> --}}
+                                    <div class="select-custom">
+
+                                            <select name="country" id="country" class="form-control">
+                                                @foreach($countries as $country)
+                                                <option value="{{$country->name}}" {{ trim($country->name) == ($userdetail->country ?? 'Nepal') ? 'selected' : ''}}>{{$country->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div><!-- End .select-custom -->
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">Phone</label>

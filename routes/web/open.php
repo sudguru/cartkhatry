@@ -12,4 +12,10 @@ Route::get('/changeoutlet/{outlet_id/{outlet_name}', 'HomeController@changecurre
 
 Route::get('/category/{category}', 'HomeController@category');
 
-Route::get('/checkout/{product}/{qty}', 'CheckoutController@directcheckout');
+Route::get('/checkoutdirect/{product}/{qty}/{priceid}', 'CheckoutController@directcheckout');
+Route::get('/checkout', 'CheckoutController@checkout');
+
+Route::post('/directorder/{product}/{priceid}/{qty}', 'CheckoutController@directorder')->name('directorder');
+Route::get('/ordersuccessdirect/{order}/{product}', 'CheckoutController@ordersuccessdirect')->name('ordersuccessdirect');
+
+Route::get('/add-to-cart/{product}', 'CheckoutController@addtocart')->name('addtocart');

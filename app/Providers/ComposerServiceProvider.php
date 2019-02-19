@@ -17,7 +17,11 @@ class ComposerServiceProvider extends ServiceProvider
                 'layouts.d11',
                 'home',
                 'singleproduct',
-                'category'
+                'category',
+                'checkout',
+                'checkout-direct',
+                'checkout-review',
+                'ordersuccessdirect'
             ], 
             '\App\Http\ViewComposers\CommonComposer'
         );

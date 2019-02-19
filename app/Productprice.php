@@ -12,7 +12,5 @@ class Productprice extends Model
         return $this->belongsTo('App\Size');
     }
 
-    public function colors() {
-        return $this->hasMany('App\Productcolor');
-    }
+
 }

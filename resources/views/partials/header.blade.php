@@ -21,7 +21,7 @@
                             <li><a href="{{ route('login') }}" style="color: #cc0000">LOG IN</a></li>
                             <li><a href="{{ route('register') }}" style="color: #cc0000">SIGN UP</a></li>
                             @else
-                            <li><a href="{{ route('account.dashboard') }}" style="color: #cc0000">MY ACCOUNT </a></li>
+                            <li><a href="{{ route('account.dashboard') }}" style="color: #cc0000">MY ACCOUNT ({{Auth::user()->name}}) </a></li>
                             <li>
                                 <a id="posted" href="{{ route('logout') }}" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();"

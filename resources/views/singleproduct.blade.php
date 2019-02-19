@@ -139,6 +139,9 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                                 <ul class="config-size-list">
                                     @foreach($product->prices as $key=>$price)
                                         @php
+                                            if($key == 0) {
+                                                $pid = $price->id;
+                                            }
                                             $r = $price->regular;
                                             $d = $price->discounted;
                                             $productCurrency = $product->primarycurrency;
@@ -147,10 +150,12 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                                             $st = $price->stock;
                                         @endphp
                                     <li class="{{ $key == 0 ? 'active' : '' }}">
-                                        <a class="pricelink" href="javascript:void(0)" data-stock="{{$st}}" data-regular="{{$rt}}" data-discounted="{{$dt}}">{{$price->size->size}}</a>
+                                        <a class="pricelink" href="javascript:void(0)" data-priceid="{{$price->id}}" data-stock="{{$st}}" data-regular="{{$rt}}" data-discounted="{{$dt}}">{{$price->size->size}}</a>
                                     </li>
                                     @endforeach
                                 </ul>
+                                <input type="hidden" id="txtpriceid" value="{{$pid}}">
+                                {{session()->getId()}}
                                 <div id="product-price-detail" style="padding-top:2rem">
                                     <div class="price-box">
                                         @foreach($product->prices as $key=>$price)
@@ -228,7 +233,8 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                                     IMPORTANT:<br/>
                                     <strong>This Product is not handled by {{$setting->site_name}}.</strong><br/> 
                                     You agree and understand that {{$setting->site_name}} is NOT involved in transaction of this particular product. 
-                                    You are directly deal with the party who has posted the Product, and agree not to hold {{$setting->site_name}} responsible for their act in any circumstances. We strongly encourage you to take necessary precaution.
+                                    You are directly dealing with the party who has posted the Product, and agree not to hold {{$setting->site_name}} responsible for their act in any circumstances. We strongly encourage you to take necessary precaution.
+                                    <br>Also, You CANNOT add this product to the cart, You can order only 1 product at a time. (Direct Order Only)
                             </div>
                             @endif
 
@@ -390,193 +396,7 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
     </div><!-- End .row -->
 </div><!-- End .container -->
 
-{{-- <div class="featured-section">
-    <div class="container">
-        <h2 class="carousel-title">Similar Products</h2>
 
-        <div class="featured-products owl-carousel owl-theme owl-dots-top">
-            <div class="product">
-                <figure class="product-image-container">
-                    <a href="product.html" class="product-image">
-                        <img src="assets/images/products/product-1.jpg" alt="product">
-                    </a>
-                    <a href="ajax/product-quick-view.html" class="btn-quickview">Quick View</a>
-                </figure>
-                <div class="product-details">
-                    <div class="ratings-container">
-                        <div class="product-ratings">
-                            <span class="ratings" style="width:80%"></span><!-- End .ratings -->
-                        </div><!-- End .product-ratings -->
-                    </div><!-- End .product-container -->
-                    <h2 class="product-title">
-                        <a href="product.html">Felt Hat</a>
-                    </h2>
-                    <div class="price-box">
-                        <span class="product-price">$39.00</span>
-                    </div><!-- End .price-box -->
-
-                    <div class="product-action">
-                        <a href="#" class="paction add-wishlist" title="Add to Wishlist">
-                            <span>Add to Wishlist</span>
-                        </a>
-
-                        <a href="product.html" class="paction add-cart" title="Add to Cart">
-                            <span>Add to Cart</span>
-                        </a>
-
-                        <a href="#" class="paction add-compare" title="Add to Compare">
-                            <span>Add to Compare</span>
-                        </a>
-                    </div><!-- End .product-action -->
-                </div><!-- End .product-details -->
-            </div><!-- End .product -->
-
-            <div class="product">
-                <figure class="product-image-container">
-                    <a href="product.html" class="product-image">
-                        <img src="assets/images/products/product-2.jpg" alt="product">
-                    </a>
-                    <a href="ajax/product-quick-view.html" class="btn-quickview">Quick View</a>
-                </figure>
-                <div class="product-details">
-                    <div class="ratings-container">
-                        <div class="product-ratings">
-                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                        </div><!-- End .product-ratings -->
-                    </div><!-- End .product-container -->
-                    <h2 class="product-title">
-                        <a href="product.html">Zippered Jacket</a>
-                    </h2>
-                    <div class="price-box">
-                        <span class="product-price">$55.00</span>
-                    </div><!-- End .price-box -->
-
-                    <div class="product-action">
-                        <a href="#" class="paction add-wishlist" title="Add to Wishlist">
-                            <span>Add to Wishlist</span>
-                        </a>
-
-                        <a href="product.html" class="paction add-cart" title="Add to Cart">
-                            <span>Add to Cart</span>
-                        </a>
-
-                        <a href="#" class="paction add-compare" title="Add to Compare">
-                            <span>Add to Compare</span>
-                        </a>
-                    </div><!-- End .product-action -->
-                </div><!-- End .product-details -->
-            </div><!-- End .product -->
-
-            <div class="product">
-                <figure class="product-image-container">
-                    <a href="product.html" class="product-image">
-                        <img src="assets/images/products/product-3.jpg" alt="product">
-                    </a>
-                    <a href="ajax/product-quick-view.html" class="btn-quickview">Quick View</a>
-                </figure>
-                <div class="product-details">
-                    <div class="ratings-container">
-                        <div class="product-ratings">
-                            <span class="ratings" style="width:40%"></span><!-- End .ratings -->
-                        </div><!-- End .product-ratings -->
-                    </div><!-- End .product-container -->
-                    <h2 class="product-title">
-                        <a href="product.html">Brown Slippers</a>
-                    </h2>
-                    <div class="price-box">
-                        <span class="product-price">$12.90</span>
-                    </div><!-- End .price-box -->
-
-                    <div class="product-action">
-                        <a href="#" class="paction add-wishlist" title="Add to Wishlist">
-                            <span>Add to Wishlist</span>
-                        </a>
-
-                        <a href="product.html" class="paction add-cart" title="Add to Cart">
-                            <span>Add to Cart</span>
-                        </a>
-
-                        <a href="#" class="paction add-compare" title="Add to Compare">
-                            <span>Add to Compare</span>
-                        </a>
-                    </div><!-- End .product-action -->
-                </div><!-- End .product-details -->
-            </div><!-- End .product -->
-
-            <div class="product">
-                <figure class="product-image-container">
-                    <a href="product.html" class="product-image">
-                        <img src="assets/images/products/product-4.jpg" alt="product">
-                    </a>
-                    <a href="ajax/product-quick-view.html" class="btn-quickview">Quick View</a>
-                </figure>
-                <div class="product-details">
-                    <div class="ratings-container">
-                        <div class="product-ratings">
-                            <span class="ratings" style="width:0%"></span><!-- End .ratings -->
-                        </div><!-- End .product-ratings -->
-                    </div><!-- End .product-container -->
-                    <h2 class="product-title">
-                        <a href="product.html">Black Slippers</a>
-                    </h2>
-                    <div class="price-box">
-                        <span class="product-price">$17.90</span>
-                    </div><!-- End .price-box -->
-
-                    <div class="product-action">
-                        <a href="#" class="paction add-wishlist" title="Add to Wishlist">
-                            <span>Add to Wishlist</span>
-                        </a>
-
-                        <a href="product.html" class="paction add-cart" title="Add to Cart">
-                            <span>Add to Cart</span>
-                        </a>
-
-                        <a href="#" class="paction add-compare" title="Add to Compare">
-                            <span>Add to Compare</span>
-                        </a>
-                    </div><!-- End .product-action -->
-                </div><!-- End .product-details -->
-            </div><!-- End .product -->
-
-            <div class="product">
-                <figure class="product-image-container">
-                    <a href="product.html" class="product-image">
-                        <img src="assets/images/products/product-5.jpg" alt="product">
-                    </a>
-                    <a href="ajax/product-quick-view.html" class="btn-quickview">Quick View</a>
-                </figure>
-                <div class="product-details">
-                    <div class="ratings-container">
-                        <div class="product-ratings">
-                            <span class="ratings" style="width:50%"></span><!-- End .ratings -->
-                        </div><!-- End .product-ratings -->
-                    </div><!-- End .product-container -->
-                    <h2 class="product-title">
-                        <a href="product.html">Dean Cap Grey</a>
-                    </h2>
-                    <div class="price-box">
-                        <span class="product-price">$79.00</span>
-                    </div><!-- End .price-box -->
-
-                    <div class="product-action">
-                        <a href="#" class="paction add-wishlist" title="Add to Wishlist">
-                            <span>Add to Wishlist</span>
-                        </a>
-
-                        <a href="product.html" class="paction add-cart" title="Add to Cart">
-                            <span>Add to Cart</span>
-                        </a>
-
-                        <a href="#" class="paction add-compare" title="Add to Compare">
-                            <span>Add to Compare</span>
-                        </a>
-                    </div><!-- End .product-action -->
-                </div><!-- End .product-details -->
-            </div><!-- End .product -->
-        </div><!-- End .featured-proucts -->
-    </div><!-- End .container -->
-</div><!-- End .featured-section --> --}}
 @endsection
 
 @section('extrajs')
@@ -588,6 +408,8 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                 var d = $(this).data('discounted');
                 var r = $(this).data('regular');
                 var s = $(this).data('stock');
+                var priceid = $(this).data('priceid');
+                $('#txtpriceid').val(priceid);
                 $('.product-price').html("{{$cur}}"+ " " + d);
                 $('.old-price').html(r);
                 $(this).parent().siblings().removeClass('active');
@@ -603,8 +425,9 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
 
             $('.btn-add-to-cart').on('click', function() {
                 var qty = $('#productQty').val();
+                var priceid = $('#txtpriceid').val();
                 if($(this).attr('title') == 'Direct Order') {
-                    window.location = "/checkout/{{$product->slug}}/" + qty;
+                    window.location = "/checkoutdirect/{{$product->slug}}/" + qty + "/" + priceid;
                 } else {
 
                 }

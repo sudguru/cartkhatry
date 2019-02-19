@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Userdetail;
 use App\User;
-
+use App\Country;
 class AccountController extends Controller
 {
     public function __construct() {
@@ -19,10 +19,11 @@ class AccountController extends Controller
                 'is_super' => 0
             ]
         );
-
+        $countries = Country::all();
         return view('account.info', [
             'currentPage' => 'accountinfo',
-            'userdetail' => $userdetail
+            'userdetail' => $userdetail,
+            'countries' => $countries
         ]);
     }
 
