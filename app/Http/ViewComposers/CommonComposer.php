@@ -114,6 +114,13 @@ class CommonComposer
         return Productlist::where('listname', 'new')->orderBy('display_order')->take(10)->get();
       }));
 
+      // if(session()->has('cart')) {
+      //   $cartitems = session('cart')->items;
+      // } else {
+      //   $cartitems = null;
+      // }
+      // $view->with('cartitems', $cartitems);
+
     }
 
 

@@ -21,7 +21,8 @@ class ComposerServiceProvider extends ServiceProvider
                 'checkout',
                 'checkout-direct',
                 'checkout-review',
-                'ordersuccessdirect'
+                'ordersuccessdirect',
+                'cart'
             ], 
             '\App\Http\ViewComposers\CommonComposer'
         );

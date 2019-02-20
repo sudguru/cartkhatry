@@ -18,4 +18,6 @@ Route::get('/checkout', 'CheckoutController@checkout');
 Route::post('/directorder/{product}/{priceid}/{qty}', 'CheckoutController@directorder')->name('directorder');
 Route::get('/ordersuccessdirect/{order}/{product}', 'CheckoutController@ordersuccessdirect')->name('ordersuccessdirect');
 
-Route::get('/add-to-cart/{product}', 'CheckoutController@addtocart')->name('addtocart');
+Route::get('/add-to-cart/{product}/{price}/{qty}', 'CartController@addtocart')->name('addtocart');
+Route::get('/viewcart', 'CartController@viewcart')->name('viewcart');
+Route::get('/cartorder/{total}', 'CheckoutController@cartorder')->name('cartorder');

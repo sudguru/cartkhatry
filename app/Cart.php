@@ -22,10 +22,11 @@ class Cart {
                 $storedItem = $this->items[$id];   
             }
         }
-        $storedItem['qty']++;
+        $addedPrice = $item->qty * $item->price;
+        $storedItem['qty'] += $item->qty;
         $storedItem['price'] = $item->price * $storedItem['qty'];
         $this->items[$id] = $storedItem;
-        $this->totalQty++;
-        $this->totalPrice += $item->price;
+        $this->totalQty += $item->qty;
+        $this->totalPrice += $addedPrice;
     }
 }

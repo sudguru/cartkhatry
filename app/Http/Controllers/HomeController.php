@@ -41,7 +41,8 @@ class HomeController extends Controller
         return view('quickview', compact('product'));
     }
 
-    public function singleproduct(Product $product) {
+    public function singleproduct(Request $request, Product $product) {
+        // dd($request->session()->get('cart'));
         return view('singleproduct', compact('product'));
     }
 

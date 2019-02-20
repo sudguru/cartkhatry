@@ -1,6 +1,6 @@
 @extends('layouts.d11')
 @section('pagetitle')
-{{$product->name}} | {{$setting->site_name}}
+Check Out | {{$setting->site_name}}
 @endsection
 
 @section('extracss')
@@ -10,10 +10,7 @@
 @section('content')
 @php
 $cur = session('currency') ?? 'NPR';
-
-
 $addtocarttext = "Add to Cart";
-if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
 @endphp
 <nav aria-label="breadcrumb" class="breadcrumb-nav">
         <div class="container">
@@ -29,102 +26,154 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
             <li class="active">
                 <span>Shipping</span>
             </li>
-            <li>
+            {{-- <li>
                 <span>Review &amp; Payments</span>
-            </li>
+            </li> --}}
         </ul>
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-7">
                 <ul class="checkout-steps">
                     <li>
                         <h2 class="step-title">Shipping Address</h2>
+                        @guest
+                        <form action="{{ route('login') }}" method="POST" autocomplete="off" novalidate class="mb-1">
 
-                        <form action="#">
-                            <div class="form-group required-field">
-                                <label>Email Address </label>
-                                <div class="form-control-tooltip">
-                                    <input type="email" class="form-control" required>
-                                    <span class="input-tooltip" data-toggle="tooltip" title="We'll send your order confirmation here." data-placement="right"><i class="icon-question-circle"></i></span>
-                                </div><!-- End .form-control-tooltip -->
-                            </div><!-- End .form-group -->
+                                @csrf
+                                <div class="alert alert-info">
+                                    If you already have account with us please Login, or you can continue as guest below.
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">E-Mail Address</label>
+                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                        name="email" value="{{ old('email') }}" required autofocus>
+                
+                                    @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                        name="password" required>
+                
+                                    @if ($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                
+                                <div class="custom-control-login-checkbox custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="remember" id="rememberd"
+                                        {{ old('remember') ? 'checked' : '' }}>
+                                    <label class="custom-control-label form-footer-right" for="rememberd">Remember Me</label>
+                                </div>
+                
+                
+                                <div class="form-footer" style="margin-top: 0; padding-top:0">
+                
+                                    <button type="submit" class="btn btn-primary btn-md">LOGIN</button>
+                
+                                    <div class="form-footer-right">
+                
+                
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                            {{ __('Forgot Your Password?') }}
+                                        </a>
+                                    </div>
+                                </div><!-- End .form-footer -->
+                
+                            </form>
+                        @else
+                        <div class="alert alert-info">
+                            <strong>You are logged in as {{Auth::user()->email}}. Not Your Account? Sign Out and Login with your account.</strong>
+                        </div>
+                        @endguest
 
-                            <div class="form-group required-field">
-                                <label>Password </label>
-                                <input type="password" class="form-control" required>
-                            </div><!-- End .form-group -->
+                        <form action="{{ route('cartorder') }}" method="POST" autocomplete="off" class="mb-1">
+                            @csrf
                             
-                            <p>You already have an account with us. Sign in or continue as guest.</p>
-                            <div class="form-footer">
-                                <button type="submit" class="btn btn-primary">LOGIN</button>
-                                <a href="forgot-password.html" class="forget-pass"> Forgot your password?</a>
-                            </div><!-- End .form-footer -->
-                        </form>
-
-                        <form action="#">
                             <div class="form-group required-field">
-                                <label>First Name </label>
-                                <input type="text" class="form-control" required>
+                                <label for="email">E-Mail Address</label>
+                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                    name="email" value="{{ old('email')?? Auth::user()->email }}" required autofocus>
+            
+                                @if ($errors->has('email'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                           
+                            <div class="form-group required-field">
+                                <label>Full Name </label>
+                                <input type="text" name="name"  class="form-control" value="{{Auth::user()->name ?? ''}}" required>
                             </div><!-- End .form-group -->
 
-                            <div class="form-group required-field">
-                                <label>Last Name </label>
-                                <input type="text" class="form-control" required>
-                            </div><!-- End .form-group -->
 
                             <div class="form-group">
                                 <label>Company </label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="company" class="form-control" value="{{Auth::user()->userdetail->company_name ?? ''}}">
                             </div><!-- End .form-group -->
 
                             <div class="form-group required-field">
                                 <label>Street Address </label>
-                                <input type="text" class="form-control" required>
-                                <input type="text" class="form-control" required>
+                                <input type="text" name="address" class="form-control" value="{{Auth::user()->userdetail->address ?? ''}}" required>
                             </div><!-- End .form-group -->
 
                             <div class="form-group required-field">
                                 <label>City  </label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" name="city" class="form-control" value="{{Auth::user()->userdetail->city ?? ''}}" required>
                             </div><!-- End .form-group -->
 
                             <div class="form-group">
                                 <label>State/Province</label>
-                                <div class="select-custom">
-                                    <select class="form-control">
-                                        <option value="CA">California</option>
-                                        <option value="TX">Texas</option>
-                                    </select>
-                                </div><!-- End .select-custom -->
+                                <input type="text" name="state" class="form-control" value="{{Auth::user()->userdetail->state ?? ''}}" required>
                             </div><!-- End .form-group -->
 
                             <div class="form-group required-field">
                                 <label>Zip/Postal Code </label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" name="postalcode" class="form-control" value="{{Auth::user()->userdetail->postal_code ?? ''}}"  required>
                             </div><!-- End .form-group -->
 
                             <div class="form-group">
                                 <label>Country</label>
                                 <div class="select-custom">
-                                    <select class="form-control">
-                                        <option value="USA">United States</option>
-                                        <option value="Turkey">Turkey</option>
-                                        <option value="China">China</option>
-                                        <option value="Germany">Germany</option>
+
+                                    <select name="country" id="country" class="form-control">
+                                        @foreach($countries as $country)
+                                        <option value="{{$country->name}}" {{ trim($country->name) == (Auth::user()->userdetail->country?? 'Nepal') ? 'selected' : ''}}>{{$country->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div><!-- End .select-custom -->
                             </div><!-- End .form-group -->
 
                             <div class="form-group required-field">
-                                <label>Phone Number </label>
+                                <label>Mobile/Phone Number </label>
                                 <div class="form-control-tooltip">
-                                    <input type="tel" class="form-control" required>
-                                    <span class="input-tooltip" data-toggle="tooltip" title="For delivery questions." data-placement="right"><i class="icon-question-circle"></i></span>
+                                    <input type="text" name="phone" class="form-control" value="{{Auth::user()->userdetail->mobile ?? ''}}" required>
                                 </div><!-- End .form-control-tooltip -->
                             </div><!-- End .form-group -->
+
+                            <div class="alert alert-warning">
+                                    IMPORTANT:<br/>
+                                    <strong>This Product is not handled by {{$setting->site_name}}.</strong><br/> 
+                                    You agree and understand that {{$setting->site_name}} is NOT involved in transaction of this particular product. 
+                                    You are directly dealing with the party who has posted the Product, and agree not to hold {{$setting->site_name}} responsible for their act in any circumstances. We strongly encourage you to take necessary precaution.
+                                    
+                            </div>
+
+                            <div class="checkout-steps-action">
+                                    <button type="submit" class="btn btn-primary btn-md">Place Direct Order</button>
+                            </div><!-- End .checkout-steps-action -->
+     
                         </form>
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <div class="checkout-step-shipping">
                             <h2 class="step-title">Shipping Methods</h2>
 
@@ -146,70 +195,60 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                                 </tbody>
                             </table>
                         </div><!-- End .checkout-step-shipping -->
-                    </li>
+                    </li> --}}
                 </ul>
             </div><!-- End .col-lg-8 -->
 
-            <div class="col-lg-4">
-                <div class="order-summary">
+            <div class="col-lg-5">
+                {{-- <div class="order-summary">
                     <h3>Summary</h3>
 
                     <h4>
-                        <a data-toggle="collapse" href="#order-cart-section" class="" role="button" aria-expanded="true" aria-controls="order-cart-section">2 products in Cart</a>
+                        <a data-toggle="collapse" href="#order-cart-section" class="" role="button" aria-expanded="true" aria-controls="order-cart-section">{{$qty}} products selected</a>
                     </h4>
-
+                    @php
+                        if(count($product->pics) > 0) {
+                            $image_path = '<img src="/storage/images/'.$product['user_id'].'/thumb_400'.'/' . $product->pics->first()->pic_path .'" />';
+                        } else {
+                            $image_path = "&nbsp;";
+                        }
+                        $regular = $product->prices->min('regular');
+                        $discounted = $product->prices->min('discounted');
+                    @endphp
                     <div class="collapse show" id="order-cart-section">
                         <table class="table table-mini-cart">
                             <tbody>
                                 <tr>
                                     <td class="product-col">
                                         <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/product-1.jpg" alt="product">
+                                            <a href="/product/{{$product['slug']}}" class="product-image">
+                                                {!!$image_path!!}
                                             </a>
                                         </figure>
                                         <div>
                                             <h2 class="product-title">
-                                                <a href="product.html">Men Watch</a>
+                                                <a href="product.html">{{$product->name}}</a>
                                             </h2>
 
-                                            <span class="product-qty">Qty: 4</span>
+                                            <span class="product-qty">Qty: {{$qty}}</span>
                                         </div>
                                     </td>
-                                    <td class="price-col">$17.90</td>
-                                </tr>
-
-                                <tr>
-                                    <td class="product-col">
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/product-2.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <div>
-                                            <h2 class="product-title">
-                                                <a href="product.html">Men Watch-Black</a>
-                                            </h2>
-
-                                            <span class="product-qty">Qty: 4</span>
-                                        </div>
+                                    <td class="price-col">
+                                        @php 
+                                            $productCurrency = $product['primarycurrency'];
+                                        @endphp
+                                        {{ $cur }} {{ round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, 2) * $qty }}
+                                        <span class="product-qty">@ {{round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, 2)}}</span>
                                     </td>
-                                    <td class="price-col">$7.90</td>
                                 </tr>
                             </tbody>    
                         </table>
                     </div><!-- End #order-cart-section -->
-                </div><!-- End .order-summary -->
+                </div><!-- End .order-summary --> --}}
             </div><!-- End .col-lg-4 -->
         </div><!-- End .row -->
 
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="checkout-steps-action">
-                    <a href="checkout-review.html" class="btn btn-primary float-right">NEXT</a>
-                </div><!-- End .checkout-steps-action -->
-            </div><!-- End .col-lg-8 -->
-        </div><!-- End .row -->
+        
     </div><!-- End .container -->
 
     <div class="mb-6"></div><!-- margin -->

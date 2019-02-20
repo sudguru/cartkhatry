@@ -102,12 +102,16 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                     <div class="col-lg-7 col-md-6 product-single-gallery">
                         <div class="product-slider-container product-item">
                             <div class="product-single-carousel owl-carousel owl-theme">
-                                @foreach($product->pics as $key=>$pic)
                                 @php
-                                    if($key == 0) {
-                                        $firstpic = $pic->pic_path;
-                                    }
+
+                                if(count($product->pics)>0) {
+                                    $firstpic = $product->pics[0]->pic_path;
+                                } else {
+                                    $firstpic = '/assets/images/product-placeholder.jpg';
+                                }
                                 @endphp
+                                    
+                                @foreach($product->pics as $key=>$pic)
                                 <div class="product-item">
                                     <img class="product-single-image" src="/storage/images/{{$product->user_id}}/original/{{$pic->pic_path}}"
                                         data-zoom-image="/storage/images/{{$product->user_id}}/original/{{$pic->pic_path}}" />
@@ -155,7 +159,7 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                                     @endforeach
                                 </ul>
                                 <input type="hidden" id="txtpriceid" value="{{$pid}}">
-                                {{session()->getId()}}
+                                
                                 <div id="product-price-detail" style="padding-top:2rem">
                                     <div class="price-box">
                                         @foreach($product->prices as $key=>$price)
@@ -191,7 +195,7 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                             <div class="sticky-header">
                                 <div class="container">
                                     <div class="sticky-img">
-                                        <img class="sticky-img-" src="/storage/images/{{$product->user_id}}/thumb_400/{{$firstpic}}" />
+                                        <img class="sticky-img-" src="{{$firstpic}}" />
                                     </div>
                                     <div class="sticky-detail">
                                         <div class="sticky-product-name">
@@ -429,7 +433,7 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                 if($(this).attr('title') == 'Direct Order') {
                     window.location = "/checkoutdirect/{{$product->slug}}/" + qty + "/" + priceid;
                 } else {
-
+                    window.location = "/add-to-cart/{{$product->slug}}/" + priceid + "/" + qty;
                 }
             });
         });
