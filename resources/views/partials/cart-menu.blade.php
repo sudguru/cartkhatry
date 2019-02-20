@@ -31,7 +31,8 @@
                             $total = $total + $itemtotal;
                         @endphp
                         
-                        x {{$cur }} {{number_format($itemprice,2)}}
+                        x {{$cur }} {{number_format($itemprice,2)}} <br>
+                        <span class="text-muted">Size:</span> <span style="color: #880000">{{$item['item']->size}}</span>
                     </span>
                 </div><!-- End .product-details -->
 
@@ -39,7 +40,7 @@
                     <a href="/product/{{$item['item']->slug}}" class="product-image">
                         {!!$item['item']->pic!!}
                     </a>
-                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-cancel"></i></a>
+                    <a href="/cartremoveitem/{{$item['item']->id}}{{$item['item']->size}}" class="btn-remove" title="Remove Product"><i class="icon-cancel"></i></a>
                 </figure>
             </div><!-- End .product -->
             @endforeach

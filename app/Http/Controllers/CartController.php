@@ -43,4 +43,8 @@ class CartController extends Controller
     public function viewcart() {
         return view('cart');
     }
+
+    public function cartremoveitem($itemindex){
+        
+    }
 }

@@ -13,11 +13,15 @@ Route::get('/changeoutlet/{outlet_id/{outlet_name}', 'HomeController@changecurre
 Route::get('/category/{category}', 'HomeController@category');
 
 Route::get('/checkoutdirect/{product}/{qty}/{priceid}', 'CheckoutController@directcheckout');
-Route::get('/checkout', 'CheckoutController@checkout');
-
 Route::post('/directorder/{product}/{priceid}/{qty}', 'CheckoutController@directorder')->name('directorder');
 Route::get('/ordersuccessdirect/{order}/{product}', 'CheckoutController@ordersuccessdirect')->name('ordersuccessdirect');
 
+Route::get('/checkout', 'CheckoutController@checkout');
+Route::get('/cartorder/{total}', 'CheckoutController@cartorder')->name('cartorder');
+Route::get('/orderpreview/{total}', 'CheckoutController@orderpreview')->name('orderpreview');
+Route::get('/ordersuccess/{total}', 'CheckoutController@ordersuccess')->name('ordersuccess');
+
 Route::get('/add-to-cart/{product}/{price}/{qty}', 'CartController@addtocart')->name('addtocart');
 Route::get('/viewcart', 'CartController@viewcart')->name('viewcart');
-Route::get('/cartorder/{total}', 'CheckoutController@cartorder')->name('cartorder');
+Route::get('/cartremoveitem/{itemindex}', 'CartController@cartremoveitem')->name('cartremoveitem');
+
