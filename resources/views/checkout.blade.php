@@ -93,13 +93,13 @@ $addtocarttext = "Add to Cart";
                         </div>
                         @endguest
 
-                        <form action="{{ route('cartorder') }}" method="POST" autocomplete="off" class="mb-1">
+                        <form action="{{ route('cartorder')}}" method="POST" autocomplete="off" class="mb-1">
                             @csrf
                             
                             <div class="form-group required-field">
                                 <label for="email">E-Mail Address</label>
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                                    name="email" value="{{ old('email')?? Auth::user()->email }}" required autofocus>
+                                    name="email" value="{{ Auth::user()->email ?? '' }}" required autofocus>
             
                                 @if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
@@ -157,17 +157,13 @@ $addtocarttext = "Add to Cart";
                                     <input type="text" name="phone" class="form-control" value="{{Auth::user()->userdetail->mobile ?? ''}}" required>
                                 </div><!-- End .form-control-tooltip -->
                             </div><!-- End .form-group -->
-
-                            <div class="alert alert-warning">
-                                    IMPORTANT:<br/>
-                                    <strong>This Product is not handled by {{$setting->site_name}}.</strong><br/> 
-                                    You agree and understand that {{$setting->site_name}} is NOT involved in transaction of this particular product. 
-                                    You are directly dealing with the party who has posted the Product, and agree not to hold {{$setting->site_name}} responsible for their act in any circumstances. We strongly encourage you to take necessary precaution.
-                                    
+                            <div class="alert alert-info">
+                                Current Payment Method is <strong>Cash On Delivery</strong>. <br/>
+                                Other Payments methods as ESewa, PayPal, Credit Card Checkout are coming soon..
                             </div>
 
                             <div class="checkout-steps-action">
-                                    <button type="submit" class="btn btn-primary btn-md">Place Direct Order</button>
+                                    <button type="submit" class="btn btn-primary btn-md">Place Your Order</button>
                             </div><!-- End .checkout-steps-action -->
      
                         </form>
@@ -200,51 +196,57 @@ $addtocarttext = "Add to Cart";
             </div><!-- End .col-lg-8 -->
 
             <div class="col-lg-5">
-                {{-- <div class="order-summary">
+                <div class="order-summary">
                     <h3>Summary</h3>
 
                     <h4>
-                        <a data-toggle="collapse" href="#order-cart-section" class="" role="button" aria-expanded="true" aria-controls="order-cart-section">{{$qty}} products selected</a>
+                        <a data-toggle="collapse" href="#order-cart-section" class="" role="button" aria-expanded="true" aria-controls="order-cart-section">{{session('cart')->totalQty}} products selected</a>
                     </h4>
-                    @php
-                        if(count($product->pics) > 0) {
-                            $image_path = '<img src="/storage/images/'.$product['user_id'].'/thumb_400'.'/' . $product->pics->first()->pic_path .'" />';
-                        } else {
-                            $image_path = "&nbsp;";
-                        }
-                        $regular = $product->prices->min('regular');
-                        $discounted = $product->prices->min('discounted');
-                    @endphp
                     <div class="collapse show" id="order-cart-section">
+                        @php
+                        $total = 0;
+                        @endphp
+                        
                         <table class="table table-mini-cart">
                             <tbody>
+                                @foreach(session('cart')->items as $item)
                                 <tr>
                                     <td class="product-col">
                                         <figure class="product-image-container">
-                                            <a href="/product/{{$product['slug']}}" class="product-image">
-                                                {!!$image_path!!}
+                                            <a href="/product/{{$item['item']->slug}}" class="product-image">
+                                                {!!$item['item']->pic!!}
                                             </a>
                                         </figure>
                                         <div>
                                             <h2 class="product-title">
-                                                <a href="product.html">{{$product->name}}</a>
+                                                <a href="/product/{{$item['item']->slug}}">{{$item['item']->name}}</a>
                                             </h2>
-
-                                            <span class="product-qty">Qty: {{$qty}}</span>
+                                            @php
+                                            $itemcurrency = $item['item']->currency;
+                                            $itemprice = round(($item['item']->price/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
+                                            $itemtotal = round((($item['item']->price * $item['qty'])/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
+                                            $total = $total + $itemtotal;
+                                        @endphp
+                                            <span class="product-qty">Qty: {{$item['qty']}} x {{$cur }} {{number_format($itemprice,2)}}</span>
+                                            
                                         </div>
                                     </td>
                                     <td class="price-col">
-                                        @php 
-                                            $productCurrency = $product['primarycurrency'];
-                                        @endphp
-                                        {{ $cur }} {{ round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, 2) * $qty }}
-                                        <span class="product-qty">@ {{round(($regular/$exchangerates->$productCurrency) * $exchangerates->$cur, 2)}}</span>
+  
+                                        {{$cur }} {{number_format($itemtotal,2)}} <br>
+                                        <span class="text-muted">Size:</span> <span style="color: #880000">{{$item['item']->size}}</span>
                                     </td>
+                                </tr>
+                                @endforeach
+                                <tr>
+                                    <td style="font-weight: bold">Total</td>
+                                    <td style="font-weight: bold">{{$cur}} {{number_format($total,2)}}</td>
                                 </tr>
                             </tbody>    
                         </table>
+                        
                     </div><!-- End #order-cart-section -->
-                </div><!-- End .order-summary --> --}}
+                </div><!-- End .order-summary -->
             </div><!-- End .col-lg-4 -->
         </div><!-- End .row -->
 
@@ -255,26 +257,5 @@ $addtocarttext = "Add to Cart";
 @endsection
 
 @section('extrajs')
-    <script>
-        $(document).ready(function(){
 
-
-            $('.pricelink').on('click', function(){
-                var d = $(this).data('discounted');
-                var r = $(this).data('regular');
-                var s = $(this).data('stock');
-                $('.product-price').html("{{$cur}}"+ " " + d);
-                $('.old-price').html(r);
-                $(this).parent().siblings().removeClass('active');
-                $(this).parent().addClass('active');
-                if(s !== 1) {
-                    $('#stock_not_available').text('Out of Stock! Please try another size.')
-                    $('.btn-add-to-cart').hide();
-                } else {
-                    $('#stock_not_available').text('');
-                    $('.btn-add-to-cart').show();    
-                }
-            });
-        });
-    </script>
 @endsection

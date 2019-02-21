@@ -26,12 +26,12 @@
                         <span class="cart-product-qty">{{$item['qty']}}</span>
                         @php
                             $itemcurrency = $item['item']->currency;
-                            $itemprice = round(($item['item']->price/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
+                            $itemrate = round(($item['item']->rate/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
                             $itemtotal = round((($item['item']->price * $item['qty'])/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
                             $total = $total + $itemtotal;
                         @endphp
                         
-                        x {{$cur }} {{number_format($itemprice,2)}} <br>
+                        x {{$cur }} {{number_format($itemrate,2)}} <br>
                         <span class="text-muted">Size:</span> <span style="color: #880000">{{$item['item']->size}}</span>
                     </span>
                 </div><!-- End .product-details -->

@@ -100,7 +100,7 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                             <div class="form-group required-field">
                                 <label for="email">E-Mail Address</label>
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                                    name="email" value="{{ old('email')?? Auth::user()->email }}" required autofocus>
+                                    name="email" value="{{ Auth::user()->email ?? '' }}" required autofocus>
             
                                 @if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
@@ -256,26 +256,5 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
 @endsection
 
 @section('extrajs')
-    <script>
-        $(document).ready(function(){
 
-
-            $('.pricelink').on('click', function(){
-                var d = $(this).data('discounted');
-                var r = $(this).data('regular');
-                var s = $(this).data('stock');
-                $('.product-price').html("{{$cur}}"+ " " + d);
-                $('.old-price').html(r);
-                $(this).parent().siblings().removeClass('active');
-                $(this).parent().addClass('active');
-                if(s !== 1) {
-                    $('#stock_not_available').text('Out of Stock! Please try another size.')
-                    $('.btn-add-to-cart').hide();
-                } else {
-                    $('#stock_not_available').text('');
-                    $('.btn-add-to-cart').show();    
-                }
-            });
-        });
-    </script>
 @endsection

@@ -22,16 +22,14 @@ class CartController extends Controller
         $productForCart->id = $product->id;
         $productForCart->name = $product->name;
         $productForCart->slug = $product->slug;
-        $productForCart->price = $price->discounted;
-        $productForCart->currency = $product->primarycurrency;
+        $productForCart->rate = $price->discounted; //
+        $productForCart->currency = $product->primarycurrency; //
         $productForCart->pic = $image_path;
-        $productForCart->qty = $qty;
+        $productForCart->qty = $qty; //
         $productForCart->size = $price->size->size;
 
         $cartIndex = $productForCart->id . $productForCart->size;
-        // echo 'hascart' . $request->session()->has('cart');
         $oldCart = $request->session()->has('cart') ? $request->session()->get('cart') : null;
-        // echo 'oldcart' . $oldCart;
         $cart = new Cart($oldCart);
         $cart->add($productForCart, $cartIndex);
 
@@ -44,7 +42,22 @@ class CartController extends Controller
         return view('cart');
     }
 
-    public function cartremoveitem($itemindex){
-        
+    public function cartremoveitem(Request $request, $itemindex){
+        // $request->session('cart')->forget($itemindex);
+        $oldCart = $request->session()->has('cart') ? $request->session()->get('cart') : null;
+ 
+        $cart = new Cart($oldCart);
+        $cart->remove($itemindex);
+        $request->session()->put('cart', $cart);
+        $newcart = $request->session()->get('cart');
+        if($newcart->totalQty == 0) {
+            $request->session()->forget('cart');
+        }
+        return back();
+    }
+
+    public function clearcart(Request $request) {
+        $request->session()->forget('cart');
+        return back();
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.d11')
 @section('pagetitle')
-{{$product->name}} Ordered Successfully | {{$setting->site_name}}
+Order Completed Successfully | {{$setting->site_name}}
 @endsection
 
 @section('extracss')

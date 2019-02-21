@@ -9,6 +9,7 @@ use App\Country;
 use App\Tblorder;
 use App\Tblorderdetail;
 use Illuminate\Support\Facades\Mail;
+use App\Exchangerate;
 
 class CheckoutController extends Controller
 {
@@ -28,10 +29,12 @@ class CheckoutController extends Controller
         $this->validateRequest($request);
         //save to order if guest user_id = 0
         $price = Productprice::find($priceid);
+        $currency = session('currency') ?? 'NPR';
         $order = Tblorder::create([
             'user_id' => \Auth::user()->id ?? 0,
             'merchant_id' => $product->user_id,
             'email' => $request->email,
+            'currency' => $currency,
             'name' => $request->name,
             'company' => $request->company,
             'address' => $request->address,
@@ -44,13 +47,17 @@ class CheckoutController extends Controller
             'total' => $price->discounted * $qty
         ]);
         //save to order detail
+        $exchangerates = Exchangerate::first();
+        $productCurrency = $product->primarycurrency;
         Tblorderdetail::create([
             'tblorder_id' => $order->id,
             'product_id' => $product->id,
+            'productname' => $item['item']->name,
             'qty' => $qty,
-            'rate' => $price->discounted
+            'rate' => round(($price->discounted/$exchangerates->$productCurrency) * $exchangerates->$currency)
         ]);
-
+        
+        round(($orderdetail->rate/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
         //send mail to merchant
         $salution_vendor = '<h2>Hello ' . $product->user->name .'</h2>';
         $salution_client = '<h2>Hello ' . $request->name .'</h2>';
@@ -103,16 +110,17 @@ class CheckoutController extends Controller
             'countries' => $countries
         ]);
     }
+    
 
-    public function cartorder($total) {
+    public function cartorder(Request $request) {
         //validate
         $this->validateRequest($request);
-        //save to order if guest user_id = 0
-        $price = Productprice::find($priceid);
+        $currency = session('currency') ?? 'NPR';
         $order = Tblorder::create([
             'user_id' => \Auth::user()->id ?? 0,
             'merchant_id' => 6,
             'email' => $request->email,
+            'currency' => $currency,
             'name' => $request->name,
             'company' => $request->company,
             'address' => $request->address,
@@ -122,27 +130,33 @@ class CheckoutController extends Controller
             'postalcode' => $request->postalcode,
             'phone' => $request->phone,
             'qty' => session('cart')->totalQty,
-            'total' => $total
+            'total' => session('cart')->totalPrice
         ]);
         //save to order detail
-        $products_text = 0;
+        $products_text = "";
+        $exchangerates = Exchangerate::first();
         foreach(session('cart')->items as $item) {
+            $productCurrency = $item['item']->currency;
             Tblorderdetail::create([
                 'tblorder_id' => $order->id,
                 'product_id' => $item['item']->id,
+                'productname' => $item['item']->name,
                 'qty' => $item['qty'],
-                'rate' => $item['item']->price
+                'rate' => round(($item['item']->price/$exchangerates->$productCurrency) * $exchangerates->$currency)
             ]);
-            $products_text.= "<tr><td></td></tr>";
+            $products_text.= "
+            <tr><td>{{$item['item']->name}}</td>
+            <td>{{$item['qty']}}</td>
+            <td>{{$item['item']->price}}</td>
+            <td>{{$item['price']}}</td></tr>";
         }
         //send mail to merchant
         $salution_vendor = '<h2>Order to Khatry Online</h2>';
         $salution_client = '<h2>Hello ' . $request->name .'</h2>';
-        $body .= '<p>The following order has been placed via <a href="http://khatryonline.com">www.khatryOnline.com</a><p>';
-        $body .= '<p><strong>' . $product->name . '</strong><br>';
-        $body .= 'Quantity: ' . $qty . '<br>';
-        $body .= 'Rate: ' . $price->discounted. '<br></p>';
-        $body .= 'Total: ' . $order->total. '<br></p>';
+        $body = '<p>The following order has been placed to <a href="http://khatryonline.com">www.khatryOnline.com</a><p>';
+        $body .= 'Order Details<br/><table><tr><td>Product</td><td>Qty</td>Rate</td><td>Total</td></tr>';
+        $body .= $products_text;
+        $body .= '</table>';
         $body .= '<p><strong>Delivery Address</strong></p>';
         $body .= '<small>Name</small>: ' . $request->name . '<br/>';
         $body .= '<small>Company</small>: ' . $request->company . '<br/>';
@@ -155,23 +169,27 @@ class CheckoutController extends Controller
         $body .= '<p>Please understand that you are solely responsible in dealing with the concerning party regarding this order via khatryOnline. KhatryOnline.com is in no way responsible for this transaction';
         
         $body = $salution_vendor . $body;
-        Mail::send([], [], function ($message) use ($product, $order, $body) {
-            $message->to($product->user->email)
-            ->cc('thirdpartyorder@khatryonline.com')
-                ->subject($product->name . " order via Khatry Online (Vendor Copy)")
-                ->setBody($body , 'text/html'); // for HTML rich messages
-        });
-        $body = $salution_client . $body;
-        Mail::send([], [], function ($message) use ($product, $order, $body) {
-            $message->to($order->email)
-            ->cc('thirdpartyorder@khatryonline.com')
-                ->subject($product->name . " order via Khatry Online (Client Copy)")
-                ->setBody($body , 'text/html'); // for HTML rich messages
-        });
+        // Mail::send([], [], function ($message) use ($product, $order, $body) {
+        //     $message->to('orders@khatryonline.com')
+        //         ->subject("Order to Khatry Online")
+        //         ->setBody($body , 'text/html'); // for HTML rich messages
+        // });
+        // $body = $salution_client . $body;
+        // Mail::send([], [], function ($message) use ($product, $order, $body) {
+        //     $message->to($order->email)
+        //         ->subject("Your order to Khatry Online (Client Copy)")
+        //         ->setBody($body , 'text/html'); // for HTML rich messages
+        // });
         //send mail to customer
         //successful direct order page
+        $request->session()->forget('cart');
+        return redirect()->route('ordersuccess', ['order' => $order]);
+    }
 
-        return redirect()->route('ordersuccessdirect', ['order' => $order, 'product' => $product->slug]);
+    public function ordersuccess(Tblorder $order) {
+        return view('ordersuccess', [
+            'order' => $order
+        ]);
     }
 
     private function validateRequest(Request $request) {

@@ -15,13 +15,14 @@ $cur = session('currency') ?? 'NPR';
         <div class="container">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-                <li class="breadcrumb-item active" aria-current="page">Order Successful</li>
+                <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
             </ol>
         </div><!-- End .container -->
     </nav>
 
     <div class="container">
         @if(Session::has('cart'))
+        {{json_encode(session('cart'))}}
         <div class="row">
             <div class="col-lg-8">
                 <div class="cart-table-container">
@@ -71,8 +72,7 @@ $cur = session('currency') ?? 'NPR';
                                     </div><!-- End .float-left -->
                                     
                                     <div class="float-right">
-                                        <a href="#" title="Edit product" class="btn-edit"><span class="sr-only">Edit</span><i class="icon-pencil"></i></a>
-                                        <a href="#" title="Remove product" class="btn-remove"><span class="sr-only">Remove</span></a>
+                                        <a href="/cartremoveitem/{{$item['item']->id}}{{$item['item']->size}}" title="Remove product" class="btn-remove"><span class="sr-only">Remove</span></a>
                                     </div><!-- End .float-right -->
                                 </td>
                             </tr>
@@ -189,6 +189,8 @@ $cur = session('currency') ?? 'NPR';
                 </div><!-- End .cart-summary -->
             </div><!-- End .col-lg-4 -->
         </div><!-- End .row -->
+        @else
+            <div class="text-danger">Your Shopping Cart is Empty</div>
         @endif
     </div><!-- End .container -->
 
