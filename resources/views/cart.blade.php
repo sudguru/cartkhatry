@@ -22,7 +22,6 @@ $cur = session('currency') ?? 'NPR';
 
     <div class="container">
         @if(Session::has('cart'))
-        {{json_encode(session('cart'))}}
         <div class="row">
             <div class="col-lg-8">
                 <div class="cart-table-container">
@@ -53,12 +52,12 @@ $cur = session('currency') ?? 'NPR';
                                 </td>
                                 <td>
                                     @php
-                                        $itemcurrency = $item['item']->currency;
-                                        $itemprice = round(($item['item']->price/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
-                                        $itemtotal = round((($item['item']->price * $item['qty'])/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
+                                        $itemcurrency = $item['primarycurrency'];
+                                        $itemrate = round(($item['rate']/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
+                                        $itemtotal = round($itemrate * $item['qty'],2);
                                         $total = $total + $itemtotal;
                                     @endphp
-                                    {{$cur}} {{number_format($itemprice,2)}}
+                                    {{$cur}} {{number_format($itemrate,2)}}
                                 </td>
                                 <td>
                                     <input class="vertical-quantity form-control" value="{{$item['qty']}}" type="text">
