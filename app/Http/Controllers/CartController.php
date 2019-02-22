@@ -23,12 +23,13 @@ class CartController extends Controller
         $productForCart->name = $product->name;
         $productForCart->slug = $product->slug;
         $productForCart->rate = $price->discounted; //
-        $productForCart->currency = $product->primarycurrency; //
+        $productForCart->primarycurrency = $product->primarycurrency; //
         $productForCart->pic = $image_path;
         $productForCart->qty = $qty; //
+        $productForCart->sizeslug = $price->size->slug;
         $productForCart->size = $price->size->size;
 
-        $cartIndex = $productForCart->id . $productForCart->size;
+        $cartIndex = $productForCart->id . $productForCart->slug;
         $oldCart = $request->session()->has('cart') ? $request->session()->get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->add($productForCart, $cartIndex);

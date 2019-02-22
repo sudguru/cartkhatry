@@ -25,9 +25,9 @@
                     <span class="cart-product-info">
                         <span class="cart-product-qty">{{$item['qty']}}</span>
                         @php
-                            $itemcurrency = $item['item']->currency;
-                            $itemrate = round(($item['item']->rate/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
-                            $itemtotal = round((($item['item']->price * $item['qty'])/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
+                            $itemcurrency = $item['primarycurrency'];
+                            $itemrate = round(($item['rate']/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
+                            $itemtotal = round($itemrate * $item['qty'],2);
                             $total = $total + $itemtotal;
                         @endphp
                         
@@ -40,7 +40,7 @@
                     <a href="/product/{{$item['item']->slug}}" class="product-image">
                         {!!$item['item']->pic!!}
                     </a>
-                    <a href="/cartremoveitem/{{$item['item']->id}}{{$item['item']->size}}" class="btn-remove" title="Remove Product"><i class="icon-cancel"></i></a>
+                    <a href="/cartremoveitem/{{$item['item']->id}}{{$item['item']->sizeslug}}" class="btn-remove" title="Remove Product"><i class="icon-cancel"></i></a>
                 </figure>
             </div><!-- End .product -->
             @endforeach

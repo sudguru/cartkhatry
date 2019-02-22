@@ -175,7 +175,7 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                                                 @if( $r == $d)
                                                 <span class="product-price">{{$cur}} {{$rt}}</span>
                                                 @else
-                                                <span class="old-price">{{$cur}} {{$rt}}</span>
+                                                <span class="old-price">{{$rt}}</span>
                                                 <span class="product-price">{{$cur}} {{$dt}}</span>
                                                 @endif
                                             @endif
