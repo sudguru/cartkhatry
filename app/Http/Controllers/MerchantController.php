@@ -177,7 +177,7 @@ class MerchantController extends Controller
     }
 
     public function myorders() {
-        $myorders = Tblorder::where('user_id', auth()->user()->id)->orderBy('created_at' , 'desc');
+        $myorders = Tblorder::where('user_id', auth()->user()->id)->orderBy('created_at' , 'desc')->get();
         return view('account.orders.index')->with(['currentPage' => 'clientorders', 'myorders' => $myorders]);
     }
 }

@@ -143,3 +143,19 @@ ul#ticker li {
 #form-add-price {
     margin-bottom: 0;
 }
+
+.Unprocessed {
+    color: #cc0000;
+}
+
+.Processed {
+    color: orange;
+}
+
+.Delivered {
+    color: DODGERBLUE;
+}
+
+.Completed {
+    color: SEAGREEN;
+}

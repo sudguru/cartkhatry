@@ -52,16 +52,16 @@ class CheckoutController extends Controller
         Tblorderdetail::create([
             'tblorder_id' => $order->id,
             'product_id' => $product->id,
-            'productname' => $item['item']->name,
+            'productname' => $product->name,
             'qty' => $qty,
             'rate' => round(($price->discounted/$exchangerates->$productCurrency) * $exchangerates->$currency)
         ]);
         
-        round(($orderdetail->rate/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
+        
         //send mail to merchant
         $salution_vendor = '<h2>Hello ' . $product->user->name .'</h2>';
         $salution_client = '<h2>Hello ' . $request->name .'</h2>';
-        $body .= '<p>The following order has been placed via <a href="http://khatryonline.com">www.khatryOnline.com</a><p>';
+        $body = '<p>The following order has been placed via <a href="http://khatryonline.com">www.khatryOnline.com</a><p>';
         $body .= '<p><strong>' . $product->name . '</strong><br>';
         $body .= 'Quantity: ' . $qty . '<br>';
         $body .= 'Rate: ' . $price->discounted. '<br></p>';

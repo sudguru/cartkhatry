@@ -16,6 +16,7 @@ Route::put('/account/product/{product}', 'MerchantController@productupdate')->na
 Route::delete('/account/product/{product}', 'MerchantController@productdestroy')->name('account.product.destroy');
 
 Route::get('/account/orders', 'MerchantController@myorders')->name('account.orders.index');
+Route::get('/account/order/cancel/{id}', 'MerchantController@cancel')->name('account.order.cancel');
 
 Route::post('/account/product/price', 'MerchantController@saveprice')->name('account.price.store');
 Route::post('/account/product/price/delete', 'MerchantController@deleteprice')->name("account.price.destroy");

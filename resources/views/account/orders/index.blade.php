@@ -26,7 +26,50 @@ My Orders
         <div class="col-lg-9 order-lg-last dashboard-content">
 
             <h2>My Orders</h2>
-            {{json_encode($myorders)}}
+            <table class="table table-striped" id="myTable">
+                <thead>
+                    <tr>
+                        <td>SN</td>
+                        <td>Date</td>
+                        <td>Merchant</td>
+                        <td>Tot Qty</td>
+                        <td>Currency</td>
+                        <td>Tot Amount</td>
+                        <td>Status</td>
+                        <td>Actions</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($myorders as $key=>$myorder)
+                    <tr>
+                            <td>{{ ++$key }}</td>
+                            <td>{{$myorder->created_at->diffForHumans()}}</td>
+                            <td>{{$myorder->merchant->name}}</td>
+                            <td>{{$myorder->qty}}</td>
+                            <td>{{$myorder->currency}}</td>
+                            <td>{{$myorder->total}}</td>
+                            <td class="{{$myorder->status ?? 'Unprocessed'}}">{{$myorder->status ?? 'Unprocessed'}}</td>
+                        <td>
+                            @if($myorder->status == 'Unprocessed' or is_null($myorder->status))
+                            <a href="{{ route('account.order.cancel', $myorder->id) }}" onclick="event.preventDefault();
+                                        if ( confirm('You are about to cancel this item ?\n \'Cancel\' to stop, \'OK\' to delete.') ) { document.getElementById('delete-form-{{$myorder->id}}').submit();}return false;">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            <form id="delete-form-{{$myorder->id}}" action="{{ route('account.order.cancel', $myorder->id) }}"
+                                method="POST" style="display: none;">
+                                @csrf
+                                {{ method_field('DELETE') }}
+                                <input type="hidden" name="id" value="{{ $myorder->id }}" />
+                            </form>
+                            @endif
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="javascript:void()"><i class="fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
         </div><!-- End .col-lg-9 -->
 
         <aside class="sidebar col-lg-3">
@@ -46,25 +89,7 @@ My Orders
 @endsection
 
 @section('extrajs')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#description').summernote({
-            height: 150,
-            toolbar: [
-                // [groupName, [list of button]]
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link', 'picture', 'video', 'table', 'hr']],
-                ['height', ['height']],
-                ['fullscreen']
-            ]
-        });
-    });
 
-</script>
 <script>
     var x = document.getElementById("snackbar");
     if (x) {

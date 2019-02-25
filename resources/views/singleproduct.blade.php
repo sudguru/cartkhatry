@@ -105,7 +105,7 @@ if($product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
                                 @php
 
                                 if(count($product->pics)>0) {
-                                    $firstpic = $product->pics[0]->pic_path;
+                                    $firstpic = '/storage/images/'.$product->user_id.'/original/'.$product->pics[0]->pic_path;
                                 } else {
                                     $firstpic = '/assets/images/product-placeholder.jpg';
                                 }
