@@ -200,13 +200,13 @@ $addtocarttext = "Add to Cart";
                     <h3>Summary</h3>
 
                     <h4>
-                        <a data-toggle="collapse" href="#order-cart-section" class="" role="button" aria-expanded="true" aria-controls="order-cart-section">{{session('cart')->totalQty}} products selected</a>
+                        <a data-toggle="collapse" href="#order-cart-section" class="" role="button" aria-expanded="true" aria-controls="order-cart-section">{{session('cart')->totalQty ?? 0}} products selected</a>
                     </h4>
                     <div class="collapse show" id="order-cart-section">
                         @php
                         $total = 0;
                         @endphp
-                        
+                        @if(session('cart'))
                         <table class="table table-mini-cart">
                             <tbody>
                                 @foreach(session('cart')->items as $item)
@@ -222,12 +222,12 @@ $addtocarttext = "Add to Cart";
                                                 <a href="/product/{{$item['item']->slug}}">{{$item['item']->name}}</a>
                                             </h2>
                                             @php
-                                            $itemcurrency = $item['item']->currency;
-                                            $itemprice = round(($item['item']->price/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
-                                            $itemtotal = round((($item['item']->price * $item['qty'])/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
+                                            $itemcurrency = $item['primarycurrency'];
+                                            $itemrate = round(($item['rate']/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
+                                            $itemtotal = round($itemrate * $item['qty'],2);
                                             $total = $total + $itemtotal;
                                         @endphp
-                                            <span class="product-qty">Qty: {{$item['qty']}} x {{$cur }} {{number_format($itemprice,2)}}</span>
+                                            <span class="product-qty">Qty: {{$item['qty']}} x {{$cur }} {{number_format($itemrate,2)}}</span>
                                             
                                         </div>
                                     </td>
@@ -244,7 +244,7 @@ $addtocarttext = "Add to Cart";
                                 </tr>
                             </tbody>    
                         </table>
-                        
+                        @endif
                     </div><!-- End #order-cart-section -->
                 </div><!-- End .order-summary -->
             </div><!-- End .col-lg-4 -->

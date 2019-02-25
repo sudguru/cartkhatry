@@ -10,7 +10,7 @@ use App\Brand;
 use App\Setting;
 use App\Size;
 use App\Country;
-
+use App\Tblorder;
 class MerchantController extends Controller
 {
     public function __construct() {
@@ -177,6 +177,7 @@ class MerchantController extends Controller
     }
 
     public function myorders() {
-        return view('account.orders.index')->with(['currentPage' => 'clientorders']);
+        $myorders = Tblorder::where('user_id', auth()->user()->id)->orderBy('created_at' , 'desc');
+        return view('account.orders.index')->with(['currentPage' => 'clientorders', 'myorders' => $myorders]);
     }
 }

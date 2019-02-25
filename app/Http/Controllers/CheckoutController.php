@@ -130,31 +130,47 @@ class CheckoutController extends Controller
             'postalcode' => $request->postalcode,
             'phone' => $request->phone,
             'qty' => session('cart')->totalQty,
-            'total' => session('cart')->totalPrice
+            'total' => 0
         ]);
         //save to order detail
+
+        
         $products_text = "";
         $exchangerates = Exchangerate::first();
+        $cur = session('currency') ?? 'NPR';
+        $total = 0;
         foreach(session('cart')->items as $item) {
-            $productCurrency = $item['item']->currency;
+            $itemcurrency = $item['primarycurrency'];
+            $itemrate = round(($item['rate']/$exchangerates->$itemcurrency) * $exchangerates->$cur, 2);
+            $itemtotal = round($itemrate * $item['qty'],2);
+            $total = $total + $itemtotal;
             Tblorderdetail::create([
                 'tblorder_id' => $order->id,
                 'product_id' => $item['item']->id,
                 'productname' => $item['item']->name,
+                'size' => $item['item']->size,
                 'qty' => $item['qty'],
-                'rate' => round(($item['item']->price/$exchangerates->$productCurrency) * $exchangerates->$currency)
+                'rate' => $itemrate
             ]);
             $products_text.= "
-            <tr><td>{{$item['item']->name}}</td>
-            <td>{{$item['qty']}}</td>
-            <td>{{$item['item']->price}}</td>
-            <td>{{$item['price']}}</td></tr>";
+            <tr><td>{$item['item']->name}</td>
+            <td>{$item['qty']}</td>
+            <td>{$itemrate}</td>
+            <td>{$itemtotal}</td></tr>";
         }
+        $order->update([
+            'total' => $total
+        ]);
+        $products_text.= "
+            <tr><td>Total</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>{$total}</td></tr>";
         //send mail to merchant
         $salution_vendor = '<h2>Order to Khatry Online</h2>';
         $salution_client = '<h2>Hello ' . $request->name .'</h2>';
         $body = '<p>The following order has been placed to <a href="http://khatryonline.com">www.khatryOnline.com</a><p>';
-        $body .= 'Order Details<br/><table><tr><td>Product</td><td>Qty</td>Rate</td><td>Total</td></tr>';
+        $body .= 'Order Details<br/><table border="1"><tr><td>Product</td><td>Qty</td>Rate</td><td>Total</td></tr>';
         $body .= $products_text;
         $body .= '</table>';
         $body .= '<p><strong>Delivery Address</strong></p>';
@@ -169,17 +185,17 @@ class CheckoutController extends Controller
         $body .= '<p>Please understand that you are solely responsible in dealing with the concerning party regarding this order via khatryOnline. KhatryOnline.com is in no way responsible for this transaction';
         
         $body = $salution_vendor . $body;
-        // Mail::send([], [], function ($message) use ($product, $order, $body) {
-        //     $message->to('orders@khatryonline.com')
-        //         ->subject("Order to Khatry Online")
-        //         ->setBody($body , 'text/html'); // for HTML rich messages
-        // });
-        // $body = $salution_client . $body;
-        // Mail::send([], [], function ($message) use ($product, $order, $body) {
-        //     $message->to($order->email)
-        //         ->subject("Your order to Khatry Online (Client Copy)")
-        //         ->setBody($body , 'text/html'); // for HTML rich messages
-        // });
+        Mail::send([], [], function ($message) use ($order, $body) {
+            $message->to('orders@khatryonline.com')
+                ->subject("Order to Khatry Online")
+                ->setBody($body , 'text/html'); // for HTML rich messages
+        });
+        $body = $salution_client . $body;
+        Mail::send([], [], function ($message) use ($order, $body) {
+            $message->to($order->email)
+                ->subject("Your order to Khatry Online (Client Copy)")
+                ->setBody($body , 'text/html'); // for HTML rich messages
+        });
         //send mail to customer
         //successful direct order page
         $request->session()->forget('cart');

@@ -33,6 +33,9 @@ $cur = session('currency') ?? 'NPR';
                             <td style="text-align: right">Qty</td>
                             <td style="text-align: right">Total</td>
                         </tr>
+                        @php
+                        $total = 0;
+                        @endphp
                         @foreach($order->orderdetails as $orderdetail)
                         @php
                         $itemcurrency = $order->currency;

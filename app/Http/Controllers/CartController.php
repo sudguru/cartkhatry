@@ -29,7 +29,7 @@ class CartController extends Controller
         $productForCart->sizeslug = $price->size->slug;
         $productForCart->size = $price->size->size;
 
-        $cartIndex = $productForCart->id . $productForCart->slug;
+        $cartIndex = $productForCart->id . $productForCart->sizeslug;
         $oldCart = $request->session()->has('cart') ? $request->session()->get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->add($productForCart, $cartIndex);
@@ -46,6 +46,7 @@ class CartController extends Controller
     public function cartremoveitem(Request $request, $itemindex){
         // $request->session('cart')->forget($itemindex);
         $oldCart = $request->session()->has('cart') ? $request->session()->get('cart') : null;
+        // dd($oldCart);
  
         $cart = new Cart($oldCart);
         $cart->remove($itemindex);

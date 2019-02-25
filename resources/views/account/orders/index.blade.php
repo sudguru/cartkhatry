@@ -26,27 +26,7 @@ My Orders
         <div class="col-lg-9 order-lg-last dashboard-content">
 
             <h2>My Orders</h2>
-            <form action="{{ route('account.logo') }}" method="POST" enctype="multipart/form-data" id="thisForm"
-                autocomplete="off" novalidate class="mb-1">
-
-                @csrf
-                <div class="row justify-content-center mt-3">
-                    <small>Being Updated...</small>
-                    {{-- <div class="col-md-4" style="text-align: center">
-                        <h3>Logo</h3>
-                        <img src="/assets/images/banner-placeholder.jpg" style="width:100%; margin: 0 auto; cursor: pointer"
-                            id="picImage" />
-                        <small><em>Click the banner above to Add/Change</em></small>
-                        <input type="file" name="banner" id="banner" class="{{ $errors->has('banner') ? 'is-invalid' : '' }}"
-                            style="display: none" accept="image/x-png,image/gif,image/jpeg" />
-                        @if ($errors->has('banner'))
-                        <span class="required" role="alert">
-                            <br><strong>{{ $errors->first('banner') }}</strong>
-                        </span>
-                        @endif
-                    </div> --}}
-                </div>
-            </form>
+            {{json_encode($myorders)}}
         </div><!-- End .col-lg-9 -->
 
         <aside class="sidebar col-lg-3">
