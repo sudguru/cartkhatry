@@ -30,6 +30,9 @@
                                         <span class="contact-info-label">Phone:</span><a href="tel:{{$setting->phone1}}">{{$setting->phone1}}</a>
                                     </li>
                                     <li>
+                                        <span class="contact-info-label">Mobile:</span><a href="tel:{{$setting->phone2}}">{{$setting->phone2}}</a>
+                                    </li>
+                                    <li>
                                         <span class="contact-info-label">Email:</span> <a href="mailto:{{$setting->email}}">{{$setting->email}}</a>
                                     </li>
                                     <li>

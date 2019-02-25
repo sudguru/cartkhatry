@@ -78,19 +78,21 @@ class CheckoutController extends Controller
         $body .= '<p>Please understand that you are solely responsible in dealing with the concerning party regarding this order via khatryOnline. KhatryOnline.com is in no way responsible for this transaction';
         
         $body = $salution_vendor . $body;
-        Mail::send([], [], function ($message) use ($product, $order, $body) {
-            $message->to($product->user->email)
-            ->cc('thirdpartyorder@khatryonline.com')
-                ->subject($product->name . " order via Khatry Online (Vendor Copy)")
-                ->setBody($body , 'text/html'); // for HTML rich messages
-        });
-        $body = $salution_client . $body;
-        Mail::send([], [], function ($message) use ($product, $order, $body) {
-            $message->to($order->email)
-            ->cc('thirdpartyorder@khatryonline.com')
-                ->subject($product->name . " order via Khatry Online (Client Copy)")
-                ->setBody($body , 'text/html'); // for HTML rich messages
-        });
+        /*
+            Mail::send([], [], function ($message) use ($product, $order, $body) {
+                $message->to($product->user->email)
+                ->cc('thirdpartyorder@khatryonline.com')
+                    ->subject($product->name . " order via Khatry Online (Vendor Copy)")
+                    ->setBody($body , 'text/html'); // for HTML rich messages
+            });
+            $body = $salution_client . $body;
+            Mail::send([], [], function ($message) use ($product, $order, $body) {
+                $message->to($order->email)
+                ->cc('thirdpartyorder@khatryonline.com')
+                    ->subject($product->name . " order via Khatry Online (Client Copy)")
+                    ->setBody($body , 'text/html'); // for HTML rich messages
+            });
+        */
         //send mail to customer
         //successful direct order page
 
@@ -185,17 +187,19 @@ class CheckoutController extends Controller
         $body .= '<p>Please understand that you are solely responsible in dealing with the concerning party regarding this order via khatryOnline. KhatryOnline.com is in no way responsible for this transaction';
         
         $body = $salution_vendor . $body;
-        Mail::send([], [], function ($message) use ($order, $body) {
-            $message->to('orders@khatryonline.com')
-                ->subject("Order to Khatry Online")
-                ->setBody($body , 'text/html'); // for HTML rich messages
-        });
-        $body = $salution_client . $body;
-        Mail::send([], [], function ($message) use ($order, $body) {
-            $message->to($order->email)
-                ->subject("Your order to Khatry Online (Client Copy)")
-                ->setBody($body , 'text/html'); // for HTML rich messages
-        });
+        /*
+            Mail::send([], [], function ($message) use ($order, $body) {
+                $message->to('orders@khatryonline.com')
+                    ->subject("Order to Khatry Online")
+                    ->setBody($body , 'text/html'); // for HTML rich messages
+            });
+            $body = $salution_client . $body;
+            Mail::send([], [], function ($message) use ($order, $body) {
+                $message->to($order->email)
+                    ->subject("Your order to Khatry Online (Client Copy)")
+                    ->setBody($body , 'text/html'); // for HTML rich messages
+            });
+        */
         //send mail to customer
         //successful direct order page
         $request->session()->forget('cart');
