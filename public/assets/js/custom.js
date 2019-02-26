@@ -5,6 +5,16 @@ $(document).ready(function () {
         effect: 'fade'
     });
 
+    $('.btn-add-to-cart').on('click', function() {
+        var qty = 1;
+        var priceid = $('#txtpriceid').val();
+        if($(this).attr('title') == 'Direct Order') {
+            window.location = "/checkoutdirect/{{$product->slug}}/" + qty + "/" + priceid;
+        } else {
+            window.location = "/add-to-cart/{{$product->slug}}/" + priceid + "/" + qty;
+        }
+    });
+
     // $('a:not(#posted)').on('click', function(e) {
     //     e.preventDefault();
     //     var link = $(this).attr('href');

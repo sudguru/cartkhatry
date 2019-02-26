@@ -13,6 +13,8 @@
             $discounted = $featured->product->prices->min('discounted');
             $off = (($regular -$discounted)/$regular)*100;
             $off = ceil($off);
+            $addtocarttext = "Add to Cart";
+            if($featured->product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";
         @endphp
         <div class="product">
             <figure class="product-image-container">
@@ -20,7 +22,7 @@
                     {!!$image_path!!}
                 </a>
                 <a href="ajax/product-quick-view/{{$featured->product['slug']}}" class="btn-quickview">Quick view</a>
-                <a href="#" class="paction add-cart" title="Add to Cart">
+                <a href="javascript:void(0)" class="paction add-cart btn-add-to-cart" title="{{$addtocarttext}}">
                     <span>Add to Cart</span>
                 </a>
             <span class="product-label label-sale">-{{$off}}%</span>
