@@ -11,7 +11,8 @@
             }
             $regular = $featured->product->prices->min('regular');
             $discounted = $featured->product->prices->min('discounted');
-            $off = (($regular -$discounted)/$regular)*100;
+            $regular1 = $regular == 0 ? 1 : $regular;
+            $off = (($regular -$discounted)/$regular1)*100;
             $off = ceil($off);
             $addtocarttext = "Add to Cart";
             if($featured->product->paymentmanagedby == 'Self') $addtocarttext="Direct Order";

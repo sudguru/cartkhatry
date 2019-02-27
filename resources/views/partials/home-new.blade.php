@@ -11,7 +11,8 @@
                 }
             $regular = $newarrival->product->prices->min('regular');
             $discounted = $newarrival->product->prices->min('discounted');
-            $off = (($regular -$discounted)/$regular)*100;
+            $regular1 = $regular == 0 ? 1 : $regular;
+            $off = (($regular -$discounted)/$regular1)*100;
             $off = ceil($off);
         @endphp
         <div class="product">
