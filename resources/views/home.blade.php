@@ -4,6 +4,13 @@
 {{$setting->site_name}}
 @endsection
 
+@section('ogp')
+<meta property="og:title" content="Khatry Online" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.khatryonline.com" />
+<meta property="og:image" content="https://www.khatryonline.com/mainlogo.png" />
+<meta property="og:description" content="Ecommerce Online website to facilitate transactions within Nepal and all around the globe." />
+@endsection
 @section('content')
     @php
     $cur = session('currency') ?? 'NPR';

@@ -229,7 +229,7 @@
                     <ul>
                         @foreach($outlets as $outlet)
                         <li>
-                            <a href="/outlet/{{$outlet->slug}}">{{$outlet->outlet}}</a>
+                            <a href="/outlet/{{$outlet->slug}}">{!!$outlet->outlet!!}</a>
                         </li>
                         @endforeach
                     </ul>

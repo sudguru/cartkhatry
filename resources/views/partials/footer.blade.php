@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer" id="myfooter">
     <div class="footer-middle">
         <div class="container">
             <div class="row">
@@ -50,6 +50,8 @@
                                 <ul class="links">
                                     <li><a href="http://www.khatrygroups.com" target="_blank">Khatry Groups</a></li>
                                     <li><a href="http://www.khatry.co.uk" target="_blank">Khatry & Co UK Pvt. Ltd.</a></li>
+                                    <li><a href="#" target="_blank">Khatry & Pradhan USA Pvt.Ltd</a></li>
+                                    <li><a href="#" target="_blank">Khatry & Basnyat Canada Pvt.Ltd</a></li>
 
                                 </ul>
                             </div><!-- End .widget -->

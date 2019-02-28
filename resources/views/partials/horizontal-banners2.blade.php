@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         @foreach ($bannersH2->banners as $banner)
-        <div class="col-md-4">
+        <div class="col-md-2">
             {{-- <h3 class="subtitle">ABOUT US</h3> --}}
             <div class="banner banner-image">
                 <a href="{{$banner->link}}" target="_blank">
