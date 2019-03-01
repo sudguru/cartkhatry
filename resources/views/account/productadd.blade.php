@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/summernote.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/customize_summernote.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/datepicker.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-tagsinput.css') }}">
 @endsection
 
 @section('content')
@@ -40,6 +41,8 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                                <input type="text" data-role="tagsinput" class="form-input">
+                                
                             <label for="paymentmanagedby">Payment Managed By</label>
                             <select name="paymentmanagedby" id="paymentmanagedby" class="form-control">
                                 <option value="Self" selected>Self</option>
@@ -230,6 +233,8 @@
 @section('extrajs')
 <script src="{{asset('/assets/js/summernote.min.js')}}"></script>
 <script src="{{ asset('assets/js/datepicker.min.js') }}"></script>
+<script src="{{ asset('assets/js/typeahead.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script>
 <script>
     $(document).ready(function () {
 
@@ -278,6 +283,13 @@
                 ['height', ['height']],
                 ['fullscreen']
             ]
+        });
+
+        $('input').tagsinput({
+        typeahead: {
+            source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
+        },
+        freeInput: true
         });
     });
 
