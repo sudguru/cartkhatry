@@ -155,7 +155,7 @@
                                     <option value="DKK">DKK - Danish Kroner</option>
                                     <option value="EUR">EUR - European Euro</option>
                                     <option value="HKD">HKD - Hongkong Dollar</option>
-                                    <option value="IND">IND - Indian Rupee</option>
+                                    <option value="INR">IND - Indian Rupee</option>
                                     <option value="JPY">JPY - Japanese Yen</option>
                                     <option value="NPR" selected>NPR - Nepalese Rupee</option>
                                     <option value="SGD">SGD - Singapore Dollar</option>
