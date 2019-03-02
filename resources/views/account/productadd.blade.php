@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/summernote.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/customize_summernote.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/datepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-tagsinput.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-tagsinput.css') }}"> --}}
 @endsection
 
 @section('content')
@@ -233,8 +233,8 @@
 @section('extrajs')
 <script src="{{asset('/assets/js/summernote.min.js')}}"></script>
 <script src="{{ asset('assets/js/datepicker.min.js') }}"></script>
-<script src="{{ asset('assets/js/typeahead.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/typeahead.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script> --}}
 <script>
     $(document).ready(function () {
 
@@ -285,12 +285,12 @@
             ]
         });
 
-        $('input').tagsinput({
-        typeahead: {
-            source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
-        },
-        freeInput: true
-        });
+        // $('input').tagsinput({
+        // typeahead: {
+        //     source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
+        // },
+        // freeInput: true
+        // });
     });
 
 </script>
