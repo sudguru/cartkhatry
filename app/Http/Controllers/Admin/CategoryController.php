@@ -67,6 +67,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        dd('adsf');
         return view('admin.category.edit', ['category' => $category, 'active' => $this->active]);
     }
 

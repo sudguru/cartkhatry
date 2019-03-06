@@ -23,8 +23,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style_blue.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom_blue.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style_crimson.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom_crimson.css') }}">
 
 
     @yield('extracss')
@@ -34,7 +34,7 @@
     
 <div class="page-wrapper">
         
-        @include('partials.header_thok')
+        @include('partials.header_mahayan')
         
         <main class="main">
             @yield('content')

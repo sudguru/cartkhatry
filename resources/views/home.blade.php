@@ -17,7 +17,8 @@
     $outlet_id = session('outlet_id') ?? 0;
     $outlet_name = session('outlet_name') ?? 'All Outlets';
     @endphp
-    <div class="container">
+    @include('partials.home-slider')
+    {{-- <div class="container">
         <div class="row">
             <div class="col-md-8" style="padding:0">
                 @include('partials.home-slider')
@@ -26,7 +27,7 @@
                 @include('partials.vertical-banners')
             </div>
         </div>
-    </div><!-- End .container -->
+    </div><!-- End .container --> --}}
     @include('partials.horizontal-banners1')
     @include('partials.home-featured')
     <div class="mb-3"></div><!-- margin -->

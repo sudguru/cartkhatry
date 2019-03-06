@@ -18,14 +18,14 @@
                     <div class="header-menu">
                         <ul>
                             @guest
-                            <li><a href="{{ route('login') }}" style="color: #0088cc">LOG IN</a></li>
-                            <li><a href="{{ route('register') }}" style="color: #0088cc">SIGN UP</a></li>
+                            <li><a href="{{ route('login') }}" style="color: crimson">LOG IN</a></li>
+                            <li><a href="{{ route('register') }}" style="color: crimson">SIGN UP</a></li>
                             @else
-                            <li><a href="{{ route('account.dashboard') }}" style="color: #0088cc">MY ACCOUNT  ({{Auth::user()->name}})</a></li>
+                            <li><a href="{{ route('account.dashboard') }}" style="color: crimson">MY ACCOUNT  ({{Auth::user()->name}})</a></li>
                             <li>
                                 <a id="posted" href="{{ route('logout') }}" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();"
-                                    style="color: #0088cc">
+                                    style="color: crimson">
                                     SIGN OUT
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -35,7 +35,7 @@
                             @endguest
 
 
-                            <li><a href="/wishlist" style="color: #0088cc">MY WISHLIST </a></li>
+                            <li><a href="/wishlist" style="color: crimson">MY WISHLIST </a></li>
                             <li><a href="/blog">BLOG</a></li>
                             <li><a href="/contact">Contact</a></li>
 
@@ -46,7 +46,7 @@
                     @php
                     $cur = session('currency') ?? 'NPR';
                     @endphp
-                    <a href="#" style="color:#0088cc; font-weight: bold"><img src="{{ asset('assets/images/flags/'.$cur.'.jpg') }}">
+                    <a href="#" style="color:crimson; font-weight: bold"><img src="{{ asset('assets/images/flags/'.$cur.'.jpg') }}">
                         {{$cur}}</a>
                     <div class="header-menu">
                         <ul>
@@ -96,7 +96,7 @@
                     <i class="icon-menu"></i>
                 </button>
                 <a href="/" class="logo">
-                    <img src="/assets/images/logo2.png" alt="{{ $setting->site_name }}">
+                    <img src="/assets/images/mahayan.png" alt="{{ $setting->site_name }}">
                 </a>
                 
             </div><!-- End .header-left -->
